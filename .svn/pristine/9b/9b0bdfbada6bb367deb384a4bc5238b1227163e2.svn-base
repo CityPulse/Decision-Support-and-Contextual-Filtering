@@ -1,0 +1,12 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+
+public class testWS {
+
+	public static void main(String[] args) {
+		final TestWSClient client1 = new TestWSClient("client1");
+		new Thread(client1).start();
+		final TestWSClient client2 = new TestWSClient("client2");
+		new Thread(client2).start();
+	}
+
+}

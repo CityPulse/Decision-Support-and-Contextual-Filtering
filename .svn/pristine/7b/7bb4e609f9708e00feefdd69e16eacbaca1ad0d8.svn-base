@@ -1,0 +1,41 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
+import org.insight_centre.urq.citypulse.wp5.contextual_filter.engine.ContextualFilter;
+
+import citypulse.commons.contextual_events_request.ContextualEvent;
+
+public class ContextualEventStream extends Thread {
+	
+	public static Logger logger = Logger.getLogger(ContextualEventStream.class.getName());
+	ContextualFilter cf = new ContextualFilter();
+	List<ContextualEvent> events = new ArrayList<ContextualEvent>();
+	
+
+	public ContextualEventStream(ContextualFilter cf, List<ContextualEvent> events) {
+		super();
+		this.events = events;
+		this.cf = cf;
+	}
+
+
+	public void run() {
+		logger.info("START ContextualEventStream: " +  this.getId());
+		for(ContextualEvent e: events){
+			List<ContextualEvent> listReceivedEvents = new ArrayList<ContextualEvent>();
+			listReceivedEvents.add(e);
+			logger.info(e.toString());
+			cf.receiveContextualEvents(listReceivedEvents);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+}

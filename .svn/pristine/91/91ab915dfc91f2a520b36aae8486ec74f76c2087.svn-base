@@ -1,0 +1,28 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.engine;
+
+import org.insight_centre.urq.citypulse.wp5.contextual_filter.data.UserStatus;
+
+
+/*
+* A custom event when receiving news user status
+*/
+public class USEvent extends java.util.EventObject{
+	
+	UserStatus us = new UserStatus();
+
+	public USEvent(Object source, UserStatus us) {
+		super(source);
+		this.us = us;
+	}
+
+	public UserStatus getUs() {
+		return us;
+	}
+
+	public void setUs(UserStatus us) {
+		this.us = us;
+	}
+	
+	
+
+}

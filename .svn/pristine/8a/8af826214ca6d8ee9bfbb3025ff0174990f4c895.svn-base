@@ -1,0 +1,99 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.communication;
+
+import java.io.IOException;
+import java.net.URI;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
+
+import javax.websocket.ClientEndpointConfig;
+import javax.websocket.Endpoint;
+import javax.websocket.EndpointConfig;
+import javax.websocket.MessageHandler;
+import javax.websocket.Session;
+
+import org.glassfish.tyrus.client.ClientManager;
+
+import citypulse.commons.contextual_events_request.ContextualEvent;
+
+import com.rabbitmq.client.AMQP.BasicProperties;
+import com.rabbitmq.client.Envelope;
+
+/*
+ * @author: Thu-Le Pham
+ * This class is used to consume events from EventDetection via RabbitMQ by Decision Support component
+ */
+public class DSRabbitMQConsumer extends RabbitMQConsumer {
+
+	public static Logger logger = Logger.getLogger(DSRabbitMQConsumer.class
+			.getPackage()
+			.getName());
+
+	private static CountDownLatch messageLatch;
+	/**
+	 *
+	 */
+	private static String SENT_MESSAGE;
+
+	public DSRabbitMQConsumer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public DSRabbitMQConsumer(List<List<String>> exchanges_topics) {
+		super(exchanges_topics);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void handleDelivery(String arg0, Envelope arg1,
+			BasicProperties arg2, byte[] body) throws IOException {
+		final String msgBody = new String(body);
+		logger.info("Received message  = " + msgBody + "\n");
+		final ContextualEvent event = this.parse(msgBody);
+		final StringBuilder request = new StringBuilder();
+		request.append("updateCostCircular(")
+				.append(event.getCeCoordinate().getLongitude()).append(",")
+				.append(event.getCeCoordinate().getLatitude()).append(",")
+				.append("time").append(",").append(100).append(",")
+				.append(event.getCeLevel() + 1).append(")");
+		try {
+			SENT_MESSAGE = request.toString();
+			logger.info("SENT_MESSAGE = " + SENT_MESSAGE);
+			messageLatch = new CountDownLatch(1);
+
+			final ClientEndpointConfig cec = ClientEndpointConfig.Builder
+					.create().build();
+
+			final ClientManager client = ClientManager.createClient();
+			client.connectToServer(new Endpoint() {
+
+				@Override
+				public void onOpen(final Session session,
+						final EndpointConfig config) {
+					try {
+						session.addMessageHandler(new MessageHandler.Whole<String>() {
+							@Override
+							public void onMessage(final String message) {
+								System.out.println("Received message: "
+										+ message);
+
+								messageLatch.countDown();
+							}
+						});
+						session.getBasicRemote().sendText(SENT_MESSAGE);
+					} catch (final IOException e) {
+						e.printStackTrace();
+					}
+				}
+				// }, cec, new URI("ws://" + "131.227.92.55" + ":"
+			}, cec, new URI("ws://pcsd-118.et.hs-osnabrueck.de:7686"));
+			messageLatch.await(100, TimeUnit.SECONDS);
+		} catch (final Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}

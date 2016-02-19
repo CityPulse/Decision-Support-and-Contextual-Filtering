@@ -1,0 +1,13 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+
+
+
+public class testREST {
+
+	public static void main(String[] args) {
+		// final ContextualFilter cf = new ContextualFilter();
+		// System.out.println(cf.sendEventRequest());
+		// cf.subscribeEvents();
+	}
+
+}

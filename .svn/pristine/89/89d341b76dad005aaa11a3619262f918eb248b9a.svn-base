@@ -1,0 +1,622 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.engine;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
+
+import javax.websocket.Session;
+
+import org.insight_centre.urq.citypulse.wp5.Configuration;
+import org.insight_centre.urq.citypulse.wp5.aspjavamanager.data.Formula;
+import org.insight_centre.urq.citypulse.wp5.aspjavamanager.data.Formulas;
+import org.insight_centre.urq.citypulse.wp5.aspjavamanager.manager.AspManager;
+import org.insight_centre.urq.citypulse.wp5.aspjavamanager.manager.Filter;
+import org.insight_centre.urq.citypulse.wp5.contextual_filter.communication.CFRabbitMQConsumer;
+import org.insight_centre.urq.citypulse.wp5.contextual_filter.communication.ContextualEventSubscriber;
+import org.insight_centre.urq.citypulse.wp5.contextual_filter.data.Activity;
+import org.insight_centre.urq.citypulse.wp5.contextual_filter.data.UserStatus;
+
+import citypulse.commons.contextual_events_request.ContextualEvent;
+import citypulse.commons.contextual_events_request.ContextualEventRequest;
+import citypulse.commons.contextual_events_request.CriticalEventResults;
+import citypulse.commons.contextual_events_request.EventRequest;
+import citypulse.commons.data.Coordinate;
+import citypulse.commons.data.CoordinateParseException;
+import citypulse.commons.reasoning_request.ARType;
+import citypulse.commons.reasoning_request.Answer;
+import citypulse.commons.reasoning_request.concrete.AnswerParkingSpaces;
+import citypulse.commons.reasoning_request.concrete.AnswerTravelPlanner;
+import citypulse.commons.reasoning_request.concrete.StringFunctionalParameterValue;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalParameterName;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalParameterValue;
+
+import com.google.gson.Gson;
+
+/*
+ * @author: Thu-Le Pham
+ */
+public class ContextualFilter {
+
+	public static Logger logger = Logger.getLogger(ContextualFilter.class
+			.getPackage()
+			.getName());
+
+	private String effectStr = "";
+	private String ruleStr = "";
+	private String answerStr = "";
+	private String eventStr="";
+	private String statusStr="";
+
+	private final List<CEListener> ceListeners = new ArrayList<CEListener>();
+	private final List<USListener> usListeners = new ArrayList<USListener>();
+
+	private List<ContextualEvent> events = Collections
+			.synchronizedList(new ArrayList<ContextualEvent>());
+	private UserStatus useStatus;
+	private Answer answer;
+
+	Filter filter = new Filter("weight_critical");//For filtering predicates in Clingo
+
+
+	public static Map<String, Activity> tranAct = transportationTypeToActivity();
+	private ContextualEventRequest contextualEventRequest;
+	private Session applicationSession;
+	private ContextualEventSubscriber ceSubscriber;
+
+	private int userPos = 0; // index of user's position on the path
+
+	public ContextualFilter() {
+		super();
+	}
+
+	/**
+	 *
+	 * @param session
+	 */
+	public ContextualFilter(Session session) {
+		this.addCEListener(new ReceiveCEListener(this));
+		this.addUSListener(new ReceiveUSListener(this));
+
+		this.applicationSession = session;
+	}
+
+	/*
+	 * Register a celistener
+	 */
+	public synchronized void addCEListener(CEListener celistener) {
+		if (!this.ceListeners.contains(celistener)) {
+			this.ceListeners.add(celistener);
+		}
+	}
+	/*
+	 * Remove a celistener
+	 */
+	public synchronized void removeCEListener(CEListener celistener) {
+		if (this.ceListeners.contains(celistener)) {
+			this.ceListeners.remove(celistener);
+		}
+	}
+	/*
+	 * Register a uslistener
+	 */
+	public synchronized void addUSListener(USListener uslistener) {
+		if (!this.usListeners.contains(uslistener)) {
+			this.usListeners.add(uslistener);
+		}
+	}
+
+	/*
+	 * Remove a uslistener
+	 */
+	public synchronized void removeUSListener(USListener uslistener) {
+		if (this.usListeners.contains(uslistener)) {
+			this.usListeners.remove(uslistener);
+		}
+	}
+
+	/*
+	 * Filter the critical events
+	 */
+	public void filter() throws UnsupportedOperationException, IOException, CloneNotSupportedException {
+
+		final StringBuilder proStr = new StringBuilder();
+		proStr.append(this.eventStr).append("\n")
+			.append(this.statusStr).append("\n")
+			.append(this.answerStr).append("\n")
+			.append(this.effectStr).append("\n")
+			.append(this.ruleStr);
+
+		logger.info("proStr = " + proStr.toString());
+		final AspManager aspManager = new AspManager(Configuration
+				.getInstance().getCFResourceFolderPath()
+				+ "AspSolvers"
+				+ File.separator);
+		aspManager.setFilter(this.filter);
+		aspManager.callClingo(proStr.toString());
+//		logger.info("asp result = " + aspManager.getResult().toString());
+
+		// final List<ContextualEvent> criticalEvents = new ArrayList();
+		final CriticalEventResults criticalEvents = new CriticalEventResults();
+		if(!aspManager.getResult().isEmpty()){
+			final Formulas answerSet = aspManager.getResult().get(0); // non-deterministic
+			logger.info("answerset = " + answerSet.toString());
+			//assign weight to contextual event
+			for(final Formula f: answerSet.getFormulas()){
+				final String s = f.getF();
+				final String[] temp = s.split(",");
+				final int w = Integer.parseInt(temp[2].substring(0, temp[2].indexOf(')')));
+				final String eid = s.substring(s.indexOf('(')+1, s.indexOf(','));
+
+				logger.info("List of contextual events = "
+						+ this.events.toString());
+				logger.info("eid = " + eid);
+
+				for(final ContextualEvent e: this.events){
+					logger.info("e.getId = " + e.getCeID());
+					if (("\"" + e.getCeID() + "\"").equals(eid)) {
+
+						final ContextualEvent ce = new ContextualEvent(
+								e.getCeID(), e.getCeType(), e.getCeName(),
+								e.getCeTime(), new Coordinate(e
+										.getCeCoordinate().getLongitude(), e
+										.getCeCoordinate().getLatitude()), 1);
+
+						ce.setCeWeight(w);
+						logger.info("critical event = " + ce.toString());
+						criticalEvents.addEvent(ce);
+						// this.events.remove(e);
+						break;
+					}
+
+				}
+
+			}
+		}
+		else {
+			logger.info("Answerset is empty!!!");
+		}
+		// send to the Application
+		final String criticalEventsStr = new Gson().toJson(criticalEvents);
+		this.applicationSession.getAsyncRemote().sendText(criticalEventsStr);
+		logger.info("After filtering: " + criticalEventsStr.toString());
+	}
+
+	// call this method whenever you want to notify
+	//the event listeners of the particular event
+	private synchronized void fireEvents(List<ContextualEvent> e) {
+	    final CEEvent ceEvent = new CEEvent(this, e);
+	    final Iterator i = this.ceListeners.iterator();
+	    while(i.hasNext())  {
+	      ((CEListener) i.next()).update(ceEvent);
+	    }
+	}
+
+	// call this method whenever you want to notify
+	//the event listeners of the particular event
+	private synchronized void fireEvents(UserStatus us) {
+	    final USEvent usEvent = new USEvent(this, us);
+	    final Iterator i = this.usListeners.iterator();
+	    while(i.hasNext())  {
+	      ((USListener) i.next()).update(usEvent);
+	    }
+	}
+
+
+	public synchronized void receiveContextualEvents(List<ContextualEvent> e)   {
+		   fireEvents(e);
+	}
+
+	public synchronized void receiveUserStatus(UserStatus us)   {
+		if (!this.events.isEmpty()) {
+			fireEvents(us);
+		}
+	}
+	public List<ContextualEvent> getEvents() {
+		return events;
+	}
+
+
+	public UserStatus getUseStatus() {
+		return useStatus;
+	}
+
+
+	public void setEvents(List<ContextualEvent> events) {
+		this.events = events;
+	}
+
+	public void setUseStatus(UserStatus useStatus) {
+		this.useStatus = useStatus;
+	}
+
+	public String getEventStr() {
+		return eventStr;
+	}
+
+	public void setEventStr(String eventStr) {
+		this.eventStr = eventStr;
+	}
+
+	public String getStatusStr() {
+		return statusStr;
+	}
+
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
+	}
+
+	public Answer getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
+	}
+
+	/*
+	 * Read asp files
+	 */
+
+	/**
+	 * This function reads a file of rules into a string.
+	 *
+	 * @param ruleFile
+	 *            the file to read
+	 * @return the rules inside the file as a plain string
+	 */
+	public String readAspRules(String ruleFile){
+		final StringBuilder aspRules = new StringBuilder();
+		String line = "";
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader(ruleFile));
+			try {
+				while ((line = br.readLine()) != null) {
+					aspRules.append(line).append("\n");
+				}
+			} catch (final IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (final FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return aspRules.toString();
+	}
+
+	/*
+	 * parse events to asp facts
+	 */
+	public String parseToAspFacts(List<ContextualEvent> events){
+		final StringBuilder asp  = new StringBuilder();
+		for(final ContextualEvent e:events){
+			asp.append(e.parseToAspFacts()).append("\n");
+		}
+		return asp.toString();
+	}
+
+	/*
+	 * This function create a Client to connect with Event Detection Component
+	 */
+//	public void startEventClient(URI queryServerURI){
+//		//create QueryClient for the user to communicate with QueryComponent
+//		EventClientEndPoint clientEndPoint;
+//		try {
+//			clientEndPoint = new EventClientEndPoint(new URI(Constants.eventServerURI));
+//			// add listener
+//	        clientEndPoint.addMessageHandler(new EventClientEndPoint.MessageHandler() {
+//	            public void handleMessage(String message) {
+//	               EventClientEndPoint.logger.info("Received message: " + message);
+//	               //TODO: parse message to events
+//	               //TODO: receive events
+//	            }
+//	        });
+//	       this.sessionMap.put(Constants.EVENTSESSION, clientEndPoint.getUserSession());
+//		} catch (URISyntaxException e) {
+//			e.printStackTrace();
+//		}
+//	}
+
+	/*
+	 * start subscribing events from 3.4
+	 */
+	// for testing
+	public void subscribeEvents(ARType type) throws CoordinateParseException {
+
+		// create restResource & eventRequest
+		final String rabbitMqURI = Configuration.getInstance()
+				.getEventRabbitURI();
+
+		String restResource = Configuration.getInstance().getRestResource();
+		final List<Coordinate> area = new ArrayList<Coordinate>();
+		//
+		final Coordinate c = new Coordinate("10.2003313 56.1391239");
+		// final Coordinate c1 = new Coordinate(10.139695703, 56.2149789163549);
+		// area.add(c);
+		// area.add(c1);
+		// area.add(new Coordinate(10.139695703, 56.2149789163549));
+		// area.add(new Coordinate(10.218303812, 56.1865462684391));
+		// area.add(new Coordinate("10.2345567 56.2345678"));
+
+		if (type.equals(ARType.TRAVEL_PLANNER)) {
+			restResource += "RoadCoordinates/listTopics/";
+			// area.add(new Coordinate(10.1827, 56.1234));
+
+		} else if (type.equals(ARType.PARKING_SPACES)) {
+			restResource += "ParkingStatus/listTopics/";
+			// area.add(new Coordinate(10.1827, 56.1234));
+		}
+		logger.info("Rest Resource = " + restResource);
+		final EventRequest eventRequest = new EventRequest(area);
+
+		// initial a DetectedEventSubscriber
+		this.ceSubscriber = new ContextualEventSubscriber(restResource,
+				rabbitMqURI,
+				new CFRabbitMQConsumer(this), eventRequest);
+		logger.info("Start DetectedEventSubscriber...");
+		this.ceSubscriber.startSubscribeEvents();
+	}
+
+	/*
+	 * for ContextualFilter
+	 */
+	public void subscribeEvents() {
+
+		// create rabbitMqURI, restResource & eventRequest
+		final String rabbitMqURI = Configuration.getInstance()
+				.getEventRabbitURI();
+
+		String restResource = Configuration.getInstance().getRestResource();
+		List<Coordinate> area = new ArrayList<Coordinate>();
+		logger.info(this.contextualEventRequest.getReasoningRequest()
+				.toString());
+		if (this.contextualEventRequest.getReasoningRequest().getArType()
+				.equals(ARType.TRAVEL_PLANNER)) {
+			restResource += "RoadCoordinates/listTopics/";
+			// logger.info("Here in Travel_Planner");
+			// logger.info(this.answer.toString());
+			area = ((AnswerTravelPlanner) this.answer).getRoute();
+			// logger.info("Start DetectedEventSubscriber");
+
+		} else if (this.contextualEventRequest.getReasoningRequest()
+				.getArType().equals(ARType.PARKING_SPACES)) {
+			restResource += "ParkingStatus/listTopics/";
+			area.add(((AnswerParkingSpaces) this.answer).getPosition());
+		}
+
+		final EventRequest eventRequest = new EventRequest(area);
+		logger.info("EventRequest = " + eventRequest.getArea().toString());
+		// initial a DetectedEventSubscriber
+		this.ceSubscriber = new ContextualEventSubscriber(restResource,
+				rabbitMqURI, new CFRabbitMQConsumer(this), eventRequest);
+		this.ceSubscriber.startSubscribeEvents();
+	}
+
+	// public void subscribeEvents() {
+	//
+	// //send EventRequest to WP3.4
+	// final List<List<String>> exchanges_topics = this.sendEventRequest();
+	//
+	// try {
+	// consumer = new CFRabbitMQConsumer(
+	// exchanges_topics, this);
+	// logger.info("Start Consumer.....");
+	// consumer.startConsumer();
+	//
+	// } catch (KeyManagementException | NoSuchAlgorithmException
+	// | URISyntaxException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// }
+
+	/*
+	 * send EventRequest to WP3.4 by RESTeasy
+	 * @return  List<String> (list of topics)
+	 */
+	// public List<List<String>> sendEventRequest() {
+	// List<List<String>> exchanges_topics = new ArrayList<List<String>>();
+	// try {
+	//
+	// final Client client = Client.create();
+	//
+	// String restResource = Configuration.getInstance()
+	// .getRestResource();
+	// List<Coordinate> area = new ArrayList<Coordinate>();
+	//
+	// if (this.contextualEventRequest.getReasoningRequest().getArType()
+	// .equals(ARType.TRAVEL_PLANNER)) {
+	// restResource += "RoadCoordinates/listTopics/";
+	// area = ((AnswerTravelPlanner) this.answer).getRoute();
+	//
+	// } else if (this.contextualEventRequest.getReasoningRequest()
+	// .getArType().equals(ARType.PARKING_SPACES)) {
+	// restResource += "ParkingStatus/listTopics/";
+	// area.add(((AnswerParkingSpaces) this.answer).getPosition());
+	// }
+	//
+	// final WebResource webResource = client.resource(restResource);
+	//
+	//
+	// final EventRequest eventRequest = new EventRequest(area);
+	//
+	// final ClientResponse response = webResource.accept(
+	// "application/json")
+	// .post(ClientResponse.class, eventRequest);
+	//
+	// if (response.getStatus() != 200) {
+	// throw new RuntimeException("Failed : HTTP error code : "
+	// + response.getStatus());
+	// }
+	//
+	// final String output = response.getEntity(String.class);
+	// //TODO: parse list of topics
+	// logger.info("Output from Server .... \n");
+	// final Type listOfListStr = new TypeToken<List<List<String>>>() {
+	// }.getType();
+	//
+	// exchanges_topics = new Gson().fromJson(output, listOfListStr);
+	// logger.info(output);
+	//
+	// } catch (final Exception e) {
+	//
+	// e.printStackTrace();
+	//
+	// }
+	// return exchanges_topics;
+	// }
+
+	public static Map<String,Activity> transportationTypeToActivity(){
+		final Map<String,Activity> tranAct = new HashMap();
+		tranAct.put("CAR", Activity.DRIVING_CAR);
+		tranAct.put("WALK", Activity.WALKING);
+		tranAct.put("BICYCLE", Activity.RIDING_BIKE);
+		return tranAct;
+	}
+
+	/**
+	 * This function
+	 *
+	 * @param ceRequest
+	 * @throws CoordinateParseException
+	 */
+	public void receiveContextualEventRequest(ContextualEventRequest ceRequest)
+			throws CoordinateParseException {
+
+		this.contextualEventRequest = ceRequest;
+
+		// get rules
+		if (ceRequest.getReasoningRequest().getArType() != null) {
+
+			this.effectStr = this.readAspRules(Configuration.getInstance()
+					.getCFResourceFolderPath()
+					+ "Rules"
+					+ File.separator
+					+ "Effects.lp");
+			this.ruleStr = this.readAspRules(Configuration.getInstance()
+					.getCFResourceFolderPath()
+					+ "Rules"
+					+ File.separator
+					+ ceRequest.getReasoningRequest().getArType().toString()
+							.toLowerCase() + ".lp");
+		}
+
+		// assign answer
+		this.answer = ceRequest.getAnswer();
+		logger.info("Answer = " + this.answer.toString());
+		this.answerStr = this.answer.parseToAspFacts();
+		// logger.info("Answer = " + this.answerStr);
+
+		// assign user's activity
+		this.useStatus = new UserStatus();
+		FunctionalParameterValue vehicle = ceRequest
+					.getReasoningRequest()
+					.getFunctionalDetails()
+					.getFunctionalParameters()
+					.getFunctionalParameterValue(
+							FunctionalParameterName.TRANSPORTATION_TYPE);
+		if (vehicle == null) {
+			vehicle = new StringFunctionalParameterValue("CAR");
+		}
+		this.useStatus.setUserActivity(this.tranAct.get(vehicle.getValue()));
+
+
+		// logger.info("vehicle = " + vehicle + "--- activity = "
+		// + this.tranAct.get(vehicle.getValue()));
+
+		// assign user's current location
+		final FunctionalParameterValue value = ceRequest
+				.getReasoningRequest()
+				.getFunctionalDetails()
+				.getFunctionalParameters()
+				.getFunctionalParameterValue(
+						FunctionalParameterName.STARTING_POINT);
+
+		Coordinate userGPS = new Coordinate(value.toString());
+		userGPS = checkUserPossition(userGPS);
+		System.out.println("user on the path = " + userGPS);
+
+		// logger.info("user's coor = " + value.toString());
+		this.useStatus.setUserCoordinate(new Coordinate(value.toString()));
+
+		logger.info("USER STATUS = " + this.useStatus.toString());
+		this.statusStr = this.useStatus.parseToAspFacts();
+		// start subscrible events
+		this.subscribeEvents();
+	}
+
+	public void receiveGPSCoordinate(Coordinate coor) {
+		if (this.contextualEventRequest.getReasoningRequest().getArType()
+				.equals(ARType.TRAVEL_PLANNER)) {
+			// check GRS coordinate and coordinate on the path
+			final Coordinate userCoor = checkUserPossition(coor);
+			if (userCoor != null) {
+				// check if this coordinate was detected
+				if (userCoor != this.getUseStatus().getUserCoordinate()) {
+					this.getUseStatus().setUserCoordinate(userCoor);
+					this.receiveUserStatus(this.getUseStatus());
+				}
+			}
+		}
+	}
+
+
+	public Coordinate checkUserPossition(Coordinate coor){
+		Coordinate currCoor = null;
+		final List<Coordinate> route = ((AnswerTravelPlanner)this.answer).getRoute();
+
+		if (this.userPos < route.size() - 1) {
+			currCoor = route.get(this.userPos);
+			Coordinate nextCoor = route.get(this.userPos + 1);
+			if (coor == currCoor) {
+				return coor;
+			}
+			if (coor == nextCoor) {
+				userPos++;
+				return coor;
+			}
+
+			Coordinate midPoint = currCoor.midPoint(nextCoor);
+			logger.info("distance 1 = " + coor.distance(midPoint));
+			logger.info("distance 2 = " + currCoor.distance(midPoint));
+			if (coor.distance(midPoint) <= currCoor.distance(midPoint)) {
+				return currCoor;
+			} else {
+				// check the next segment
+				if (this.userPos + 1 < route.size() - 1) {
+					currCoor = route.get(this.userPos + 1);
+					nextCoor = route.get(this.userPos + 2);
+					if (coor == nextCoor) {
+						userPos += 2;
+						return coor;
+					}
+					midPoint = currCoor.midPoint(nextCoor);
+					logger.info("distance 1 = " + coor.distance(midPoint));
+					logger.info("distance 2 = " + currCoor.distance(midPoint));
+					if (coor.distance(midPoint) <= currCoor.distance(midPoint)) {
+						this.userPos++;
+						return currCoor;
+					}
+				}
+			}
+		}
+
+		// user may be out of the path
+		return null;
+	}
+
+	public void stopSubcribeEvents() {
+		this.ceSubscriber.stopSubcribeEvents();
+	}
+}

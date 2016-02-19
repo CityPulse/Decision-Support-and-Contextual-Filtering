@@ -1,0 +1,37 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+
+import java.util.logging.Logger;
+
+import javax.websocket.DeploymentException;
+
+import org.glassfish.tyrus.server.Server;
+
+public class testServer {
+
+	/**
+	 *
+	 */
+	public static Logger Log = Logger.getLogger(testServer.class.getPackage()
+			.getName());
+
+	/**
+	 * @param args
+	 */
+	public static void main(final String[] args) {
+		final Server rhServer = new Server("localhost", 8001, "/websockets",
+				null,
+ TestServerEndpoint.class);
+
+		// try {
+		try {
+			rhServer.start();
+			while (true) {
+				Thread.sleep(1000);
+			}
+		} catch (final DeploymentException | InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			rhServer.stop();
+		}
+	}
+}

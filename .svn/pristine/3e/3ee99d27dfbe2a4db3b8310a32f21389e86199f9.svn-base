@@ -1,0 +1,21 @@
+package org.insight_centre.urq.citypulse.wp5.aspjavamanager.main;
+
+import java.io.IOException;
+import java.util.Set;
+
+import org.insight_centre.urq.citypulse.wp5.aspjavamanager.data.Formula;
+import org.insight_centre.urq.citypulse.wp5.aspjavamanager.data.Formulas;
+import org.insight_centre.urq.citypulse.wp5.aspjavamanager.debug.Debug;
+import org.insight_centre.urq.citypulse.wp5.aspjavamanager.manager.AspManager;
+import org.insight_centre.urq.citypulse.wp5.aspjavamanager.manager.Filter;
+
+public class Main {
+	public static void main(final String[] args) throws IOException, CloneNotSupportedException {
+		AspManager manager = new AspManager();
+		System.out.println("Start");
+		manager.callClingo("b|c:-a.a.");
+		System.out.println("End");
+		
+		
+	}
+}

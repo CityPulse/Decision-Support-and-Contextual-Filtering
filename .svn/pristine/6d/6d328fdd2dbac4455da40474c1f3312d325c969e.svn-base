@@ -1,0 +1,154 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.insight_centre.urq.citypulse.wp5.Configuration;
+
+import citypulse.commons.contextual_events_request.ContextualEventRequest;
+import citypulse.commons.data.Coordinate;
+import citypulse.commons.data.CoordinateParseException;
+import citypulse.commons.reasoning_request.ARType;
+import citypulse.commons.reasoning_request.Answer;
+import citypulse.commons.reasoning_request.ReasoningRequest;
+import citypulse.commons.reasoning_request.User;
+import citypulse.commons.reasoning_request.concrete.AnswerAdapter;
+import citypulse.commons.reasoning_request.concrete.AnswerTravelPlanner;
+import citypulse.commons.reasoning_request.concrete.FunctionalConstraintValueAdapter;
+import citypulse.commons.reasoning_request.concrete.FunctionalParameterValueAdapter;
+import citypulse.commons.reasoning_request.concrete.IntegerFunctionalConstraintValue;
+import citypulse.commons.reasoning_request.concrete.StringFunctionalParameterValue;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalConstraint;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalConstraintName;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalConstraintOperator;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalConstraintValue;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalConstraints;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalDetails;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalParameter;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalParameterName;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalParameterValue;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalParameters;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalPreference;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalPreferenceOperation;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalPreferences;
+
+import com.google.gson.GsonBuilder;
+
+public class TestWSClient implements Runnable {
+
+	public static String createContextualEventRequest()
+			throws CoordinateParseException {
+		final FunctionalParameters functionalParameters = new FunctionalParameters();
+		functionalParameters.addFunctionalParameter(new FunctionalParameter(
+				FunctionalParameterName.STARTING_POINT,
+				new StringFunctionalParameterValue(
+						"10.1049860760575 56.2317206942822")));
+		functionalParameters.addFunctionalParameter(new FunctionalParameter(
+				FunctionalParameterName.ENDING_POINT,
+				new StringFunctionalParameterValue("10.1591864 56.1481156")));
+
+		functionalParameters.addFunctionalParameter(new FunctionalParameter(
+				FunctionalParameterName.TRANSPORTATION_TYPE,
+				new StringFunctionalParameterValue("CAR")));
+
+		final FunctionalConstraints functionalConstraints = new FunctionalConstraints();
+		functionalConstraints.addFunctionalConstraint(new FunctionalConstraint(
+				FunctionalConstraintName.POLLUTION,
+				FunctionalConstraintOperator.LESS_THAN,
+				new IntegerFunctionalConstraintValue(135)));
+
+		final FunctionalPreferences functionalPreferences = new FunctionalPreferences();
+		functionalPreferences.addFunctionalPreference(new FunctionalPreference(
+				1, FunctionalPreferenceOperation.MINIMIZE,
+				FunctionalConstraintName.TIME));
+		functionalPreferences.addFunctionalPreference(new FunctionalPreference(
+				2, FunctionalPreferenceOperation.MINIMIZE,
+				FunctionalConstraintName.DISTANCE));
+
+		final ReasoningRequest reasoningRequest = new ReasoningRequest(
+				new User(), ARType.TRAVEL_PLANNER, new FunctionalDetails(
+						functionalParameters, functionalConstraints,
+						functionalPreferences));
+
+		// final Answer answer = new AnswerParkingSpaces(
+		// new Coordinate(
+		// "10.1442042 56.2136402"), 17, 100);
+
+		final List<Coordinate> route = new ArrayList<Coordinate>();
+		route.add(new Coordinate("10.1049860760575 56.2317206942822"));
+		route.add(new Coordinate("10.1617714 56.2221606"));
+
+		final Answer answer = new AnswerTravelPlanner(route, 10, 20);
+
+		final GsonBuilder wbuilder = new GsonBuilder();
+
+		wbuilder.registerTypeAdapter(FunctionalParameterValue.class,
+				new FunctionalParameterValueAdapter());
+		wbuilder.registerTypeAdapter(FunctionalConstraintValue.class,
+				new FunctionalConstraintValueAdapter());
+		wbuilder.registerTypeAdapter(Answer.class, new AnswerAdapter());
+
+		final ContextualEventRequest ceRequest = new ContextualEventRequest(
+				reasoningRequest, answer);
+		final String ceRequestStr = wbuilder.create().toJson(ceRequest);
+		// System.out.println(ceRequestStr);
+		return ceRequestStr;
+	}
+
+	public static void main(final String[] args) throws URISyntaxException,
+	CoordinateParseException {
+		final String endpointURI = "ws://localhost:"
+				+ Configuration.getInstance().getPort()
+				+ "/websockets/contextual_events_request";
+		final TestClientEndPoint client = new TestClientEndPoint(new URI(
+				endpointURI));
+		client.addMessageHandler(message -> System.out
+				.println("Client received : " + message));
+
+		client.sendMessage(TestWSClient.createContextualEventRequest());
+		try {
+			TestClientEndPoint.getLatch().await(100, TimeUnit.DAYS);
+		} catch (final InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private final String name;
+
+	public TestWSClient(final String name) {
+		super();
+		this.name = name;
+	}
+
+	@Override
+	public void run() {
+		final String endpointURI = "ws://localhost:"
+				+ Configuration.getInstance().getPort()
+				+ "/websockets/contextual_events_request";
+		TestClientEndPoint client;
+		try {
+			client = new TestClientEndPoint(new URI(endpointURI));
+			client.addMessageHandler(message -> System.out.println("Client"
+					+ name + "received : " + message));
+			int i = 0;
+			while (i < 10) {
+				client.sendMessage(name);
+				i++;
+				Thread.sleep(500);
+
+			}
+
+			TestClientEndPoint.getLatch().await(100, TimeUnit.DAYS);
+
+		} catch (final URISyntaxException | InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+	}
+
+}

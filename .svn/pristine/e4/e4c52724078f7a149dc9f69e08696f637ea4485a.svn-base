@@ -1,0 +1,160 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import citypulse.commons.contextual_events_request.ContextualEvent;
+import citypulse.commons.contextual_events_request.ContextualEventRequest;
+import citypulse.commons.contextual_events_request.CriticalEventResults;
+import citypulse.commons.data.Coordinate;
+import citypulse.commons.data.CoordinateParseException;
+import citypulse.commons.reasoning_request.ARType;
+import citypulse.commons.reasoning_request.Answer;
+import citypulse.commons.reasoning_request.ReasoningRequest;
+import citypulse.commons.reasoning_request.User;
+import citypulse.commons.reasoning_request.concrete.AnswerAdapter;
+import citypulse.commons.reasoning_request.concrete.AnswerTravelPlanner;
+import citypulse.commons.reasoning_request.concrete.FunctionalConstraintValueAdapter;
+import citypulse.commons.reasoning_request.concrete.FunctionalParameterValueAdapter;
+import citypulse.commons.reasoning_request.concrete.IntegerFunctionalConstraintValue;
+import citypulse.commons.reasoning_request.concrete.StringFunctionalParameterValue;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalConstraint;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalConstraintName;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalConstraintOperator;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalConstraintValue;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalConstraints;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalDetails;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalParameter;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalParameterName;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalParameterValue;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalParameters;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalPreference;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalPreferenceOperation;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalPreferences;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+public class testJson {
+
+	public static void main(final String[] args)
+			throws CoordinateParseException {
+
+		final FunctionalParameters functionalParameters = new FunctionalParameters();
+		functionalParameters.addFunctionalParameter(new FunctionalParameter(
+				FunctionalParameterName.STARTING_POINT,
+				new StringFunctionalParameterValue("10.116919 56.226144")));
+		functionalParameters.addFunctionalParameter(new FunctionalParameter(
+				FunctionalParameterName.ENDING_POINT,
+				new StringFunctionalParameterValue("10.1591864 56.1481156")));
+
+		final FunctionalConstraints functionalConstraints = new FunctionalConstraints();
+		functionalConstraints.addFunctionalConstraint(new FunctionalConstraint(
+				FunctionalConstraintName.POLLUTION,
+				FunctionalConstraintOperator.LESS_THAN,
+				new IntegerFunctionalConstraintValue(135)));
+
+		final FunctionalPreferences functionalPreferences = new FunctionalPreferences();
+		functionalPreferences.addFunctionalPreference(new FunctionalPreference(
+				1, FunctionalPreferenceOperation.MINIMIZE,
+				FunctionalConstraintName.TIME));
+		functionalPreferences.addFunctionalPreference(new FunctionalPreference(
+				2, FunctionalPreferenceOperation.MINIMIZE,
+				FunctionalConstraintName.DISTANCE));
+
+		final ReasoningRequest reasoningRequest = new ReasoningRequest(
+				new User(), ARType.TRAVEL_PLANNER, new FunctionalDetails(
+						functionalParameters, functionalConstraints,
+						functionalPreferences));
+
+		// final Answer answer = new AnswerParkingSpaces(
+		// new Coordinate(
+		// "10.1442042 56.2136402"), 17, 100);
+
+		final List<Coordinate> route = new ArrayList<Coordinate>();
+		route.add(new Coordinate("10.1442042 56.2136402"));
+		route.add(new Coordinate("10.2345567 56.2345678"));
+
+		final Answer answer = new AnswerTravelPlanner(route, 10, 20);
+
+		final GsonBuilder wbuilder = new GsonBuilder();
+
+		wbuilder.registerTypeAdapter(FunctionalParameterValue.class,
+				new FunctionalParameterValueAdapter());
+		wbuilder.registerTypeAdapter(FunctionalConstraintValue.class,
+				new FunctionalConstraintValueAdapter());
+		wbuilder.registerTypeAdapter(Answer.class, new AnswerAdapter());
+
+		final ContextualEventRequest ceRequest = new ContextualEventRequest(
+				reasoningRequest, answer);
+		final String ceRequestStr = wbuilder.create().toJson(ceRequest);
+
+		// final String ceRequestStr = new Gson().toJson(ceRequest);
+		System.out.println(ceRequestStr);
+
+		final ContextualEventRequest after = testJson.parse(ceRequestStr);
+		System.out.println(after);
+
+		final Coordinate co = new Coordinate("10.1442042 56.2136402");
+		System.out.println(wbuilder.create().toJson(co));
+
+		final ContextualEvent e1 = new ContextualEvent("transportation_event",
+				"traffic_jam", System.currentTimeMillis(), new Coordinate(
+						10.1827, 56.1234), 1);
+		e1.setCeWeight(4);
+
+		final ContextualEvent e2 = new ContextualEvent("environment_event",
+				"strong_wind", System.currentTimeMillis(), new Coordinate(
+						10.1827, 56.1234), 2);
+		e2.setCeWeight(1);
+
+		final CriticalEventResults results = new CriticalEventResults();
+		results.addEvent(e1);
+		results.addEvent(e2);
+		//
+		// final GsonBuilder builder1 = new GsonBuilder();
+		// builder1.registerTypeAdapter(ContextualEvent.class,
+		// new ContextualEventAdapter());
+		//
+		// final Gson gson1 = builder1.create();
+		// final String temp = gson1.toJson(results);
+		final String temp = new Gson().toJson(results);
+		System.out.print("here" + temp);
+		final CriticalEventResults output = new Gson().fromJson(temp,
+				CriticalEventResults.class);
+		System.out.print("here....");
+		System.out.println(output.getContextualEvents().toString());
+
+		// final GsonBuilder builder = new GsonBuilder();
+		// builder.registerTypeAdapter(ContextualEvent.class,
+		// new ContextualEventAdapter());
+		//
+		// final Gson gson = builder.create();
+		// final CriticalEventResults output = gson.fromJson(temp,
+		// CriticalEventResults.class);
+		//
+		// System.out.print("here....");
+		// System.out.println(output.getContextualEvents().toString());
+
+
+
+
+	}
+
+	public static ContextualEventRequest parse(final String message) {
+		// parse abstract class in ReasoningRequest
+		final GsonBuilder builder = new GsonBuilder();
+		// builder.registerTypeAdapter(ContextualEventRequest.class,
+		// new TestAdapter());
+		builder.registerTypeAdapter(FunctionalParameterValue.class,
+				new FunctionalParameterValueAdapter());
+		builder.registerTypeAdapter(FunctionalConstraintValue.class,
+				new FunctionalConstraintValueAdapter());
+		// TODO: parse answer based on scenario
+		builder.registerTypeAdapter(Answer.class, new AnswerAdapter());
+
+		final Gson gson = builder.create();
+		return gson.fromJson(message, ContextualEventRequest.class);
+	}
+
+}

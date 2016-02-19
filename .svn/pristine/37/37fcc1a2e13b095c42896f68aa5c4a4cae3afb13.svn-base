@@ -1,0 +1,76 @@
+/**
+ *
+ */
+package org.insight_centre.urq.citypulse.graph_updater;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import eu.citypulse.uaso.gdiclient.CpGdiInterface;
+import eu.citypulse.uaso.gdiclient.persistdata.CpGdiEventStream;
+
+/**
+ * @author Thu-Le Pham
+ * @date 27 Oct 2015 This class subcribes events from EventDetection and send
+ *       request to update the graph of city
+ */
+public class GraphUpdater {
+
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		/*
+		 * A list of eventType which are used to update graph This list depends
+		 * on scenarios For TravelPlanner scenario, we user TrafficJam event
+		 * FIX: for general scenario
+		 */
+		final List<String> eventTypes = new ArrayList<String>();
+		eventTypes.add("TrafficJam");
+
+		updateGeospatialGraph(eventTypes);
+	}
+
+	/**
+	 * This function updates graph based on eventTypes
+	 *
+	 * @param eventTypes
+	 */
+	public static void updateGeospatialGraph(List<String> eventTypes) {
+		/*
+		 * get exchange Topics of all events in City
+		 */
+		final List<String[]> exchangeTopics = getExchangeTopics();
+
+		/*
+		 * consume event, update graph
+		 */
+		final GraphUpdateConsumer cunsumer = new GraphUpdateConsumer(
+				exchangeTopics, eventTypes);
+	}
+
+	/**
+	 * This function connects to GDI component to get exchange topics of all
+	 * events in the city
+	 *
+	 * @return
+	 */
+	private static List<String[]> getExchangeTopics() {
+		final List<String[]> exchangeTopics = new ArrayList<String[]>();
+
+		final CpGdiInterface cgi;
+		try {
+			cgi = new CpGdiInterface("127.0.0.1", 5432);
+			final CpGdiEventStream cpgdies[] = cgi.getAllEventStreams();
+			for (final CpGdiEventStream cpgdie : cpgdies) {
+				exchangeTopics.add(new String[] { "event",
+						cpgdie.getPropertyDescriptionOrTopic() });
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return exchangeTopics;
+	}
+}

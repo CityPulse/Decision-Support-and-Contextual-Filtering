@@ -1,0 +1,55 @@
+//package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+//
+//import java.io.IOException;
+//import java.util.ArrayList;
+//import java.util.List;
+//import java.util.Random;
+//import java.util.logging.Logger;
+//
+//import org.insight_centre.urq.citypulse.wp5.contextual_filter.common.Path;
+//import org.insight_centre.urq.citypulse.wp5.contextual_filter.data.Activity;
+//import org.insight_centre.urq.citypulse.wp5.contextual_filter.data.ContextualEvent;
+//import org.insight_centre.urq.citypulse.wp5.contextual_filter.data.UserStatus;
+//import org.insight_centre.urq.citypulse.wp5.contextual_filter.engine.ContextualFilter;
+//import org.insight_centre.urq.citypulse.wp5.contextual_filter.engine.ReceiveCEListener;
+//import org.insight_centre.urq.citypulse.wp5.contextual_filter.engine.ReceiveUSListener;
+//
+//import citypulse.commons.data.Coordinate;
+//
+//
+//public class TestCF {
+//
+//	public static Logger logger = Logger.getLogger(TestCF.class.getName());
+//	public static void main(String[] args) throws IOException {
+//		
+//		String[] eventnames = {"roadwork", "incident"};
+//		String[] eventvalues = {"long_term_road_construction", "multi_vehicle_accident"};
+//		Path path = new Path();
+//		List<ContextualEvent> events = new ArrayList<ContextualEvent>();
+//		List<UserStatus> uss = new ArrayList<UserStatus>();
+//		Random r = new Random();
+//		for(int i = 1; i < 5; i++){
+//			Coordinate coor = new Coordinate(r.nextFloat(), r.nextFloat());
+//			path.getNodes().add(coor);
+//			ContextualEvent ce = new ContextualEvent("ceId" + i, eventnames[i%2], eventvalues[i%2], System.currentTimeMillis(), coor);
+//			events.add(ce);
+//			UserStatus us = new UserStatus("thu", Activity.DRIVING_CAR, coor);
+//			uss.add(us);
+//		}
+//		logger.info(path.toString());
+//		logger.info(uss.toString());
+//		
+//		ContextualFilter cf = new ContextualFilter(path, uss.get(0));
+//		cf.addCEListener(new ReceiveCEListener(cf));
+//		cf.addUSListener(new ReceiveUSListener(cf));
+//		
+//		UserStatusStream usStream = new UserStatusStream(cf,uss);
+//		usStream.start();
+//		
+//		ContextualEventStream ceStream = new ContextualEventStream(cf, events);
+//		ceStream.start();
+//		
+//		
+//	}				
+//
+//}

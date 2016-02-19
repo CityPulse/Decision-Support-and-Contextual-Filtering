@@ -1,0 +1,111 @@
+/**
+ *
+ */
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.mockup;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import citypulse.commons.contextual_filtering.city_event_ontology.CityEvent;
+import citypulse.commons.contextual_filtering.city_event_ontology.EventCategory;
+import citypulse.commons.contextual_filtering.city_event_ontology.EventSource;
+import citypulse.commons.contextual_filtering.contextual_event_request.Place;
+import citypulse.commons.contextual_filtering.contextual_event_request.PlaceAdapter;
+import citypulse.commons.contextual_filtering.contextual_event_request.Point;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+
+/**
+ * @author Thu-Le Pham
+ * @date 9 Oct 2015
+ */
+public class EventDetection {
+
+
+	public static void main(String[] args) {
+		/*
+		 * exchange topics
+		 */
+		final List<String[]> exchanges_topics = new ArrayList<String[]>();
+		exchanges_topics.add(new String[] { "parking",
+				"parking/rowdata/SKOLEBAKKEN" });
+		exchanges_topics
+				.add(new String[] { "parking", "parking/rowdata/BRUUNS" });
+		exchanges_topics.add(new String[] { "traffic",
+				"transportation/rowdata/179174" });
+
+		/*
+		 * example of producer
+		 */
+
+		final ConnectionFactory factory = new ConnectionFactory();
+		final String uri = "amqp://guest:guest@127.0.0.1:5672";
+		// factory.setHost("localhost");
+		Connection conn;
+		try {
+			factory.setUri(uri);
+			conn = factory.newConnection();
+			final Channel channel = conn.createChannel();
+			System.out.println("Producer channel opened.");
+
+			final AMQP.BasicProperties.Builder builder = new AMQP.BasicProperties()
+					.builder();
+			final String[] eventCategories = { "TrafficJam", "PublicPacking",
+					"HotWeather", "CarAccident" };
+			final Random r = new Random();
+			for (final String[] et : exchanges_topics) {
+				final String exchange = et[0];
+				final String topic = et[1];
+				channel.exchangeDeclare(exchange, "direct");
+				// publish message
+				for (int i = 1;; i++) {
+					final String event = generateCityEvent("event" + i,
+							eventCategories[r.nextInt(4)],
+							EventSource.values()[i % 2]);
+					channel.basicPublish(exchange, topic, builder.build(),
+							event.getBytes());
+					System.out.println("Published message = " + event);
+					Thread.sleep(500);
+				}
+			}
+		} catch (final IOException | InterruptedException
+				| KeyManagementException | NoSuchAlgorithmException
+				| URISyntaxException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static String generateCityEvent(String eventId,
+			String eventCategory,
+			EventSource eventSource) {
+		final Random r = new Random();
+
+		final CityEvent event = new CityEvent();
+		event.setEventId(eventId);
+		event.setEventCategory(new EventCategory(eventCategory));
+		event.setEventPlace(new Point(56 + r.nextDouble(), 10 + r.nextDouble()));
+		event.setEventSource(eventSource);
+		event.setEventTime(System.currentTimeMillis());
+		event.setEventLevel(r.nextInt(3));
+
+		/*
+		 * Convert CityEvent to GsonString
+		 */
+		final GsonBuilder builder = new GsonBuilder();
+		builder.registerTypeAdapter(Place.class, new PlaceAdapter());
+		final Gson gson = builder.create();
+
+		final String gsonStr = gson.toJson(event);
+		return gsonStr;
+	}
+}

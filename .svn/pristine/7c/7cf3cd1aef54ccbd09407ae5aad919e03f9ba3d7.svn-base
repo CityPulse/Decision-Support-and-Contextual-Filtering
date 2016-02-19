@@ -1,0 +1,10 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.engine;
+
+/*
+ * A custom listener for listening new user status
+ */
+interface USListener extends java.util.EventListener{
+
+	void update(USEvent usEvent);
+}
+

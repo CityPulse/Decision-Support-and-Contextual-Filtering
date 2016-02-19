@@ -1,0 +1,48 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.mockup;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+public class ApplicationClient implements Runnable{
+
+	String request;
+
+	public ApplicationClient(String request) {
+		super();
+		this.request = request;
+	}
+
+
+	@Override
+	public void run() {
+		//Mock up User of Open Meeting
+				try {
+		            // open websocket
+			final URI uri = new URI(
+					"ws://localhost:8005/websockets/contextual_events_request");
+			final ClientEndPoint clientEndPoint = new ClientEndPoint(uri);
+		            // add listener
+			clientEndPoint
+					.addMessageHandler(new ClientEndPoint.MessageHandler() {
+		                @Override
+						public void handleMessage(String message) {
+							ClientEndPoint.logger
+									.info("Aplication received message: "
+											+ message);
+		                }
+		            });
+
+			clientEndPoint.sendMessage(this.request);
+		            clientEndPoint.getLatch().await();
+
+		        } catch (final URISyntaxException ex) {
+		            System.err.println("URISyntaxException exception: " + ex.getMessage());
+		        } catch (final InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+	}
+
+
+}

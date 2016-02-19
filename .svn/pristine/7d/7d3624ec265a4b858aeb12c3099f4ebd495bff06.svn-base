@@ -1,0 +1,10 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+
+
+public class testRESTEasy {
+
+	public static void main(String[] args) {
+
+	}
+
+}

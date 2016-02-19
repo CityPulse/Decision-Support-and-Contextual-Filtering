@@ -1,0 +1,117 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.mockup;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import citypulse.commons.contextual_filtering.city_event_ontology.EventSource;
+import citypulse.commons.contextual_filtering.contextual_event_request.ContextualEventRequest;
+import citypulse.commons.contextual_filtering.contextual_event_request.FilteringFactor;
+import citypulse.commons.contextual_filtering.contextual_event_request.FilteringFactorName;
+import citypulse.commons.contextual_filtering.contextual_event_request.FilteringFactorValue;
+import citypulse.commons.contextual_filtering.contextual_event_request.Place;
+import citypulse.commons.contextual_filtering.contextual_event_request.PlaceAdapter;
+import citypulse.commons.contextual_filtering.contextual_event_request.Point;
+import citypulse.commons.contextual_filtering.contextual_event_request.RankingElement;
+import citypulse.commons.contextual_filtering.contextual_event_request.RankingElementName;
+import citypulse.commons.contextual_filtering.contextual_event_request.RankingElementValue;
+import citypulse.commons.contextual_filtering.contextual_event_request.RankingFactor;
+import citypulse.commons.contextual_filtering.contextual_event_request.RankingFactorType;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+
+/**
+ * @author Thu-Le Pham
+ *
+ *         This class mocks up the Application
+ */
+public class Application {
+
+	public static void main(String[] args) {
+
+		final String request1 = generateContextualEventRequest1();
+		final ApplicationClient client1 = new ApplicationClient(request1);
+		new Thread(client1).start();
+		try {
+			Thread.sleep(1000);
+		} catch (final InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static String generateContextualEventRequest1() {
+		/**
+		 * ContextualEventRequest example
+		 */
+
+		/*
+		 * Place of interest
+		 */
+		final Place place = new Point(1, 1);
+
+		/*
+		 * Filtering factors
+		 */
+		final Set<FilteringFactor> filteringFactors = new HashSet<FilteringFactor>();
+
+		final Set<FilteringFactorValue> filteringFactorValueEventSource = new HashSet<FilteringFactorValue>();
+		filteringFactorValueEventSource.add(new FilteringFactorValue(
+				EventSource.SENSOR.toString()));
+		filteringFactorValueEventSource.add(new FilteringFactorValue(
+				EventSource.SOCIAL_NETWORK.toString()));
+		FilteringFactor filteringFactor = new FilteringFactor(
+				FilteringFactorName.EVENT_SOURCE,
+				filteringFactorValueEventSource);
+		filteringFactors.add(filteringFactor);
+
+		final Set<FilteringFactorValue> filteringFactorValueCategory = new HashSet<FilteringFactorValue>();
+		filteringFactorValueCategory
+				.add(new FilteringFactorValue("TrafficJam"));
+		filteringFactorValueCategory.add(new FilteringFactorValue(
+				"PublicParking"));
+		filteringFactor = new FilteringFactor(
+				FilteringFactorName.EVENT_CATEGORY,
+				filteringFactorValueCategory);
+		filteringFactors.add(filteringFactor);
+
+		final Set<FilteringFactorValue> filteringFactorValueActivity = new HashSet<FilteringFactorValue>();
+		filteringFactorValueActivity
+				.add(new FilteringFactorValue("CarCommute"));
+		filteringFactorValueActivity
+				.add(new FilteringFactorValue("BikeCommute"));
+		filteringFactor = new FilteringFactor(FilteringFactorName.ACTIVITY,
+				filteringFactorValueActivity);
+		filteringFactors.add(filteringFactor);
+
+		/*
+		 * Ranking factor
+		 */
+		final Set<RankingElement> rankingElements = new HashSet<RankingElement>();
+		rankingElements.add(new RankingElement(RankingElementName.DISTANCE,
+				new RankingElementValue(70)));
+		rankingElements.add(new RankingElement(RankingElementName.EVENT_LEVEL,
+				new RankingElementValue(30)));
+
+		final RankingFactor rankingFactor = new RankingFactor(
+				RankingFactorType.LINEAR, rankingElements);
+
+		/*
+		 * create a ContextualEventRequest
+		 */
+		final ContextualEventRequest request = new ContextualEventRequest(
+				place, filteringFactors, rankingFactor);
+
+		/*
+		 * Convert to Gson string
+		 */
+		final GsonBuilder builder = new GsonBuilder();
+		builder.registerTypeAdapter(Place.class, new PlaceAdapter());
+		final Gson gson = builder.create();
+
+		final String gsonStr = gson.toJson(request);
+		System.out.println("Request_gsonStr = " + gsonStr);
+		return gsonStr;
+	}
+}
+

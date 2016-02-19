@@ -1,0 +1,8 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.engine;
+
+/*
+ * A custom listener for listening new contextual events
+ */
+interface CEListener extends java.util.EventListener{
+	void update(CEEvent e);
+}

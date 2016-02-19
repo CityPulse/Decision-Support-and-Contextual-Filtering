@@ -1,0 +1,167 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.insight_centre.urq.citypulse.wp5.Configuration;
+import org.insight_centre.urq.citypulse.wp5.contextual_filter.communication.CFRabbitMQConsumer;
+import org.insight_centre.urq.citypulse.wp5.contextual_filter.communication.DSRabbitMQConsumer;
+import org.insight_centre.urq.citypulse.wp5.contextual_filter.engine.ContextualFilter;
+
+import citypulse.commons.contextual_events_request.ContextualEvent;
+import citypulse.commons.data.Coordinate;
+
+import com.google.gson.Gson;
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+
+
+
+public class Main {
+	public Main() throws Exception{
+//		String[] exchanges = {"test1", "test2"};
+//		QueueConsumer consumer = new QueueConsumer(exchanges);
+//		Thread consumerThread = new Thread(consumer);
+//		consumerThread.start();
+
+//		Producer producer = new Producer(exchanges);
+//
+//		for (int i = 0; i < 10; i++) {
+//			HashMap message = new HashMap();
+//			message.put("message number", i);
+//			producer.sendMessage(message.toString());
+//		}
+
+		final List<List<String>> exchanges_topics = new ArrayList();
+		List<String> exchange_topic = new ArrayList();
+		exchange_topic.add("traffic");
+		exchange_topic.add("transportation/events/trafficjam/1");
+		exchanges_topics.add(exchange_topic);
+
+		exchange_topic = new ArrayList();
+		exchange_topic.add("traffic");
+		exchange_topic.add("transportation/events/trafficjam/2");
+		exchanges_topics.add(exchange_topic);
+
+		exchange_topic = new ArrayList();
+		exchange_topic.add("weather");
+		exchange_topic.add("weather/events/wind/1");
+		exchanges_topics.add(exchange_topic);
+
+		exchange_topic = new ArrayList();
+		exchange_topic.add("weather");
+		exchange_topic.add("weather/events/wind/2");
+		exchanges_topics.add(exchange_topic);
+
+		final CFRabbitMQConsumer CFconsumer = new CFRabbitMQConsumer(
+				exchanges_topics, new ContextualFilter());
+		CFconsumer.startConsumer(Configuration.getInstance()
+				.getEventRabbitURI());
+
+		final DSRabbitMQConsumer DSconsumer = new DSRabbitMQConsumer(
+				exchanges_topics);
+		DSconsumer.startConsumer(Configuration.getInstance()
+				.getEventRabbitURI());
+
+		//*******PRODUCER**********************
+		//*********** multiple exchange - multiple topics
+		try{
+			  final ConnectionFactory factory = new ConnectionFactory();
+			// factory.setUri(Configuration.getInstance().getEventRabbitURI());
+			factory.setHost("localhost");
+			  final Connection conn = factory.newConnection();
+			  final Channel channel = conn.createChannel();
+			  System.out.println("Producer channel opened.");
+			  final AMQP.BasicProperties.Builder builder = new AMQP.BasicProperties().builder();
+			  for(final List<String> et :  exchanges_topics){
+				  final String exchange = et.get(0);
+				  final String topic = et.get(1);
+				  channel.exchangeDeclare(exchange, "direct");
+				  //publish message
+				for (int i = 1; i <= 5; i++) {
+					final ContextualEvent event = new ContextualEvent("trafic",
+							"traffic_jam", System.currentTimeMillis(),
+							new Coordinate(i, i), 1);
+					final String message = new Gson().toJson(event);
+//					  final String message="xxx " + i + " -- exchange = " + exchange + " -- topic = " + topic;
+					  channel.basicPublish(exchange, topic, builder.build(), message.getBytes());
+					  System.out.println("Published message = " + message);
+					  Thread.sleep(500);
+				  }
+			  }
+			  } catch (final Exception e) {
+
+			      e.printStackTrace();
+			  }
+
+		//*********** one exchange - multiple topics
+//		try{
+//			  String exchange = "traffic";
+//			  String[] topic = {"transportation/events/trafficjam/1", "transportation/events/trafficjam/2"};
+//			  ConnectionFactory factory = new ConnectionFactory();
+//			  factory.setUri("amqp://guest:guest@140.203.155.76:8009");
+//			  Connection conn = factory.newConnection();
+//			  final Channel channel = conn.createChannel();
+//			  channel.exchangeDeclare(exchange, "direct");
+//			  //String queueName = channel.queueDeclare().getQueue();
+//			  // channel.queueBind(queueName, exchange, topic);
+//			 System.out.println("channel opened.");
+//			  AMQP.BasicProperties.Builder builder = new AMQP.BasicProperties().builder();
+//			  for(int i = 1; i <= 3; i++){
+//				  for(int t = 0; t <topic.length; t++){
+//					  String message="xxx " + i + " -- topic = " + topic[t];
+//					  channel.basicPublish(exchange, topic[t], builder.build(), message.getBytes());
+//					  System.out.println("Published message = " + message);
+//					  Thread.sleep(500);
+//				  }
+//
+//			  }
+//
+//			  } catch (Exception e) {
+//
+//			      e.printStackTrace();
+//
+//			  }
+//
+
+		//************ one exchange - one topic
+//		try{
+//			  String exchange = "traffic";
+//			  String topic = "transportation/events/trafficjam/1";
+//			  ConnectionFactory factory = new ConnectionFactory();
+//			  factory.setUri("amqp://guest:guest@140.203.155.76:8009");
+//			  Connection conn = factory.newConnection();
+//			  final Channel channel = conn.createChannel();
+//			  channel.exchangeDeclare(exchange, "direct");
+//			  //String queueName = channel.queueDeclare().getQueue();
+//			  // channel.queueBind(queueName, exchange, topic);
+//			 System.out.println("channel opened.");
+//			  AMQP.BasicProperties.Builder builder = new AMQP.BasicProperties().builder();
+//			  for(int i = 1; i <= 10; i++){
+//				  String message="xxx " + i;
+//				  channel.basicPublish(exchange, topic, builder.build(), message.getBytes());
+//				  System.out.println("Published message = " + message);
+//				  Thread.sleep(500);
+//			  }
+//
+//			  } catch (Exception e) {
+//
+//			      e.printStackTrace();
+//
+//			  }
+
+	}
+
+	/**
+	 * @param args
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public static void main(String[] args) throws Exception{
+	  new Main();
+	}
+}

@@ -1,0 +1,28 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+
+
+
+
+public class DumbTest {
+
+	public static void main(String[] args) {
+//		ContextualFilter cf = new ContextualFilter();
+//		List<ContextualEvent> listevents = new ArrayList();
+//		Coordinate coor = new Coordinate(53.2734,-7.778320310000026);
+//		System.out.println(coor.parseToAspFacts());
+//		ContextualEvent ce = new ContextualEvent("1","traffic_jam","congestion", System.currentTimeMillis(), coor);
+//		System.out.println(ce.parseToAspFacts());
+//		listevents.add(ce);
+//		coor = new Coordinate(53.2734,-8.778320310000026);
+//		ce = new ContextualEvent("2","weather","strong_wind", System.currentTimeMillis(), coor);
+//		listevents.add(ce);
+//		System.out.println(cf.parseToAspFacts(listevents));
+//
+//		UserStatus us = new UserStatus("thu",Activity.DRIVING_CAR, coor);
+//		System.out.println(us.parseToAspFacts());
+
+
+
+	}
+
+}

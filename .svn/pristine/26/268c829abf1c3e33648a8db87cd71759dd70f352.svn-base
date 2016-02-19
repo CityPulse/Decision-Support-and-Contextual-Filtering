@@ -1,0 +1,87 @@
+package org.insight_centre.urq.citypulse.wp5.aspjavamanager.manager;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ *
+ * @author Thu-Le Pham
+ */
+public class Filter {
+
+    private Set<String> classes;
+
+    public Filter() {
+        this.classes = new HashSet<>();
+    }
+
+    public Filter(String clazz) {
+        this.classes = new HashSet<>();
+        if (clazz != null) {
+            this.classes.add(clazz);
+        }
+    }
+
+    public Filter(String... classes) {
+        this.classes = new HashSet<>();
+        if (classes != null && classes.length>0 ) {
+            this.classes.addAll(Arrays.asList(classes));
+        }
+    }
+    
+    public Filter(Collection<String> classes) {        
+        this.classes = new HashSet<>();
+        if (classes!=null) {
+            this.classes.addAll(classes);
+        }
+    }    
+
+    /**
+     * test whether given Class is accepted by this filter
+     *
+     * @param clazz
+     * @return
+     */
+    public boolean accepts(String clazz) {
+        if (clazz==null) {
+            return false;
+        }
+        return classes.contains(clazz);
+    }
+
+    public Filter add(String clazz) {
+        this.classes.add(clazz);
+        return this;
+    }
+    
+    public Filter addAll(Collection<String> classes) {
+        for (String clazz : classes) {
+            add(clazz);
+        }
+        return this;
+    }
+
+    public Filter remove(String clazz) {
+        this.classes.remove(clazz);
+        return this;
+    }
+
+    public Set<String> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Set<String> classes) {
+        this.classes = classes;
+        if (this.classes==null) {
+            this.classes = new HashSet<>();
+        }
+    }
+
+	public boolean isEmpty() {
+		return classes.isEmpty();
+	}
+    
+    
+}

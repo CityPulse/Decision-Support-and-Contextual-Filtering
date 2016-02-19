@@ -1,0 +1,144 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.communication;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
+import org.insight_centre.urq.citypulse.wp5.Configuration;
+import org.insight_centre.urq.citypulse.wp5.contextual_filter.engine.ContextualFilter;
+import org.insight_centre.urq.citypulse.wp5.request_handler.RHManager;
+
+import citypulse.commons.contextual_events_request.ContextualEvent;
+
+import com.google.gson.Gson;
+import com.rabbitmq.client.AMQP.BasicProperties;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Consumer;
+import com.rabbitmq.client.Envelope;
+import com.rabbitmq.client.ShutdownSignalException;
+
+/*
+ * @author: Thu-Le Pham
+ * This class is used to consume events from EventDetection via RabbitMQ
+ */
+public class CopyOfCFRabbitMQConsumer implements Consumer {
+
+	public static Logger Log = Logger.getLogger(RHManager.class.getPackage()
+			.getName());
+
+	private final List<List<String>> exchanges_topics;
+	private final ContextualFilter cf;
+	private Channel channel;
+
+	public CopyOfCFRabbitMQConsumer(List<List<String>> exchanges_topics,
+			ContextualFilter cf)
+			throws KeyManagementException, NoSuchAlgorithmException,
+			URISyntaxException {
+		super();
+		this.exchanges_topics = exchanges_topics;
+		this.cf = cf;
+	}
+
+	public Channel getChannel() {
+		return channel;
+	}
+
+	public void setChannel(Channel channel) {
+		this.channel = channel;
+	}
+
+	public List<List<String>> getExchanges_topics() {
+		return exchanges_topics;
+	}
+
+	public ContextualFilter getCf() {
+		return cf;
+	}
+
+	@Override
+	public void handleCancel(String arg0) throws IOException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleCancelOk(String arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleConsumeOk(String arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleDelivery(String arg0, Envelope arg1,
+			BasicProperties arg2, byte[] body) throws IOException {
+		final String msgBody = new String(body);
+		System.out.println("Received message  = " + msgBody + "\n");
+		// TODO:consume events
+		final ContextualEvent ce = this.parse(msgBody);
+		final List<ContextualEvent> ces = new ArrayList<ContextualEvent>();
+		ces.add(ce);
+		if (cf != null) {
+			cf.receiveContextualEvents(ces);
+		}
+
+	}
+
+	@Override
+	public void handleRecoverOk(String arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleShutdownSignal(String arg0, ShutdownSignalException arg1) {
+		// TODO Auto-generated method stub
+	}
+
+	public void startConsumer() {
+		final ConnectionFactory factory = new ConnectionFactory();
+		try {
+			factory.setUri(Configuration.getInstance().getEventRabbitURI());
+			final Connection connection = factory.newConnection();
+			channel = connection.createChannel();
+			System.out.println("Consumer opened a connection");
+			final String queueName = channel.queueDeclare().getQueue();
+			for (int i = 0; i < this.exchanges_topics.size(); i++) {
+				final List<String> temp = this.exchanges_topics.get(i);
+				final String exchange = temp.get(0);
+				final String topic = temp.get(1);
+				channel.queueBind(queueName, exchange, topic);
+				channel.basicConsume(queueName, true, this);
+			}
+		} catch (KeyManagementException | NoSuchAlgorithmException
+				| URISyntaxException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+
+	public ContextualEvent parse(String message) {
+		return new Gson().fromJson(message, ContextualEvent.class);
+	}
+
+	public void stop() {
+		try {
+			this.channel.basicCancel(Configuration.getInstance()
+					.getEventRabbitURI());
+		} catch (final IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

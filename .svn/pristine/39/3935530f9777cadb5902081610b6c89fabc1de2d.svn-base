@@ -1,0 +1,131 @@
+/*******************************************************************************
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014-2015 Stefano Germano - Insight Centre for Data Analytics NUIG
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *******************************************************************************/
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+
+import java.util.logging.Logger;
+
+import javax.websocket.CloseReason;
+import javax.websocket.OnClose;
+import javax.websocket.OnError;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
+
+import org.insight_centre.urq.citypulse.wp5.contextual_filter.engine.ContextualFilter;
+
+import citypulse.commons.contextual_events_request.ContextualEventRequest;
+import citypulse.commons.data.CoordinateParseException;
+import citypulse.commons.reasoning_request.Answer;
+import citypulse.commons.reasoning_request.concrete.AnswerAdapter;
+import citypulse.commons.reasoning_request.concrete.FunctionalConstraintValueAdapter;
+import citypulse.commons.reasoning_request.concrete.FunctionalParameterValueAdapter;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalConstraintValue;
+import citypulse.commons.reasoning_request.functional_requirements.FunctionalParameterValue;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+/**
+ * @author Stefano Germano, Thu-Le Pham
+ *
+ */
+@ServerEndpoint(value = "/contextual_events_request")
+public class TestServerEndpoint {
+
+	public static Logger Log = Logger
+			.getLogger(TestServerEndpoint.class.getPackage()
+					.getName());
+
+	private ContextualFilter cf;
+
+	/**
+	 *
+	 */
+	public TestServerEndpoint() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param session
+	 * @param closeReason
+	 */
+	@OnClose
+	public void onClose(final Session session, final CloseReason closeReason) {
+		Log.info(String.format("Session %s closed because of %s",
+				session.getId(), closeReason));
+		// TODO: stop RabbitMQ consumer
+		cf.stopSubcribeEvents();
+		cf = null;
+	}
+
+	/**
+	 * @param session
+	 * @param t
+	 */
+	@OnError
+	public void onError(final Session session, final Throwable t) {
+		Log.severe(t.getMessage());
+	}
+
+	/**
+	 * @param message
+	 * @param session
+	 * @return
+	 * @throws CoordinateParseException
+	 */
+	@OnMessage
+	public synchronized String onMessage(final String message,
+			final Session session) throws CoordinateParseException {
+		Log.info("Received message: " + message);
+		return message;
+
+	}
+
+	/**
+	 * @param session
+	 */
+	@OnOpen
+	public void onOpen(final Session session) {
+		Log.info("Connected ... " + session.getId());
+		cf = new ContextualFilter(session);
+	}
+
+	/**
+	 * @param message
+	 */
+	private ContextualEventRequest parse(final String message) {
+		// parse abstract class in ReasoningRequest
+		final GsonBuilder builder = new GsonBuilder();
+		builder.registerTypeAdapter(FunctionalParameterValue.class,
+				new FunctionalParameterValueAdapter());
+		builder.registerTypeAdapter(FunctionalConstraintValue.class,
+				new FunctionalConstraintValueAdapter());
+		builder.registerTypeAdapter(Answer.class, new AnswerAdapter());
+
+		final Gson gson = builder.create();
+		Log.info("Done parse contextual event request....");
+		return gson.fromJson(message, ContextualEventRequest.class);
+	}
+}

@@ -1,0 +1,106 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.communication;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
+import citypulse.commons.contextual_events_request.EventRequest;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+
+/*
+ * @author: Thu-Le Pham
+ * This class subscribes events from WP3.4
+ */
+public class ContextualEventSubscriber {
+
+	public static Logger logger = Logger
+			.getLogger(ContextualEventSubscriber.class
+			.getPackage().getName());
+
+	private final String restResource;
+	private final String rabbitMqURI;
+	private final RabbitMQConsumer consumer;
+	private final EventRequest eventRequest;
+
+
+	public ContextualEventSubscriber(String restResource, String rabbitMqURI,
+			RabbitMQConsumer consumer, EventRequest eventRequest) {
+		super();
+		this.restResource = restResource;
+		this.rabbitMqURI = rabbitMqURI;
+		this.consumer = consumer;
+		this.eventRequest = eventRequest;
+	}
+
+	/*
+	 * start subscribing events from 3.4
+	 */
+	public void startSubscribeEvents() {
+		// send EventRequest to WP3.4
+		final List<List<String>> exchanges_topics = this.sendEventRequest();
+		// final List<List<String>> exchanges_topics = new ArrayList();
+		// final List<String> exchange_topic = new ArrayList();
+		// exchange_topic.add("parking");
+		// exchange_topic.add("parking/rowdata/BUSGADEHUSET");
+		// exchanges_topics.add(exchange_topic);
+
+		if (!exchanges_topics.isEmpty()) {
+			consumer.setExchanges_topics(exchanges_topics);
+			logger.info("Start Consumer.....");
+			consumer.startConsumer(this.rabbitMqURI);
+		}
+
+	}
+
+	/*
+	 * send EventRequest to WP3.4 by RESTeasy
+	 *
+	 * @return List<List<String>> (list of topics)
+	 */
+	public List<List<String>> sendEventRequest() {
+		List<List<String>> exchanges_topics = new ArrayList<List<String>>();
+		try {
+
+			final Client client = Client.create();
+
+			final String restResource = this.restResource;
+
+			final WebResource webResource = client.resource(restResource);
+
+			final ClientResponse response = webResource.accept(
+					"application/json")
+					.post(ClientResponse.class, eventRequest);
+
+			if (response.getStatus() != 200) {
+				throw new RuntimeException("Failed : HTTP error code : "
+						+ response.getStatus());
+			}
+
+			final String output = response.getEntity(String.class);
+			// TODO: parse list of topics
+			logger.info("Exchanges_Topics .... \n");
+			final Type listOfListStr = new TypeToken<List<List<String>>>() {
+			}.getType();
+
+			exchanges_topics = new Gson().fromJson(output, listOfListStr);
+			logger.info(output);
+
+		} catch (final Exception e) {
+			logger.info("Connection refused");
+			return exchanges_topics;
+			// e.printStackTrace();
+
+		}
+		return exchanges_topics;
+	}
+
+	public void stopSubcribeEvents() {
+		this.consumer.stop();
+	}
+}

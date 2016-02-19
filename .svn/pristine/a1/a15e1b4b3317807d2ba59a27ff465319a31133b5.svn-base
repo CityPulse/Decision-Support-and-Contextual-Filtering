@@ -1,0 +1,27 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.engine;
+
+import java.io.IOException;
+
+public class ReceiveUSListener implements USListener{
+
+	ContextualFilter cf = new ContextualFilter();
+	
+	public ReceiveUSListener(ContextualFilter cf) {
+		super();
+		this.cf = cf;
+	}
+
+	@Override
+	public void update(USEvent usEvent) {
+		cf.setUseStatus(usEvent.getUs());
+		cf.setStatusStr(cf.getUseStatus().parseToAspFacts());
+		try {
+			cf.filter();
+		} catch (UnsupportedOperationException | IOException
+				| CloneNotSupportedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+
+}

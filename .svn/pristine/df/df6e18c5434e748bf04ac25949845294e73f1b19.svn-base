@@ -1,0 +1,32 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.engine;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import citypulse.commons.contextual_events_request.ContextualEvent;
+
+
+/*
+ * @author: Thu-Le Pham
+ * A custom event when receiving news contextual events
+ */
+public class CEEvent extends java.util.EventObject{
+	
+	List<ContextualEvent> events = new ArrayList();
+
+	public CEEvent(Object source, List<ContextualEvent> events) {
+		super(source);
+		this.events = events;
+	}
+
+	public List<ContextualEvent> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<ContextualEvent> events) {
+		this.events = events;
+	}
+
+	
+
+}

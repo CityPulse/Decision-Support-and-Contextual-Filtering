@@ -1,0 +1,64 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.communication;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
+import org.insight_centre.urq.citypulse.wp5.contextual_filter.engine.ContextualFilter;
+
+import citypulse.commons.contextual_events_request.ContextualEvent;
+
+import com.rabbitmq.client.AMQP.BasicProperties;
+import com.rabbitmq.client.Envelope;
+
+/*
+ * @author: Thu-Le Pham
+ * This class is used to consume events from EventDetection via RabbitMQ by Contextual Filter component
+ */
+public class CFRabbitMQConsumer extends RabbitMQConsumer {
+
+	public static Logger logger = Logger.getLogger(CFRabbitMQConsumer.class
+			.getPackage()
+			.getName());
+
+	private final ContextualFilter cf;
+
+	public CFRabbitMQConsumer(ContextualFilter cf) {
+		super();
+		this.cf = cf;
+	}
+
+	public CFRabbitMQConsumer(List<List<String>> exchanges_topics,
+			ContextualFilter cf)
+			throws KeyManagementException, NoSuchAlgorithmException,
+			URISyntaxException {
+		super(exchanges_topics);
+		this.cf = cf;
+	}
+
+
+	public ContextualFilter getCf() {
+		return cf;
+	}
+
+	@Override
+	public void handleDelivery(String arg0, Envelope arg1,
+			BasicProperties arg2, byte[] body) throws IOException {
+		final String msgBody = new String(body);
+		logger.info("Received message  = " + msgBody + "\n");
+		// TODO:consume events
+		final ContextualEvent ce = this.parse(msgBody);
+		final List<ContextualEvent> ces = new ArrayList<ContextualEvent>();
+		if (ce.getCeLevel() > 0) {
+			ces.add(ce);
+		}
+		if (cf != null && !ces.isEmpty()) {
+			cf.receiveContextualEvents(ces);
+		}
+
+	}
+}

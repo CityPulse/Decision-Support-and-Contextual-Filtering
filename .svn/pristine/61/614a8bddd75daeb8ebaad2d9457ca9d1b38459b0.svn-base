@@ -1,0 +1,144 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.communication;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.logging.Logger;
+
+import org.insight_centre.urq.citypulse.wp5.Configuration;
+
+import citypulse.commons.contextual_events_request.ContextualEvent;
+
+import com.google.gson.Gson;
+import com.rabbitmq.client.AMQP.BasicProperties;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Consumer;
+import com.rabbitmq.client.Envelope;
+import com.rabbitmq.client.ShutdownSignalException;
+
+/*
+ * @author: Thu-Le Pham
+ * This class is used to consume events from EventDetection via RabbitMQ
+ */
+public class RabbitMQConsumer implements Consumer {
+
+	public static Logger logger = Logger.getLogger(RabbitMQConsumer.class
+			.getPackage()
+			.getName());
+
+	protected List<List<String>> exchanges_topics;
+	protected Channel channel;
+
+	public RabbitMQConsumer() {
+		super();
+	}
+
+	public RabbitMQConsumer(List<List<String>> exchanges_topics) {
+		super();
+		this.exchanges_topics = exchanges_topics;
+	}
+
+	public List<List<String>> getExchanges_topics() {
+		return exchanges_topics;
+	}
+
+	public void setExchanges_topics(List<List<String>> exchanges_topics) {
+		this.exchanges_topics = exchanges_topics;
+	}
+
+	public Channel getChannel() {
+		return channel;
+	}
+
+	public void setChannel(Channel channel) {
+		this.channel = channel;
+	}
+
+	@Override
+	public void handleCancel(String arg0) throws IOException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleCancelOk(String arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleConsumeOk(String arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleDelivery(String arg0, Envelope arg1,
+			BasicProperties arg2, byte[] body) throws IOException {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void handleRecoverOk(String arg0) {
+		// TODO Auto-generated method stubs
+	}
+
+	@Override
+	public void handleShutdownSignal(String arg0, ShutdownSignalException arg1) {
+		// TODO Auto-generated method stub
+	}
+
+	public void startConsumer(String rabbitMqURI) {
+		final ConnectionFactory factory = new ConnectionFactory();
+		try {
+			factory.setUri(rabbitMqURI);
+			// factory.setHost("localhost");
+			final Connection connection = factory.newConnection();
+			channel = connection.createChannel();
+			logger.info("Consumer opened a connection");
+			final String queueName = channel.queueDeclare().getQueue();
+			for (int i = 0; i < this.exchanges_topics.size(); i++) {
+				final List<String> temp = this.exchanges_topics.get(i);
+				final String exchange = temp.get(0);
+				final String topic = temp.get(1);
+				channel.queueBind(queueName, exchange, topic);
+				channel.basicConsume(queueName, true, this);
+			}
+		} catch (final IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (final KeyManagementException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (final NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (final URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public ContextualEvent parse(String message) {
+		return new Gson().fromJson(message, ContextualEvent.class);
+	}
+
+	public void stop() {
+		try {
+			if (this.channel != null) {
+				this.channel.basicCancel(Configuration.getInstance()
+						.getEventRabbitURI());
+			}
+		} catch (final IOException e) {
+			// TODO Auto-generated catch block
+			logger.info("comsumer stopped");
+			// e.printStackTrace();
+		}
+	}
+
+
+}

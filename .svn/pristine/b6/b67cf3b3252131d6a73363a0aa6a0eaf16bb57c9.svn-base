@@ -1,0 +1,57 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.Random;
+import java.util.concurrent.TimeoutException;
+
+import org.apache.commons.lang.SerializationUtils;
+
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+
+
+
+/**
+ * The producer endpoint that writes to the queue.
+ * @author syntx
+ *
+ */
+public class Producer{
+	
+	Channel channel;
+	String[] exchanges;
+	
+	public Producer(String[] exchanges) throws IOException{
+		this.exchanges = exchanges;
+		//Create a connection factory
+        ConnectionFactory factory = new ConnectionFactory();
+	    
+        //hostname of your rabbitmq server
+        factory.setHost("localhost");
+		
+        //getting a connection
+        Connection connection = factory.newConnection();
+	    
+        //creating a channel
+        channel = connection.createChannel();
+        channel.exchangeDeclare("ioana", "direct");
+	    
+        //declaring a queue for this channel. If queue does not exist,
+        //it will be created on the server.
+        for(int i = 0; i< exchanges.length; i++){
+        	channel.queueDeclare(exchanges[i], false, false, false, null);
+        }
+        
+	}
+
+	public void sendMessage(String object) throws IOException {
+		Random r = new Random();
+		int i = Math.abs(r.nextInt())%2;
+		String message = object + "--" + exchanges[i];
+		channel.basicPublish("ioana",exchanges[i], null, SerializationUtils.serialize(message));
+		System.out.println( message);
+	}
+	
+}

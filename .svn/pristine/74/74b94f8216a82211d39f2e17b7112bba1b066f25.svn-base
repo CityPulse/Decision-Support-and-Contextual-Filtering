@@ -1,0 +1,408 @@
+/**
+ *
+ */
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system;
+
+import it.unical.mat.embasp.base.ASPHandler;
+import it.unical.mat.embasp.base.AnswerSet;
+import it.unical.mat.embasp.base.AnswerSets;
+import it.unical.mat.embasp.clingo.ClingoHandler;
+import it.unical.mat.embasp.mapper.IllegalTermException;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
+
+import javax.websocket.Session;
+
+import org.insight_centre.urq.citypulse.wp5.Configuration;
+
+import citypulse.commons.contextual_filtering.city_event_ontology.CityEvent;
+import citypulse.commons.contextual_filtering.contextual_event_request.ContextualEventRequest;
+import citypulse.commons.contextual_filtering.contextual_event_request.Place;
+import citypulse.commons.contextual_filtering.contextual_event_request.PlaceAdapter;
+import citypulse.commons.contextual_filtering.contextual_event_request.PlaceType;
+import citypulse.commons.contextual_filtering.contextual_event_request.Point;
+import citypulse.commons.contextual_filtering.contextual_event_request.RankingElement;
+import citypulse.commons.contextual_filtering.contextual_event_request.RankingElementName;
+import citypulse.commons.contextual_filtering.contextual_event_request.RankingFactor;
+import citypulse.commons.contextual_filtering.contextual_event_request.Route;
+import citypulse.commons.contextual_filtering.user_context_ontology.UserContext;
+import citypulse.commons.data.Coordinate;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import eu.citypulse.uaso.gdiclient.CpGdiInterface;
+
+/**
+ * @author Thu-Le Pham
+ * @date 1 Oct 2015
+ */
+public class ContextualEventFilter {
+
+	public static Logger logger = Logger.getLogger(ContextualEventFilter.class
+			.getPackage().getName());
+
+	/**
+	 *
+	 */
+	ContextualEventRequest ceRequest;
+
+	/**
+	 *
+	 */
+	UserContext userContext;
+
+	/**
+	 *
+	 */
+	List<String> inputProgram = new ArrayList<String>();
+
+	/**
+	 *
+	 */
+	Session session;
+
+	/**
+	 *
+	 */
+	int[] scale = { 1, 5 };
+
+	/**
+	 *
+	 */
+	public ContextualEventFilter() {
+		super();
+	}
+
+	public ContextualEventFilter(Session session) {
+		super();
+		this.session = session;
+	}
+
+	public UserContext getUserContext() {
+		return userContext;
+	}
+
+	public void setUserContext(UserContext userContext) {
+		this.userContext = userContext;
+	}
+
+	public List<String> getInputProgram() {
+		return inputProgram;
+	}
+
+	public void setInputProgram(List<String> inputProgram) {
+		this.inputProgram = inputProgram;
+	}
+
+	public ContextualEventRequest getCeRequest() {
+		return ceRequest;
+	}
+
+	public void setCeRequest(ContextualEventRequest ceRequest) {
+		this.ceRequest = ceRequest;
+	}
+
+	/**
+	 *
+	 * @param contextualEventRequest
+	 * @return
+	 */
+	public void startCEF(
+			ContextualEventRequest contextualEventRequest) {
+		logger.info("Start ContextualEventFiltering....");
+
+		this.ceRequest = contextualEventRequest;
+
+		/*
+		 * TODO: rewrite request to rules
+		 */
+		this.inputProgram.addAll(ContextualEventRequestRewriter.getInstance()
+				.getRules(contextualEventRequest));
+
+		/*
+		 * TODO: request GeoDB to get the list of sensors' coordinate which is
+		 * near the Place
+		 */
+		final List<Coordinate> eventCoordinatesGeoDB = getEventsPlaceGeoDB(contextualEventRequest
+				.getPlace());
+
+		/*
+		 * TODO: If Place of Interest is Route --> map EventCoodinateGeoDB to
+		 * Route
+		 */
+
+	}
+
+
+	/**
+	 * This function connects to GeoDB in order to get information for
+	 * subscribing events from MessageBus
+	 *
+	 * @param place
+	 *            (of interest)
+	 * @return list of coordinates of events that are in the place of interest
+	 */
+	public List<Coordinate> getEventsPlaceGeoDB(Place place) {
+
+		final List<Coordinate> eventCoordinatesGeoDB = new ArrayList<Coordinate>();
+		final List<String[]> eventTopicsGeoDB = new ArrayList<String[]>();
+
+		/*
+		 * Connect to GDI to get information to subscribe events
+		 */
+		final CpGdiInterface cgi;
+		try {
+			cgi = new CpGdiInterface("127.0.0.1", 5432);
+
+			// TODO: use GeoDB functions to get sensors coordinates
+			eventCoordinatesGeoDB.add(new Coordinate(10.0997819, 56.1056684));
+			eventCoordinatesGeoDB.add(new Coordinate(10.1397989, 56.1177777));
+			eventCoordinatesGeoDB.add(new Coordinate(10.1624104, 56.128561));
+			eventCoordinatesGeoDB.add(new Coordinate(10.1674363, 56.1316468));
+			eventCoordinatesGeoDB.add(new Coordinate(10.1858257, 56.1634226));
+
+			// TODO: user GeoDB functions to get "exchange topics" to connect
+			// MessageBus;
+			eventTopicsGeoDB.add(new String[] { "parking",
+					"parking/rowdata/SKOLEBAKKEN" });
+			eventTopicsGeoDB.add(new String[] { "parking",
+					"parking/rowdata/BRUUNS" });
+			eventTopicsGeoDB.add(new String[] { "traffic",
+					"transportation/rowdata/179174" });
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+
+		/*
+		 * start the CityEventConsumer
+		 */
+		final CityEventConsumer cityEventConsumer = new CityEventConsumer(
+				eventTopicsGeoDB, this);
+		return eventCoordinatesGeoDB;
+	}
+
+	/**
+	 * @param cityEvents
+	 */
+	public void performReasoning(List<CityEvent> cityEvents) {
+
+		final List<String> rankingData = createRankingElements(this.ceRequest,
+				cityEvents, this.userContext);
+
+		final ASPHandler handler = new ClingoHandler();
+		handler.addOption("-n 0");
+		handler.addOption("--opt-mode=optN");
+
+		try {
+			handler.addFileInput(Configuration.getInstance()
+					.getCFResourceFolderPath() + "rules.lp");
+
+		} catch (final FileNotFoundException e) {
+			logger.severe(e.toString());
+		}
+
+
+		for (final String rule : this.inputProgram) {
+			System.out.println("inputProgram = " + rule);
+			handler.addRawInput(rule);
+		}
+
+		for (final String rule : rankingData) {
+			System.out.println("rankingData = " + rule);
+			handler.addRawInput(rule);
+		}
+
+		try {
+			for (final CityEvent event : cityEvents) {
+				handler.addInput(event);
+			}
+		} catch (IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | NoSuchMethodException
+				| SecurityException | IllegalTermException e1) {
+			logger.severe(e1.toString());
+		}
+
+		handler.addFilter(CityEvent.class);
+
+		AnswerSets answerSets = null;
+
+		try {
+			answerSets = handler.reason();
+		} catch (final IOException | InterruptedException e) {
+			logger.severe(e.toString());
+		}
+
+		if (answerSets != null) {
+
+			final List<AnswerSet> answerSetList = answerSets
+					.getAnswerSetsList();
+
+			logger.info("Number of Answer Sets: " + answerSetList.size());
+
+			if (!answerSetList.isEmpty()) {
+				for (final AnswerSet answerSet : answerSetList) {
+
+					logger.info(answerSet.getAnswerSet().toString());
+					final CityEvent criticalEvent = getCriticalEvent(answerSet,
+							cityEvents);
+					logger.info("After Filtering: " + criticalEvent.toString());
+
+					sendCriticalEvent(criticalEvent);
+				}
+			}
+		}
+	}
+
+	/**
+	 * @param criticalEvent
+	 */
+	private void sendCriticalEvent(CityEvent criticalEvent) {
+		if (this.session != null) {
+			final GsonBuilder builder = new GsonBuilder();
+			builder.registerTypeAdapter(Place.class, new PlaceAdapter());
+			final Gson gson = builder.create();
+
+			final String gsonStr = gson.toJson(criticalEvent);
+			this.session.getAsyncRemote().sendText(gsonStr);
+
+		} else {
+			logger.info("No Connection with Application!");
+		}
+
+	}
+
+	/**
+	 * @param answerSet
+	 * @return
+	 */
+	private CityEvent getCriticalEvent(final AnswerSet answerSet,
+			List<CityEvent> cityEvents) {
+
+		CityEvent criticalEvent = new CityEvent();
+
+		for (final String str : answerSet.getAnswerSet()) {
+			final String eventId = str.split("\"")[1];
+			final int criticality = Integer.parseInt(str.substring(
+					str.indexOf(",") + 1, str.indexOf(")")).trim());
+			for (int i = 0; i < cityEvents.size(); i++) {
+				final CityEvent event = cityEvents.get(i);
+				if (event.getEventId().equals(eventId)) {
+					criticalEvent = event;
+					criticalEvent.setContextualCriticality(criticality);
+					cityEvents.remove(i);
+					break;
+				}
+			}
+		}
+		return criticalEvent;
+	}
+
+	/**
+	 * @param ceRequest2
+	 * @param cityEvents
+	 * @param userContext2
+	 */
+	private List<String> createRankingElements(
+			ContextualEventRequest ceRequest2,
+			List<CityEvent> cityEvents, UserContext userContext2) {
+
+		final List<String> rules = new LinkedList<String>();
+
+		final RankingFactor rankingFactor = ceRequest2.getRankingFactor();
+
+		final Map<String, Integer> eventDistance = new HashMap<String, Integer>();
+		final Map<String, Integer> eventLevel = new HashMap<String, Integer>();
+
+		for (final RankingElement e : rankingFactor.getRankingElements()) {
+			if (e.getName().equals(RankingElementName.DISTANCE)) {
+				/*
+				 * find the distance between event and user context
+				 */
+
+				for(final CityEvent event: cityEvents){
+					final long distance = (long) event
+							.getEventPlace()
+							.getCentreCoordinate()
+							.distance(
+									userContext2.getActivity()
+											.getActivityPlace()
+											.getCentreCoordinate());
+
+					/*
+					 * TODO: Find the min and max value of distance
+					 */
+					long maxDistance;
+					if(ceRequest2.getPlace().getPlaceType().equals(PlaceType.ROUTE)){
+						maxDistance = ((Route) ceRequest2.getPlace())
+								.getLength();
+					} else {
+						maxDistance = 500;
+					}
+					int distanceScale = scaling(maxDistance - distance,
+							new long[] { 0,
+							maxDistance },
+							this.scale);
+					//TODO: fake data
+					if (distanceScale < 0 || distanceScale > 5) {
+						distanceScale = Math.abs(distanceScale) % 5;
+					}
+					eventDistance.put(event.getEventId(), distanceScale);
+				}
+				rules.addAll(ContextualEventRequestRewriter.getInstance()
+						.getRankingEventData(ceRequest2, eventDistance,
+								e.getName()));
+
+			} else if (e.getName().equals(RankingElementName.EVENT_LEVEL)) {
+				/*
+				 * TODO: get interval of event level
+				 */
+				final long[] eventLevelInterval = { 1, 3 };
+				for (final CityEvent event : cityEvents) {
+					final int eventLevelScale = scaling(event.getEventLevel(),
+							eventLevelInterval, this.scale);
+					eventLevel.put(event.getEventId(), eventLevelScale);
+				}
+				rules.addAll(ContextualEventRequestRewriter.getInstance()
+						.getRankingEventData(ceRequest2, eventLevel,
+								e.getName()));
+			}
+
+		}
+		return rules;
+	}
+
+	/**
+	 *
+	 * @param x
+	 * @param from
+	 * @param to
+	 * @return
+	 */
+	public int scaling(long x, long[] from, int[] to) {
+		return (int) Math
+				.round((to[0] + ((double) (x - from[0]) * (to[1] - to[0]))
+				/ (from[1] - from[0])));
+	}
+
+	/**
+	 * @param userCoor
+	 */
+	public void receiveUserGPSCoordinate(Coordinate userCoor) {
+		/*
+		 * update Place of user Activity
+		 */
+		this.userContext.getActivity().setActivityPlace(new Point(userCoor));
+	}
+
+}

@@ -1,0 +1,41 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
+import org.insight_centre.urq.citypulse.wp5.contextual_filter.data.UserStatus;
+import org.insight_centre.urq.citypulse.wp5.contextual_filter.engine.ContextualFilter;
+
+
+
+
+public class UserStatusStream extends Thread {
+	
+	public static Logger logger = Logger.getLogger(UserStatusStream.class.getName());
+	ContextualFilter cf = new ContextualFilter();
+	List<UserStatus> uss = new ArrayList<UserStatus>();
+
+	public UserStatusStream(ContextualFilter cf, List<UserStatus> uss) {
+		super();
+		this.cf = cf;
+		this.uss = uss;
+	}
+
+	@Override
+	public void run() {
+		logger.info("START UserLocationStream:" + this.getId());
+		for(UserStatus us: uss){
+			logger.info(us.toString());
+			cf.receiveUserStatus(us);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+}

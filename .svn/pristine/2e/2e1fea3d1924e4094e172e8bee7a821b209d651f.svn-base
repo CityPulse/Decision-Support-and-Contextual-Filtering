@@ -1,0 +1,62 @@
+package org.insight_centre.urq.citypulse.wp5.aspjavamanager.data;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/*
+ * This class defines a formula in Asp
+ */
+
+public class Formula implements Cloneable{
+	
+	final static Logger logger = LoggerFactory.getLogger(Formula.class);
+	private String formula = "";  
+
+	public Formula() {
+		super();
+	}
+
+	public Formula(String formula) {
+		this.formula = formula;
+	}
+	
+	public Formula(Formula f) throws CloneNotSupportedException {
+		this.formula = f.formula;
+	}
+
+	public boolean equals(Formula obj) {
+		if(this.formula.compareTo(obj.formula)==0) return true;
+		return false;
+	}
+
+	@Override
+	public Formula clone() throws CloneNotSupportedException {
+		Formula cloned =(Formula) super.clone();
+		return cloned;
+	}
+
+	public String getF() {
+		return formula;
+	}
+
+	public void setF(String f) {
+		this.formula = f;
+	}
+
+	@Override
+	public String toString() {
+		if(this.formula.compareTo("")==0) return this.formula;
+		else return formula + ".\n";
+	}
+	
+	public void print(){
+		logger.info(this.formula);
+	}
+	
+	public Formula negative(){
+		Formula temp = new Formula();
+		temp.formula = "-"+this.formula;
+		return temp;
+	}
+
+}

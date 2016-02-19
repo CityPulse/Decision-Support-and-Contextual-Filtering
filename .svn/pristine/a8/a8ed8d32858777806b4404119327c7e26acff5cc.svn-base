@@ -1,0 +1,42 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.ConsumerCancelledException;
+import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.ShutdownSignalException;
+
+public class testRabbitMQ {
+
+	public static void main(String[] args) throws IOException, ShutdownSignalException, ConsumerCancelledException, InterruptedException {
+		List<String> topics = new ArrayList<String>();
+		topics.add("");
+		
+		ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("amqp://guest:guest@140.203.155.76:8009");
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
+        QueueingConsumer consumer = new QueueingConsumer(channel);
+
+        for(int i = 1; i< topics.size(); i ++){
+//        	 String EXCHANGE_NAME = "name" + i;
+//             channel.exchangeDeclare(EXCHANGE_NAME, "direct");
+//             String queueName = channel.queueDeclare().getQueue();
+//             channel.queueBind(queueName, EXCHANGE_NAME, "");
+             channel.basicConsume(topics.get(i),consumer);
+        }
+
+        while (true) {
+            QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+            String message = new String(delivery.getBody());
+
+            System.out.println(" [x] Received '" + message + "'");
+        }
+	}
+
+}

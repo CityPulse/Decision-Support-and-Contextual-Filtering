@@ -1,0 +1,95 @@
+package org.insight_centre.urq.citypulse.wp5.contextual_filter.test;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang.SerializationUtils;
+
+import com.rabbitmq.client.AMQP.BasicProperties;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Consumer;
+import com.rabbitmq.client.ConsumerCancelledException;
+import com.rabbitmq.client.Envelope;
+import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.ShutdownSignalException;
+
+
+/**
+ * The endpoint that consumes messages off of the queue. Happens to be runnable.
+ * @author syntx
+ *
+ */
+public class QueueConsumer implements Runnable ,Consumer{
+	
+	Channel channel;
+	String[] exchanges;
+	
+	public QueueConsumer(String[] exchanges) throws IOException{
+		this.exchanges = exchanges;
+		//Create a connection factory
+        ConnectionFactory factory = new ConnectionFactory();
+	    
+        //hostname of your rabbitmq server
+        factory.setHost("localhost");
+		
+        //getting a connection
+        Connection connection = factory.newConnection();
+	    
+        //creating a channel
+        channel = connection.createChannel();
+	    
+        //declaring a queue for this channel. If queue does not exist,
+        //it will be created on the server.
+//        for(int i = 0; i< exchanges.length; i++){
+//        	channel.exchangeDeclare(exchanges[i], "direct");
+//        }
+	}
+	
+	public void run() {
+		try {
+//			QueueingConsumer consumer = new QueueingConsumer(channel);
+			//start consuming messages. Auto acknowledge messages.
+			channel.exchangeDeclare("ioana", "direct");
+			for(int i = 0; i< exchanges.length; i++){
+				
+//				String queueName = channel.queueDeclare().getQueue();
+				channel.basicConsume(exchanges[i], this);
+				break;
+
+	        }
+//			while (true) {
+//	            QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+//	            String message = new String(delivery.getBody());
+//
+//	            System.out.println(" [x] Received '" + message + "'");
+//	        }
+			
+		} catch (IOException | ShutdownSignalException | ConsumerCancelledException  e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Called when consumer is registered.
+	 */
+	public void handleConsumeOk(String consumerTag) {
+		System.out.println("Consumer "+consumerTag +" registered");		
+	}
+
+	/**
+	 * Called when new message is available.
+	 */
+	public void handleDelivery(String consumerTag, Envelope env,
+			BasicProperties props, byte[] body) throws IOException {
+	    System.out.println("Received Message"+ body);
+		
+	}
+
+	public void handleCancel(String consumerTag) {}
+	public void handleCancelOk(String consumerTag) {}
+	public void handleRecoverOk(String consumerTag) {}
+	public void handleShutdownSignal(String consumerTag, ShutdownSignalException arg1) {}
+}

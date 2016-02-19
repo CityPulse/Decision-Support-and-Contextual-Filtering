@@ -1,0 +1,259 @@
+/**
+ *
+ */
+package org.insight_centre.urq.citypulse.graph_updater;
+
+import java.io.IOException;
+import java.net.URI;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
+
+import javax.websocket.ClientEndpointConfig;
+import javax.websocket.Endpoint;
+import javax.websocket.EndpointConfig;
+import javax.websocket.MessageHandler;
+import javax.websocket.Session;
+
+import org.glassfish.tyrus.client.ClientManager;
+import org.insight_centre.urq.citypulse.wp5.Configuration;
+
+import citypulse.commons.contextual_events_request.ContextualEvent;
+
+import com.google.gson.Gson;
+import com.rabbitmq.client.AMQP.BasicProperties;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Consumer;
+import com.rabbitmq.client.Envelope;
+import com.rabbitmq.client.ShutdownSignalException;
+
+/**
+ * @author Thu-Le Pham
+ * @date 27 Oct 2015
+ */
+public class GraphUpdateConsumer implements Consumer {
+	public static Logger logger = Logger.getLogger(GraphUpdateConsumer.class
+			.getPackage().getName());
+
+	/**
+	 *
+	 */
+	List<String> eventTypes;
+
+	/**
+	 *
+	 */
+	Connection connection;
+
+	/**
+	 *
+	 */
+	Channel channel;
+
+	/**
+	 *
+	 */
+	List<String[]> exchangeTopics;
+
+	/**
+	 *
+	 */
+	private static String SENT_MESSAGE;
+
+	/**
+	 *
+	 */
+	private static CountDownLatch messageLatch;
+
+	/**
+	 *
+	 * @param exchangeTopics
+	 */
+	public GraphUpdateConsumer(List<String[]> exchangeTopics,
+			List<String> eventTypes) {
+		super();
+		this.exchangeTopics = exchangeTopics;
+		this.eventTypes = eventTypes;
+
+		// Create a connection factoryßß
+		final ConnectionFactory factory = new ConnectionFactory();
+
+		// Replace with the correct connection uri
+		// final String uri = Configuration.getInstance().getEventRabbitURI();
+
+		// final String uri = "amqp://guest:guest@127.0.0.1:5672";
+		final String uri = Configuration.getInstance().getEventRabbitURI();
+		try {
+			factory.setUri(uri);
+			// factory.setHost("localhost");
+			// getting a connection
+			connection = factory.newConnection();
+
+			// creating a channel
+			channel = connection.createChannel();
+			logger.info("Consumer opened a connection");
+
+			final String queueName = channel.queueDeclare().getQueue();
+			// channel.queueBind(queueName, "events",
+			// "31dd6e16-c272-564f-a744-1da1f0011ca6");
+			// channel.basicConsume(queueName, true, this);
+
+			for (int i = 0; i < this.exchangeTopics.size(); i++) {
+				final String[] temp = this.exchangeTopics.get(i);
+				final String exchange = temp[0];
+				final String topic = temp[1];
+				logger.info("exchange topics = "
+						+ this.exchangeTopics.get(i)[0] + "--"
+						+ this.exchangeTopics.get(i)[1]);
+				channel.queueBind(queueName, exchange, topic);
+			}
+			channel.basicConsume(queueName, true, this);
+			logger.info("Start consumming city events");
+		} catch (final Exception e) {
+			logger.severe("Error connecting to MQ Server." + e.toString());
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see com.rabbitmq.client.Consumer#handleConsumeOk(java.lang.String)
+	 */
+	@Override
+	public void handleConsumeOk(String consumerTag) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see com.rabbitmq.client.Consumer#handleCancelOk(java.lang.String)
+	 */
+	@Override
+	public void handleCancelOk(String consumerTag) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see com.rabbitmq.client.Consumer#handleCancel(java.lang.String)
+	 */
+	@Override
+	public void handleCancel(String consumerTag) throws IOException {
+		// TODO Auto-generated method stub
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see com.rabbitmq.client.Consumer#handleDelivery(java.lang.String,
+	 * com.rabbitmq.client.Envelope, com.rabbitmq.client.AMQP.BasicProperties,
+	 * byte[])
+	 */
+	@Override
+	public void handleDelivery(String arg0, Envelope arg1,
+			BasicProperties arg2, byte[] body) throws IOException {
+		final String msgBody = new String(body);
+		logger.info("Received message  = " + msgBody + "\n");
+
+		/*
+		 * FIX: change to annotated event
+		 */
+		final ContextualEvent event = this.parse(msgBody);
+
+		/*
+		 * TODO: check if this event is in eventTypes?
+		 */
+		if (this.eventTypes.contains(event.getCeType())) {
+			final StringBuilder request = new StringBuilder();
+			request.append("updateCostCircular(")
+					.append(event.getCeCoordinate().getLongitude()).append(",")
+					.append(event.getCeCoordinate().getLatitude()).append(",")
+					.append("time").append(",").append(100).append(",")
+					.append(event.getCeLevel() + 1).append(")");
+			try {
+				SENT_MESSAGE = request.toString();
+				logger.info("SENT_MESSAGE = " + SENT_MESSAGE);
+				messageLatch = new CountDownLatch(1);
+
+				final ClientEndpointConfig cec = ClientEndpointConfig.Builder
+						.create().build();
+
+				final ClientManager client = ClientManager.createClient();
+				client.connectToServer(new Endpoint() {
+
+					@Override
+					public void onOpen(final Session session,
+							final EndpointConfig config) {
+						try {
+							session.addMessageHandler(new MessageHandler.Whole<String>() {
+								@Override
+								public void onMessage(final String message) {
+									System.out.println("Received message: "
+											+ message);
+
+									messageLatch.countDown();
+								}
+							});
+							session.getBasicRemote().sendText(SENT_MESSAGE);
+						} catch (final IOException e) {
+							e.printStackTrace();
+						}
+					}
+					// }, cec, new URI("ws://" + "131.227.92.55" + ":"
+				}, cec, new URI("ws://pcsd-118.et.hs-osnabrueck.de:7686"));
+				messageLatch.await(100, TimeUnit.SECONDS);
+			} catch (final Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 *
+	 * @param message
+	 * @return
+	 */
+	// public CityEvent parse(String message) {
+	// final GsonBuilder builder = new GsonBuilder();
+	// builder.registerTypeAdapter(Place.class, new PlaceAdapter());
+	// final Gson gson = builder.create();
+	// return gson.fromJson(message, CityEvent.class);
+	// }
+
+	public ContextualEvent parse(String message) {
+		return new Gson().fromJson(message, ContextualEvent.class);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see com.rabbitmq.client.Consumer#handleShutdownSignal(java.lang.String,
+	 * com.rabbitmq.client.ShutdownSignalException)
+	 */
+	@Override
+	public void handleShutdownSignal(String consumerTag,
+			ShutdownSignalException sig) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see com.rabbitmq.client.Consumer#handleRecoverOk(java.lang.String)
+	 */
+	@Override
+	public void handleRecoverOk(String consumerTag) {
+		// TODO Auto-generated method stub
+
+	}
+}
