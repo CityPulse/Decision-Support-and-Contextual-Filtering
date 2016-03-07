@@ -45,6 +45,7 @@ public class ApplicationClient implements Runnable{
 		            // open websocket
 			final URI uri = new URI(
 					"ws://131.227.92.55:8005/websockets/contextual_events_request");
+			// "ws://localhost:8005/websockets/contextual_events_request");
 			final ClientEndPoint clientEndPoint = new ClientEndPoint(uri);
 		            // add listener
 			clientEndPoint

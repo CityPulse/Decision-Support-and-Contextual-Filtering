@@ -138,7 +138,7 @@ public class ContextualEventFilter {
 
 	/**
 	 * This method starts the ContextualEventFilter
-	 * 
+	 *
 	 * @param contextualEventRequest
 	 * @return
 	 */
@@ -218,7 +218,10 @@ public class ContextualEventFilter {
 			 * Change "127.0.0.1" to "localhost" when runing on VM
 			 */
 			// cgi = new CpGdiInterface("127.0.0.1", 5432);
-			cgi = new CpGdiInterface("localhost", 5432);
+			// cgi = new CpGdiInterface("localhost", 5432);
+			final String uri = Configuration.getInstance().getGDI_URI();
+			final String[] temp = uri.split(":");
+			cgi = new CpGdiInterface(temp[0], Integer.parseInt(temp[1]));
 
 			final String WKTString = fromCoordinatesToWKT(place);
 			CpGdiPersistable[] events;

@@ -1,0 +1,1028 @@
+Mar 07, 2016 6:18:25 PM org.insight_centre.urq.citypulse.wp5.request_handler.RHManager startRH
+INFO: started org.insight_centre.urq.citypulse.wp5.request_handler.RHManager
+Mar 07, 2016 6:18:25 PM org.glassfish.grizzly.http.server.NetworkListener start
+INFO: Started listener bound to [0.0.0.0:8005]
+Mar 07, 2016 6:18:25 PM org.glassfish.grizzly.http.server.HttpServer start
+INFO: [HttpServer] Started.
+Mar 07, 2016 6:18:25 PM org.glassfish.tyrus.server.Server start
+INFO: WebSocket Registered apps: URLs all start with ws://localhost:8005
+Mar 07, 2016 6:18:25 PM org.glassfish.tyrus.server.Server start
+INFO: WebSocket server started.
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.mockup.ContextualEventsRequestEndpointMockup onOpen
+INFO: Connected ... 52f14ecf-6b6f-47d7-a99f-69d6260c531b
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.mockup.ContextualEventsRequestEndpointMockup onMessage
+INFO: Received message: {"messageType":"ContextualEventRequest","place":"{\"route\":[{\"longitude\":10.1623157,\"latitude\":56.1255986},{\"longitude\":10.163674,\"latitude\":56.1257392},{\"longitude\":10.1648926,\"latitude\":56.1259745},{\"longitude\":10.1649785,\"latitude\":56.1260183},{\"longitude\":10.1659877,\"latitude\":56.1265321},{\"longitude\":10.1667876,\"latitude\":56.1269899},{\"longitude\":10.1664872,\"latitude\":56.1274546},{\"longitude\":10.1680688,\"latitude\":56.1270312},{\"longitude\":10.1687611,\"latitude\":56.1268583},{\"longitude\":10.169171,\"latitude\":56.1280002},{\"longitude\":10.1701392,\"latitude\":56.1280036},{\"longitude\":10.1706845,\"latitude\":56.1287719},{\"longitude\":10.1708522,\"latitude\":56.1290057},{\"longitude\":10.1709339,\"latitude\":56.1291196},{\"longitude\":10.1710357,\"latitude\":56.1292615},{\"longitude\":10.1711181,\"latitude\":56.1293795},{\"longitude\":10.1712182,\"latitude\":56.1295228},{\"longitude\":10.1713034,\"latitude\":56.1296363},{\"longitude\":10.1714967,\"latitude\":56.1298938},{\"longitude\":10.1716635,\"latitude\":56.130116},{\"longitude\":10.1717003,\"latitude\":56.1301651},{\"longitude\":10.1724466,\"latitude\":56.1302276},{\"longitude\":10.1734171,\"latitude\":56.1303089},{\"longitude\":10.1739437,\"latitude\":56.130353},{\"longitude\":10.1750285,\"latitude\":56.1304511},{\"longitude\":10.1757625,\"latitude\":56.1305391},{\"longitude\":10.1760584,\"latitude\":56.1314945},{\"longitude\":10.1765951,\"latitude\":56.1324928},{\"longitude\":10.1770879,\"latitude\":56.1332968},{\"longitude\":10.1774228,\"latitude\":56.1337936},{\"longitude\":10.1778754,\"latitude\":56.1343193},{\"longitude\":10.1788332,\"latitude\":56.1352302},{\"longitude\":10.1787232,\"latitude\":56.1353641},{\"longitude\":10.1785277,\"latitude\":56.135602},{\"longitude\":10.1797614,\"latitude\":56.1359362},{\"longitude\":10.1808126,\"latitude\":56.1362051},{\"longitude\":10.1819097,\"latitude\":56.1364859},{\"longitude\":10.1830394,\"latitude\":56.136775},{\"longitude\":10.184218,\"latitude\":56.1371259},{\"longitude\":10.1848032,\"latitude\":56.137402},{\"longitude\":10.185207,\"latitude\":56.1376894},{\"longitude\":10.1853625,\"latitude\":56.1378001},{\"longitude\":10.1858126,\"latitude\":56.1383191},{\"longitude\":10.1859827,\"latitude\":56.1386548},{\"longitude\":10.1860512,\"latitude\":56.1388292},{\"longitude\":10.1861597,\"latitude\":56.1394677},{\"longitude\":10.1861486,\"latitude\":56.1395886},{\"longitude\":10.1861127,\"latitude\":56.1399781},{\"longitude\":10.1860186,\"latitude\":56.1404863},{\"longitude\":10.1859296,\"latitude\":56.1408449},{\"longitude\":10.1857859,\"latitude\":56.1411957},{\"longitude\":10.1856455,\"latitude\":56.1414742},{\"longitude\":10.1854795,\"latitude\":56.1416678},{\"longitude\":10.1862335,\"latitude\":56.1421237},{\"longitude\":10.1866438,\"latitude\":56.1423897},{\"longitude\":10.1870785,\"latitude\":56.1426346},{\"longitude\":10.1871193,\"latitude\":56.1426593},{\"longitude\":10.1880845,\"latitude\":56.1431902},{\"longitude\":10.1892596,\"latitude\":56.1438366},{\"longitude\":10.1894761,\"latitude\":56.1439424},{\"longitude\":10.1904061,\"latitude\":56.1444541},{\"longitude\":10.1920869,\"latitude\":56.1453129},{\"longitude\":10.1929834,\"latitude\":56.1457495},{\"longitude\":10.1934146,\"latitude\":56.1460553},{\"longitude\":10.1938108,\"latitude\":56.1462669},{\"longitude\":10.1944686,\"latitude\":56.1466616},{\"longitude\":10.1950546,\"latitude\":56.1470536},{\"longitude\":10.1957314,\"latitude\":56.1475456},{\"longitude\":10.1965862,\"latitude\":56.148167},{\"longitude\":10.1974235,\"latitude\":56.1488124},{\"longitude\":10.197586,\"latitude\":56.1489402},{\"longitude\":10.1984249,\"latitude\":56.1496566},{\"longitude\":10.1988545,\"latitude\":56.1500464},{\"longitude\":10.1994866,\"latitude\":56.1505821},{\"longitude\":10.200022,\"latitude\":56.1510493},{\"longitude\":10.2008241,\"latitude\":56.1517634},{\"longitude\":10.201734,\"latitude\":56.1525879},{\"longitude\":10.2018471,\"latitude\":56.1526912},{\"longitude\":10.2021379,\"latitude\":56.1529535},{\"longitude\":10.2024922,\"latitude\":56.1533055},{\"longitude\":10.2011487,\"latitude\":56.153678},{\"longitude\":10.201936,\"latitude\":56.1543818},{\"longitude\":10.2027887,\"latitude\":56.1550757},{\"longitude\":10.2035994,\"latitude\":56.1559232},{\"longitude\":10.2035622,\"latitude\":56.1559952},{\"longitude\":10.2035,\"latitude\":56.1561275},{\"longitude\":10.2034842,\"latitude\":56.1561463},{\"longitude\":10.2031663,\"latitude\":56.1567352},{\"longitude\":10.2031072,\"latitude\":56.1568315},{\"longitude\":10.202907,\"latitude\":56.1575819},{\"longitude\":10.2027759,\"latitude\":56.1580784},{\"longitude\":10.2026574,\"latitude\":56.1584308},{\"longitude\":10.2037332,\"latitude\":56.1587142},{\"longitude\":10.2040944,\"latitude\":56.1588093},{\"longitude\":10.2043227,\"latitude\":56.158856},{\"longitude\":10.2041303,\"latitude\":56.1598925},{\"longitude\":10.203849,\"latitude\":56.1604717},{\"longitude\":10.2036215,\"latitude\":56.1610168},{\"longitude\":10.203491,\"latitude\":56.1613158},{\"longitude\":10.2033525,\"latitude\":56.1616331},{\"longitude\":10.2030403,\"latitude\":56.1621053},{\"longitude\":10.2028219,\"latitude\":56.1623841},{\"longitude\":10.2027103,\"latitude\":56.1625122},{\"longitude\":10.2025592,\"latitude\":56.1626964},{\"longitude\":10.2023967,\"latitude\":56.1628792},{\"longitude\":10.2020437,\"latitude\":56.1632132},{\"longitude\":10.2012686,\"latitude\":56.1639994},{\"longitude\":10.2004223,\"latitude\":56.1648281},{\"longitude\":10.2003762,\"latitude\":56.1648783},{\"longitude\":10.2003358,\"latitude\":56.1649309},{\"longitude\":10.2001617,\"latitude\":56.1650306},{\"longitude\":10.1995596,\"latitude\":56.1655192},{\"longitude\":10.1995139,\"latitude\":56.1655597},{\"longitude\":10.1989615,\"latitude\":56.1660496},{\"longitude\":10.1985531,\"latitude\":56.1663768},{\"longitude\":10.1983111,\"latitude\":56.1665834},{\"longitude\":10.1982187,\"latitude\":56.1666353},{\"longitude\":10.1982755,\"latitude\":56.166685},{\"longitude\":10.1978351,\"latitude\":56.167046},{\"longitude\":10.1977201,\"latitude\":56.1671395},{\"longitude\":10.1978855,\"latitude\":56.1679299},{\"longitude\":10.1979123,\"latitude\":56.1680441},{\"longitude\":10.1981355,\"latitude\":56.1690609},{\"longitude\":10.1982286,\"latitude\":56.1694494},{\"longitude\":10.1983588,\"latitude\":56.1699713},{\"longitude\":10.1984916,\"latitude\":56.1705209},{\"longitude\":10.1985372,\"latitude\":56.1707096},{\"longitude\":10.1987549,\"latitude\":56.1712316},{\"longitude\":10.1993527,\"latitude\":56.1719437},{\"longitude\":10.1997568,\"latitude\":56.1723068},{\"longitude\":10.1996992,\"latitude\":56.1723339},{\"longitude\":10.1995613,\"latitude\":56.1726295},{\"longitude\":10.1995675,\"latitude\":56.17265},{\"longitude\":10.199766,\"latitude\":56.1732618},{\"longitude\":10.1997915,\"latitude\":56.173335},{\"longitude\":10.2000089,\"latitude\":56.1740576},{\"longitude\":10.2002122,\"latitude\":56.1746959},{\"longitude\":10.200237,\"latitude\":56.1747529},{\"longitude\":10.2002655,\"latitude\":56.1748186},{\"longitude\":10.2005443,\"latitude\":56.1754552},{\"longitude\":10.1998289,\"latitude\":56.1766362},{\"longitude\":10.1998387,\"latitude\":56.1767297},{\"longitude\":10.1998734,\"latitude\":56.1769232},{\"longitude\":10.199895,\"latitude\":56.1769869},{\"longitude\":10.1997941,\"latitude\":56.1774701},{\"longitude\":10.1998466,\"latitude\":56.1777438},{\"longitude\":10.1998623,\"latitude\":56.1779084},{\"longitude\":10.1997759,\"latitude\":56.1783021},{\"longitude\":10.1999791,\"latitude\":56.1783053},{\"longitude\":10.1988902,\"latitude\":56.1799018},{\"longitude\":10.1972997,\"latitude\":56.1821988},{\"longitude\":10.1972195,\"latitude\":56.1823344},{\"longitude\":10.1972999,\"latitude\":56.1824297},{\"longitude\":10.1971904,\"latitude\":56.1825858},{\"longitude\":10.1970405,\"latitude\":56.1826217},{\"longitude\":10.1965925,\"latitude\":56.1832897},{\"longitude\":10.1963058,\"latitude\":56.1837172},{\"longitude\":10.1959417,\"latitude\":56.184252},{\"longitude\":10.1957736,\"latitude\":56.18448},{\"longitude\":10.1955903,\"latitude\":56.1847414},{\"longitude\":10.194263,\"latitude\":56.1866192},{\"longitude\":10.1941577,\"latitude\":56.1867649},{\"longitude\":10.1893877,\"latitude\":56.1905217},{\"longitude\":10.1870531,\"latitude\":56.1928382},{\"longitude\":10.1870032,\"latitude\":56.1929018},{\"longitude\":10.186947,\"latitude\":56.1929767},{\"longitude\":10.1868728,\"latitude\":56.1930743},{\"longitude\":10.1869709,\"latitude\":56.1931117},{\"longitude\":10.1869552,\"latitude\":56.1931319},{\"longitude\":10.181442,\"latitude\":56.2001951},{\"longitude\":10.1808072,\"latitude\":56.2009317},{\"longitude\":10.1792707,\"latitude\":56.2019558},{\"longitude\":10.1737178,\"latitude\":56.2047239},{\"longitude\":10.1684539,\"latitude\":56.2066108},{\"longitude\":10.1620583,\"latitude\":56.2082155},{\"longitude\":10.1553929,\"latitude\":56.2101914},{\"longitude\":10.1551788,\"latitude\":56.2100419},{\"longitude\":10.1550606,\"latitude\":56.2100706},{\"longitude\":10.1438668,\"latitude\":56.213459},{\"longitude\":10.1442042,\"latitude\":56.2136402}],\"length\":13188,\"type\":\"ROUTE\",\"placeId\":\"0\"}","filteringFactors":[{"name":"EVENT_SOURCE","values":[{"value":"SOCIAL_NETWORK"},{"value":"SENSOR"}]},{"name":"ACTIVITY","values":[{"value":"BikeCommute"},{"value":"CarCommute"}]},{"name":"EVENT_CATEGORY","values":[{"value":"http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam"},{"value":"http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking"}]}],"rankingFactor":{"type":"LINEAR","rankingElements":[{"name":"EVENT_LEVEL","value":{"value":30}},{"name":"DISTANCE","value":{"value":70}}]}}
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.mockup.ContextualEventsRequestEndpointMockup parse
+INFO: After parsing = ContextualEventRequest [place=Route [type=ROUTE, placeId=0, route=[10.1623157 56.1255986, 10.163674 56.1257392, 10.1648926 56.1259745, 10.1649785 56.1260183, 10.1659877 56.1265321, 10.1667876 56.1269899, 10.1664872 56.1274546, 10.1680688 56.1270312, 10.1687611 56.1268583, 10.169171 56.1280002, 10.1701392 56.1280036, 10.1706845 56.1287719, 10.1708522 56.1290057, 10.1709339 56.1291196, 10.1710357 56.1292615, 10.1711181 56.1293795, 10.1712182 56.1295228, 10.1713034 56.1296363, 10.1714967 56.1298938, 10.1716635 56.130116, 10.1717003 56.1301651, 10.1724466 56.1302276, 10.1734171 56.1303089, 10.1739437 56.130353, 10.1750285 56.1304511, 10.1757625 56.1305391, 10.1760584 56.1314945, 10.1765951 56.1324928, 10.1770879 56.1332968, 10.1774228 56.1337936, 10.1778754 56.1343193, 10.1788332 56.1352302, 10.1787232 56.1353641, 10.1785277 56.135602, 10.1797614 56.1359362, 10.1808126 56.1362051, 10.1819097 56.1364859, 10.1830394 56.136775, 10.184218 56.1371259, 10.1848032 56.137402, 10.185207 56.1376894, 10.1853625 56.1378001, 10.1858126 56.1383191, 10.1859827 56.1386548, 10.1860512 56.1388292, 10.1861597 56.1394677, 10.1861486 56.1395886, 10.1861127 56.1399781, 10.1860186 56.1404863, 10.1859296 56.1408449, 10.1857859 56.1411957, 10.1856455 56.1414742, 10.1854795 56.1416678, 10.1862335 56.1421237, 10.1866438 56.1423897, 10.1870785 56.1426346, 10.1871193 56.1426593, 10.1880845 56.1431902, 10.1892596 56.1438366, 10.1894761 56.1439424, 10.1904061 56.1444541, 10.1920869 56.1453129, 10.1929834 56.1457495, 10.1934146 56.1460553, 10.1938108 56.1462669, 10.1944686 56.1466616, 10.1950546 56.1470536, 10.1957314 56.1475456, 10.1965862 56.148167, 10.1974235 56.1488124, 10.197586 56.1489402, 10.1984249 56.1496566, 10.1988545 56.1500464, 10.1994866 56.1505821, 10.200022 56.1510493, 10.2008241 56.1517634, 10.201734 56.1525879, 10.2018471 56.1526912, 10.2021379 56.1529535, 10.2024922 56.1533055, 10.2011487 56.153678, 10.201936 56.1543818, 10.2027887 56.1550757, 10.2035994 56.1559232, 10.2035622 56.1559952, 10.2035 56.1561275, 10.2034842 56.1561463, 10.2031663 56.1567352, 10.2031072 56.1568315, 10.202907 56.1575819, 10.2027759 56.1580784, 10.2026574 56.1584308, 10.2037332 56.1587142, 10.2040944 56.1588093, 10.2043227 56.158856, 10.2041303 56.1598925, 10.203849 56.1604717, 10.2036215 56.1610168, 10.203491 56.1613158, 10.2033525 56.1616331, 10.2030403 56.1621053, 10.2028219 56.1623841, 10.2027103 56.1625122, 10.2025592 56.1626964, 10.2023967 56.1628792, 10.2020437 56.1632132, 10.2012686 56.1639994, 10.2004223 56.1648281, 10.2003762 56.1648783, 10.2003358 56.1649309, 10.2001617 56.1650306, 10.1995596 56.1655192, 10.1995139 56.1655597, 10.1989615 56.1660496, 10.1985531 56.1663768, 10.1983111 56.1665834, 10.1982187 56.1666353, 10.1982755 56.166685, 10.1978351 56.167046, 10.1977201 56.1671395, 10.1978855 56.1679299, 10.1979123 56.1680441, 10.1981355 56.1690609, 10.1982286 56.1694494, 10.1983588 56.1699713, 10.1984916 56.1705209, 10.1985372 56.1707096, 10.1987549 56.1712316, 10.1993527 56.1719437, 10.1997568 56.1723068, 10.1996992 56.1723339, 10.1995613 56.1726295, 10.1995675 56.17265, 10.199766 56.1732618, 10.1997915 56.173335, 10.2000089 56.1740576, 10.2002122 56.1746959, 10.200237 56.1747529, 10.2002655 56.1748186, 10.2005443 56.1754552, 10.1998289 56.1766362, 10.1998387 56.1767297, 10.1998734 56.1769232, 10.199895 56.1769869, 10.1997941 56.1774701, 10.1998466 56.1777438, 10.1998623 56.1779084, 10.1997759 56.1783021, 10.1999791 56.1783053, 10.1988902 56.1799018, 10.1972997 56.1821988, 10.1972195 56.1823344, 10.1972999 56.1824297, 10.1971904 56.1825858, 10.1970405 56.1826217, 10.1965925 56.1832897, 10.1963058 56.1837172, 10.1959417 56.184252, 10.1957736 56.18448, 10.1955903 56.1847414, 10.194263 56.1866192, 10.1941577 56.1867649, 10.1893877 56.1905217, 10.1870531 56.1928382, 10.1870032 56.1929018, 10.186947 56.1929767, 10.1868728 56.1930743, 10.1869709 56.1931117, 10.1869552 56.1931319, 10.181442 56.2001951, 10.1808072 56.2009317, 10.1792707 56.2019558, 10.1737178 56.2047239, 10.1684539 56.2066108, 10.1620583 56.2082155, 10.1553929 56.2101914, 10.1551788 56.2100419, 10.1550606 56.2100706, 10.1438668 56.213459, 10.1442042 56.2136402], length=13188], filteringFactors=[FilteringFactor [name=EVENT_SOURCE, values=[FilteringFactorValue [value=SOCIAL_NETWORK], FilteringFactorValue [value=SENSOR]]], FilteringFactor [name=ACTIVITY, values=[FilteringFactorValue [value=BikeCommute], FilteringFactorValue [value=CarCommute]]], FilteringFactor [name=EVENT_CATEGORY, values=[FilteringFactorValue [value=http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam], FilteringFactorValue [value=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking]]]], rankingFactor=RankingFactor [type=LINEAR, rankingElements=[RankingElement [name=EVENT_LEVEL, value=RankingElementValue [value=30]], RankingElement [name=DISTANCE, value=RankingElementValue [value=70]]]]]
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter startCEF
+INFO: Start ContextualEventFiltering....
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventRequestRewriter getFilteringFactors
+INFO: eventSourceValues = [FilteringFactorValue [value=SOCIAL_NETWORK], FilteringFactorValue [value=SENSOR]]
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventRequestRewriter getFilteringFactors
+INFO: activityValues = [FilteringFactorValue [value=http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam], FilteringFactorValue [value=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking]]
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventRequestRewriter getFilteringFactors
+INFO: eventCategoryValues = [FilteringFactorValue [value=http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam], FilteringFactorValue [value=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking]]
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventRequestRewriter getFilteringFactors
+INFO: categoryValues = [FilteringFactorValue [value=http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam], FilteringFactorValue [value=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking]]
+Event_Streams on Route:
+select event_uuid as event_uuid , event_topic as event_topic, st_centroid(geom)::Point  as centroid from cp_event_stream where  st_intersects(geom, ST_Transform(ST_BUFFER(ST_Transform('SRID=4326;LINESTRING(10.1623157 56.1255986,10.163674 56.1257392,10.1648926 56.1259745,10.1649785 56.1260183,10.1659877 56.1265321,10.1667876 56.1269899,10.1664872 56.1274546,10.1680688 56.1270312,10.1687611 56.1268583,10.169171 56.1280002,10.1701392 56.1280036,10.1706845 56.1287719,10.1708522 56.1290057,10.1709339 56.1291196,10.1710357 56.1292615,10.1711181 56.1293795,10.1712182 56.1295228,10.1713034 56.1296363,10.1714967 56.1298938,10.1716635 56.130116,10.1717003 56.1301651,10.1724466 56.1302276,10.1734171 56.1303089,10.1739437 56.130353,10.1750285 56.1304511,10.1757625 56.1305391,10.1760584 56.1314945,10.1765951 56.1324928,10.1770879 56.1332968,10.1774228 56.1337936,10.1778754 56.1343193,10.1788332 56.1352302,10.1787232 56.1353641,10.1785277 56.135602,10.1797614 56.1359362,10.1808126 56.1362051,10.1819097 56.1364859,10.1830394 56.136775,10.184218 56.1371259,10.1848032 56.137402,10.185207 56.1376894,10.1853625 56.1378001,10.1858126 56.1383191,10.1859827 56.1386548,10.1860512 56.1388292,10.1861597 56.1394677,10.1861486 56.1395886,10.1861127 56.1399781,10.1860186 56.1404863,10.1859296 56.1408449,10.1857859 56.1411957,10.1856455 56.1414742,10.1854795 56.1416678,10.1862335 56.1421237,10.1866438 56.1423897,10.1870785 56.1426346,10.1871193 56.1426593,10.1880845 56.1431902,10.1892596 56.1438366,10.1894761 56.1439424,10.1904061 56.1444541,10.1920869 56.1453129,10.1929834 56.1457495,10.1934146 56.1460553,10.1938108 56.1462669,10.1944686 56.1466616,10.1950546 56.1470536,10.1957314 56.1475456,10.1965862 56.148167,10.1974235 56.1488124,10.197586 56.1489402,10.1984249 56.1496566,10.1988545 56.1500464,10.1994866 56.1505821,10.200022 56.1510493,10.2008241 56.1517634,10.201734 56.1525879,10.2018471 56.1526912,10.2021379 56.1529535,10.2024922 56.1533055,10.2011487 56.153678,10.201936 56.1543818,10.2027887 56.1550757,10.2035994 56.1559232,10.2035622 56.1559952,10.2035 56.1561275,10.2034842 56.1561463,10.2031663 56.1567352,10.2031072 56.1568315,10.202907 56.1575819,10.2027759 56.1580784,10.2026574 56.1584308,10.2037332 56.1587142,10.2040944 56.1588093,10.2043227 56.158856,10.2041303 56.1598925,10.203849 56.1604717,10.2036215 56.1610168,10.203491 56.1613158,10.2033525 56.1616331,10.2030403 56.1621053,10.2028219 56.1623841,10.2027103 56.1625122,10.2025592 56.1626964,10.2023967 56.1628792,10.2020437 56.1632132,10.2012686 56.1639994,10.2004223 56.1648281,10.2003762 56.1648783,10.2003358 56.1649309,10.2001617 56.1650306,10.1995596 56.1655192,10.1995139 56.1655597,10.1989615 56.1660496,10.1985531 56.1663768,10.1983111 56.1665834,10.1982187 56.1666353,10.1982755 56.166685,10.1978351 56.167046,10.1977201 56.1671395,10.1978855 56.1679299,10.1979123 56.1680441,10.1981355 56.1690609,10.1982286 56.1694494,10.1983588 56.1699713,10.1984916 56.1705209,10.1985372 56.1707096,10.1987549 56.1712316,10.1993527 56.1719437,10.1997568 56.1723068,10.1996992 56.1723339,10.1995613 56.1726295,10.1995675 56.17265,10.199766 56.1732618,10.1997915 56.173335,10.2000089 56.1740576,10.2002122 56.1746959,10.200237 56.1747529,10.2002655 56.1748186,10.2005443 56.1754552,10.1998289 56.1766362,10.1998387 56.1767297,10.1998734 56.1769232,10.199895 56.1769869,10.1997941 56.1774701,10.1998466 56.1777438,10.1998623 56.1779084,10.1997759 56.1783021,10.1999791 56.1783053,10.1988902 56.1799018,10.1972997 56.1821988,10.1972195 56.1823344,10.1972999 56.1824297,10.1971904 56.1825858,10.1970405 56.1826217,10.1965925 56.1832897,10.1963058 56.1837172,10.1959417 56.184252,10.1957736 56.18448,10.1955903 56.1847414,10.194263 56.1866192,10.1941577 56.1867649,10.1893877 56.1905217,10.1870531 56.1928382,10.1870032 56.1929018,10.186947 56.1929767,10.1868728 56.1930743,10.1869709 56.1931117,10.1869552 56.1931319,10.181442 56.2001951,10.1808072 56.2009317,10.1792707 56.2019558,10.1737178 56.2047239,10.1684539 56.2066108,10.1620583 56.2082155,10.1553929 56.2101914,10.1551788 56.2100419,10.1550606 56.2100706,10.1438668 56.213459,10.1442042 56.2136402)',900913),500.0),4326))
+select event_uuid as event_uuid , event_topic as event_topic, st_centroid(geom)::Point  as centroid from cp_event_stream where  st_intersects(geom, ST_Transform(ST_BUFFER(ST_Transform('SRID=4326;LINESTRING(10.1623157 56.1255986,10.163674 56.1257392,10.1648926 56.1259745,10.1649785 56.1260183,10.1659877 56.1265321,10.1667876 56.1269899,10.1664872 56.1274546,10.1680688 56.1270312,10.1687611 56.1268583,10.169171 56.1280002,10.1701392 56.1280036,10.1706845 56.1287719,10.1708522 56.1290057,10.1709339 56.1291196,10.1710357 56.1292615,10.1711181 56.1293795,10.1712182 56.1295228,10.1713034 56.1296363,10.1714967 56.1298938,10.1716635 56.130116,10.1717003 56.1301651,10.1724466 56.1302276,10.1734171 56.1303089,10.1739437 56.130353,10.1750285 56.1304511,10.1757625 56.1305391,10.1760584 56.1314945,10.1765951 56.1324928,10.1770879 56.1332968,10.1774228 56.1337936,10.1778754 56.1343193,10.1788332 56.1352302,10.1787232 56.1353641,10.1785277 56.135602,10.1797614 56.1359362,10.1808126 56.1362051,10.1819097 56.1364859,10.1830394 56.136775,10.184218 56.1371259,10.1848032 56.137402,10.185207 56.1376894,10.1853625 56.1378001,10.1858126 56.1383191,10.1859827 56.1386548,10.1860512 56.1388292,10.1861597 56.1394677,10.1861486 56.1395886,10.1861127 56.1399781,10.1860186 56.1404863,10.1859296 56.1408449,10.1857859 56.1411957,10.1856455 56.1414742,10.1854795 56.1416678,10.1862335 56.1421237,10.1866438 56.1423897,10.1870785 56.1426346,10.1871193 56.1426593,10.1880845 56.1431902,10.1892596 56.1438366,10.1894761 56.1439424,10.1904061 56.1444541,10.1920869 56.1453129,10.1929834 56.1457495,10.1934146 56.1460553,10.1938108 56.1462669,10.1944686 56.1466616,10.1950546 56.1470536,10.1957314 56.1475456,10.1965862 56.148167,10.1974235 56.1488124,10.197586 56.1489402,10.1984249 56.1496566,10.1988545 56.1500464,10.1994866 56.1505821,10.200022 56.1510493,10.2008241 56.1517634,10.201734 56.1525879,10.2018471 56.1526912,10.2021379 56.1529535,10.2024922 56.1533055,10.2011487 56.153678,10.201936 56.1543818,10.2027887 56.1550757,10.2035994 56.1559232,10.2035622 56.1559952,10.2035 56.1561275,10.2034842 56.1561463,10.2031663 56.1567352,10.2031072 56.1568315,10.202907 56.1575819,10.2027759 56.1580784,10.2026574 56.1584308,10.2037332 56.1587142,10.2040944 56.1588093,10.2043227 56.158856,10.2041303 56.1598925,10.203849 56.1604717,10.2036215 56.1610168,10.203491 56.1613158,10.2033525 56.1616331,10.2030403 56.1621053,10.2028219 56.1623841,10.2027103 56.1625122,10.2025592 56.1626964,10.2023967 56.1628792,10.2020437 56.1632132,10.2012686 56.1639994,10.2004223 56.1648281,10.2003762 56.1648783,10.2003358 56.1649309,10.2001617 56.1650306,10.1995596 56.1655192,10.1995139 56.1655597,10.1989615 56.1660496,10.1985531 56.1663768,10.1983111 56.1665834,10.1982187 56.1666353,10.1982755 56.166685,10.1978351 56.167046,10.1977201 56.1671395,10.1978855 56.1679299,10.1979123 56.1680441,10.1981355 56.1690609,10.1982286 56.1694494,10.1983588 56.1699713,10.1984916 56.1705209,10.1985372 56.1707096,10.1987549 56.1712316,10.1993527 56.1719437,10.1997568 56.1723068,10.1996992 56.1723339,10.1995613 56.1726295,10.1995675 56.17265,10.199766 56.1732618,10.1997915 56.173335,10.2000089 56.1740576,10.2002122 56.1746959,10.200237 56.1747529,10.2002655 56.1748186,10.2005443 56.1754552,10.1998289 56.1766362,10.1998387 56.1767297,10.1998734 56.1769232,10.199895 56.1769869,10.1997941 56.1774701,10.1998466 56.1777438,10.1998623 56.1779084,10.1997759 56.1783021,10.1999791 56.1783053,10.1988902 56.1799018,10.1972997 56.1821988,10.1972195 56.1823344,10.1972999 56.1824297,10.1971904 56.1825858,10.1970405 56.1826217,10.1965925 56.1832897,10.1963058 56.1837172,10.1959417 56.184252,10.1957736 56.18448,10.1955903 56.1847414,10.194263 56.1866192,10.1941577 56.1867649,10.1893877 56.1905217,10.1870531 56.1928382,10.1870032 56.1929018,10.186947 56.1929767,10.1868728 56.1930743,10.1869709 56.1931117,10.1869552 56.1931319,10.181442 56.2001951,10.1808072 56.2009317,10.1792707 56.2019558,10.1737178 56.2047239,10.1684539 56.2066108,10.1620583 56.2082155,10.1553929 56.2101914,10.1551788 56.2100419,10.1550606 56.2100706,10.1438668 56.213459,10.1442042 56.2136402)',900913),500.0),4326))
+12
+CpGdiEventStream [getUuid()=6bb24463-82ce-4f3c-a521-e867ea4e106c, getPropertyDescriptionOrTopic()=bb6c56cd-74f8-553d-be77-fccb3fbc5215]
+(10.194298179150564,56.18303738812003)
+bb6c56cd-74f8-553d-be77-fccb3fbc5215---10.194298179150564 56.18303738812003
+CpGdiEventStream [getUuid()=6867f35f-1da3-433f-a1e0-ede615b9a528, getPropertyDescriptionOrTopic()=5ea72d2f-61e5-5a1c-b46b-76e2f36720d8]
+(10.195842354002025,56.18081832565679)
+5ea72d2f-61e5-5a1c-b46b-76e2f36720d8---10.195842354002025 56.18081832565679
+CpGdiEventStream [getUuid()=1d875db4-4c99-4ab3-a3f8-059bcefe6247, getPropertyDescriptionOrTopic()=6ef37a35-1655-5bee-8850-2ac378e3d89a]
+(10.195862470569637,56.1808862495847)
+6ef37a35-1655-5bee-8850-2ac378e3d89a---10.195862470569637 56.1808862495847
+CpGdiEventStream [getUuid()=7ae4e633-bc39-44c1-9089-1fbc7853f198, getPropertyDescriptionOrTopic()=441f6120-6598-52ae-83be-9021f4f730c3]
+(10.152972696924223,56.21118838942894)
+441f6120-6598-52ae-83be-9021f4f730c3---10.152972696924223 56.21118838942894
+CpGdiEventStream [getUuid()=67a1f22e-2184-4af8-8126-50b1fb2c03d1, getPropertyDescriptionOrTopic()=fbaef113-1619-503a-8fff-3d9472ee1a59]
+(10.153115277980817,56.21131852930864)
+fbaef113-1619-503a-8fff-3d9472ee1a59---10.153115277980817 56.21131852930864
+CpGdiEventStream [getUuid()=d9904529-5585-447d-aea3-5679507c1f60, getPropertyDescriptionOrTopic()=748dbb97-758f-50dc-be24-18abb34e3bb2]
+(10.174075740492825,56.207314102131825)
+748dbb97-758f-50dc-be24-18abb34e3bb2---10.174075740492825 56.207314102131825
+CpGdiEventStream [getUuid()=5740fce1-b639-4f62-826b-4d67868dde85, getPropertyDescriptionOrTopic()=03993148-8cc4-5ffc-a1a8-da37dcdc140d]
+(10.174284282243718,56.20746441215836)
+03993148-8cc4-5ffc-a1a8-da37dcdc140d---10.174284282243718 56.20746441215836
+CpGdiEventStream [getUuid()=7e2d7cb6-e925-45db-b066-3653a97f8edf, getPropertyDescriptionOrTopic()=b493f582-2e7e-5e95-b228-d2bf0997c8a4]
+(10.150367044145582,56.21174959225853)
+b493f582-2e7e-5e95-b228-d2bf0997c8a4---10.150367044145582 56.21174959225853
+CpGdiEventStream [getUuid()=daf9e720-b2e3-4211-a28a-c5ca4d955cba, getPropertyDescriptionOrTopic()=4ebf0933-b115-5e44-98e7-2432325395a1]
+(10.206,56.15561)
+4ebf0933-b115-5e44-98e7-2432325395a1---10.206 56.15561
+CpGdiEventStream [getUuid()=6ceed3ea-51b4-425f-9ac8-43dce637717e, getPropertyDescriptionOrTopic()=51f0f28c-0909-5a83-a310-b6bd686bf57b]
+(10.197,56.1527)
+51f0f28c-0909-5a83-a310-b6bd686bf57b---10.197 56.1527
+CpGdiEventStream [getUuid()=edef9c3c-c2b9-4664-8947-59a4c8615e2c, getPropertyDescriptionOrTopic()=e5de76bc-e1db-5a68-9ff9-1deff0c41248]
+(10.2049,56.15679)
+e5de76bc-e1db-5a68-9ff9-1deff0c41248---10.2049 56.15679
+CpGdiEventStream [getUuid()=aef79839-8778-4ab7-aab4-d28d392871aa, getPropertyDescriptionOrTopic()=9f7a8b4c-1510-5e33-b52e-1b3407214311]
+(10.206,56.15561)
+9f7a8b4c-1510-5e33-b52e-1b3407214311---10.206 56.15561
+Mapping event coordinate with route coordinate
+10.194298179150564 56.18303738812003---155 --- 145.0
+10.195842354002025 56.18081832565679---150 --- 178.0
+10.195862470569637 56.1808862495847---150 --- 171.0
+10.152972696924223 56.21118838942894---177 --- 179.0
+10.153115277980817 56.21131852930864---177 --- 184.0
+10.174075740492825 56.207314102131825---172 --- 289.0
+10.174284282243718 56.20746441215836---172 --- 307.0
+10.150367044145582 56.21174959225853---177 --- 345.0
+10.206 56.15561---83 --- 153.0
+10.197 56.1527---75 --- 259.0
+10.2049 56.15679---87 --- 108.0
+10.206 56.15561---83 --- 153.0
+MmapEventRoute = {10.2049 56.15679=87, 10.150367044145582 56.21174959225853=177, 10.194298179150564 56.18303738812003=155, 10.195842354002025 56.18081832565679=150, 10.195862470569637 56.1808862495847=150, 10.153115277980817 56.21131852930864=177, 10.174284282243718 56.20746441215836=172, 10.152972696924223 56.21118838942894=177, 10.174075740492825 56.207314102131825=172, 10.206 56.15561=83, 10.197 56.1527=75}
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer <init>
+INFO: Consumer opened a connection
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer <init>
+INFO: exchange topics = events--bb6c56cd-74f8-553d-be77-fccb3fbc5215
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer <init>
+INFO: exchange topics = events--5ea72d2f-61e5-5a1c-b46b-76e2f36720d8
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer <init>
+INFO: exchange topics = events--6ef37a35-1655-5bee-8850-2ac378e3d89a
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer <init>
+INFO: exchange topics = events--441f6120-6598-52ae-83be-9021f4f730c3
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer <init>
+INFO: exchange topics = events--fbaef113-1619-503a-8fff-3d9472ee1a59
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer <init>
+INFO: exchange topics = events--748dbb97-758f-50dc-be24-18abb34e3bb2
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer <init>
+INFO: exchange topics = events--03993148-8cc4-5ffc-a1a8-da37dcdc140d
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer <init>
+INFO: exchange topics = events--b493f582-2e7e-5e95-b228-d2bf0997c8a4
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer <init>
+INFO: exchange topics = events--4ebf0933-b115-5e44-98e7-2432325395a1
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer <init>
+INFO: exchange topics = events--51f0f28c-0909-5a83-a310-b6bd686bf57b
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer <init>
+INFO: exchange topics = events--e5de76bc-e1db-5a68-9ff9-1deff0c41248
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer <init>
+INFO: exchange topics = events--9f7a8b4c-1510-5e33-b52e-1b3407214311
+Mar 07, 2016 6:18:44 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer <init>
+INFO: Start consumming city events
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:ba6fb457-f145-4bec-8bc9-e9e454eeaadf
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "1"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.15561"^^xsd:double ;
+                           geo:lon  "10.206"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.289Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#ba6fb457-f145-4bec-8bc9-e9e454eeaadf
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 1
+Here eventSource = SENSOR
+Here eventCoor = 56.15561--10.206
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#ba6fb457-f145-4bec-8bc9-e9e454eeaadf, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=1, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=-1]
+Event coordinate = http://purl.oclc.org/NET/UNIS/sao/sao#ba6fb457-f145-4bec-8bc9-e9e454eeaadf--Point [point=10.206 56.15561]--- 10.206 56.15561
+UserIndex = 0-- EventIndex = 83
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+inputProgram = related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).
+inputProgram = ranking_multiplier("EVENT_LEVEL",30).
+inputProgram = ranking_multiplier("DISTANCE",70).
+inputProgram = value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.
+inputProgram = sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.
+inputProgram = criticality(C) :- C = M/100, sum(M).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#ba6fb457-f145-4bec-8bc9-e9e454eeaadf","EVENT_LEVEL",1).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#ba6fb457-f145-4bec-8bc9-e9e454eeaadf","DISTANCE",3).
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: program: filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).ranking_multiplier("EVENT_LEVEL",30).ranking_multiplier("DISTANCE",70).value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.criticality(C) :- C = M/100, sum(M).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#ba6fb457-f145-4bec-8bc9-e9e454eeaadf","EVENT_LEVEL",1).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#ba6fb457-f145-4bec-8bc9-e9e454eeaadf","DISTANCE",3).city_event("http://purl.oclc.org/NET/UNIS/sao/sao#ba6fb457-f145-4bec-8bc9-e9e454eeaadf","http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Calling Clingo: clingo -n 0 --opt-mode=optN  /home/citypulse/WP5/res/cf/rules.lp -
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Called Clingo
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: clingo version 4.5.0
+Reading from /home/citypulse/WP5/res/cf/rules.lp ...
+Solving...
+Answer: 1
+critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#ba6fb457-f145-4bec-8bc9-e9e454eeaadf",2)
+SATISFIABLE
+
+Models       : 1     
+Calls        : 1
+Time         : 0.007s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.000s
+
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: Number of Answer Sets: 1
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: [critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#ba6fb457-f145-4bec-8bc9-e9e454eeaadf",2)]
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: After Filtering: CriticalEventResults [contextualEvents=[CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#ba6fb457-f145-4bec-8bc9-e9e454eeaadf, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=1, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=2]]]
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:1547ce43-5fa1-4d8a-8681-3d90eb0114f2
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "1"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.15561"^^xsd:double ;
+                           geo:lon  "10.206"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.289Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#1547ce43-5fa1-4d8a-8681-3d90eb0114f2
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 1
+Here eventSource = SENSOR
+Here eventCoor = 56.15561--10.206
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#1547ce43-5fa1-4d8a-8681-3d90eb0114f2, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=1, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=-1]
+Event coordinate = http://purl.oclc.org/NET/UNIS/sao/sao#1547ce43-5fa1-4d8a-8681-3d90eb0114f2--Point [point=10.206 56.15561]--- 10.206 56.15561
+UserIndex = 0-- EventIndex = 83
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+inputProgram = related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).
+inputProgram = ranking_multiplier("EVENT_LEVEL",30).
+inputProgram = ranking_multiplier("DISTANCE",70).
+inputProgram = value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.
+inputProgram = sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.
+inputProgram = criticality(C) :- C = M/100, sum(M).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#1547ce43-5fa1-4d8a-8681-3d90eb0114f2","EVENT_LEVEL",1).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#1547ce43-5fa1-4d8a-8681-3d90eb0114f2","DISTANCE",3).
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: program: filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).ranking_multiplier("EVENT_LEVEL",30).ranking_multiplier("DISTANCE",70).value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.criticality(C) :- C = M/100, sum(M).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#1547ce43-5fa1-4d8a-8681-3d90eb0114f2","EVENT_LEVEL",1).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#1547ce43-5fa1-4d8a-8681-3d90eb0114f2","DISTANCE",3).city_event("http://purl.oclc.org/NET/UNIS/sao/sao#1547ce43-5fa1-4d8a-8681-3d90eb0114f2","http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Calling Clingo: clingo -n 0 --opt-mode=optN  /home/citypulse/WP5/res/cf/rules.lp -
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Called Clingo
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: clingo version 4.5.0
+Reading from /home/citypulse/WP5/res/cf/rules.lp ...
+Solving...
+Answer: 1
+critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#1547ce43-5fa1-4d8a-8681-3d90eb0114f2",2)
+SATISFIABLE
+
+Models       : 1     
+Calls        : 1
+Time         : 0.001s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.000s
+
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: Number of Answer Sets: 1
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: [critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#1547ce43-5fa1-4d8a-8681-3d90eb0114f2",2)]
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: After Filtering: CriticalEventResults [contextualEvents=[CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#1547ce43-5fa1-4d8a-8681-3d90eb0114f2, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=1, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=2]]]
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:81c04173-2780-41aa-aaf5-3415c0c5cbfa
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "2"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.15561"^^xsd:double ;
+                           geo:lon  "10.206"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.326Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#81c04173-2780-41aa-aaf5-3415c0c5cbfa
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 2
+Here eventSource = SENSOR
+Here eventCoor = 56.15561--10.206
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#81c04173-2780-41aa-aaf5-3415c0c5cbfa, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=-1]
+Event coordinate = http://purl.oclc.org/NET/UNIS/sao/sao#81c04173-2780-41aa-aaf5-3415c0c5cbfa--Point [point=10.206 56.15561]--- 10.206 56.15561
+UserIndex = 0-- EventIndex = 83
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+inputProgram = related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).
+inputProgram = ranking_multiplier("EVENT_LEVEL",30).
+inputProgram = ranking_multiplier("DISTANCE",70).
+inputProgram = value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.
+inputProgram = sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.
+inputProgram = criticality(C) :- C = M/100, sum(M).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#81c04173-2780-41aa-aaf5-3415c0c5cbfa","EVENT_LEVEL",3).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#81c04173-2780-41aa-aaf5-3415c0c5cbfa","DISTANCE",3).
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: program: filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).ranking_multiplier("EVENT_LEVEL",30).ranking_multiplier("DISTANCE",70).value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.criticality(C) :- C = M/100, sum(M).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#81c04173-2780-41aa-aaf5-3415c0c5cbfa","EVENT_LEVEL",3).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#81c04173-2780-41aa-aaf5-3415c0c5cbfa","DISTANCE",3).city_event("http://purl.oclc.org/NET/UNIS/sao/sao#81c04173-2780-41aa-aaf5-3415c0c5cbfa","http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Calling Clingo: clingo -n 0 --opt-mode=optN  /home/citypulse/WP5/res/cf/rules.lp -
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Called Clingo
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: clingo version 4.5.0
+Reading from /home/citypulse/WP5/res/cf/rules.lp ...
+Solving...
+Answer: 1
+critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#81c04173-2780-41aa-aaf5-3415c0c5cbfa",3)
+SATISFIABLE
+
+Models       : 1     
+Calls        : 1
+Time         : 0.001s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.000s
+
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: Number of Answer Sets: 1
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: [critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#81c04173-2780-41aa-aaf5-3415c0c5cbfa",3)]
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: After Filtering: CriticalEventResults [contextualEvents=[CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#81c04173-2780-41aa-aaf5-3415c0c5cbfa, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=3]]]
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:b555258b-f0f9-41a8-83fb-be2b03726a12
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "2"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.15561"^^xsd:double ;
+                           geo:lon  "10.206"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.326Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#b555258b-f0f9-41a8-83fb-be2b03726a12
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 2
+Here eventSource = SENSOR
+Here eventCoor = 56.15561--10.206
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#b555258b-f0f9-41a8-83fb-be2b03726a12, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=-1]
+Event coordinate = http://purl.oclc.org/NET/UNIS/sao/sao#b555258b-f0f9-41a8-83fb-be2b03726a12--Point [point=10.206 56.15561]--- 10.206 56.15561
+UserIndex = 0-- EventIndex = 83
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+inputProgram = related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).
+inputProgram = ranking_multiplier("EVENT_LEVEL",30).
+inputProgram = ranking_multiplier("DISTANCE",70).
+inputProgram = value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.
+inputProgram = sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.
+inputProgram = criticality(C) :- C = M/100, sum(M).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#b555258b-f0f9-41a8-83fb-be2b03726a12","EVENT_LEVEL",3).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#b555258b-f0f9-41a8-83fb-be2b03726a12","DISTANCE",3).
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: program: filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).ranking_multiplier("EVENT_LEVEL",30).ranking_multiplier("DISTANCE",70).value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.criticality(C) :- C = M/100, sum(M).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#b555258b-f0f9-41a8-83fb-be2b03726a12","EVENT_LEVEL",3).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#b555258b-f0f9-41a8-83fb-be2b03726a12","DISTANCE",3).city_event("http://purl.oclc.org/NET/UNIS/sao/sao#b555258b-f0f9-41a8-83fb-be2b03726a12","http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Calling Clingo: clingo -n 0 --opt-mode=optN  /home/citypulse/WP5/res/cf/rules.lp -
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Called Clingo
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: clingo version 4.5.0
+Reading from /home/citypulse/WP5/res/cf/rules.lp ...
+Solving...
+Answer: 1
+critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#b555258b-f0f9-41a8-83fb-be2b03726a12",3)
+SATISFIABLE
+
+Models       : 1     
+Calls        : 1
+Time         : 0.001s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.000s
+
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: Number of Answer Sets: 1
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: [critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#b555258b-f0f9-41a8-83fb-be2b03726a12",3)]
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: After Filtering: CriticalEventResults [contextualEvents=[CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#b555258b-f0f9-41a8-83fb-be2b03726a12, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=3]]]
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:6b53defd-d72b-4ce0-9613-6da0a8cb13cb
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "0"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.1527"^^xsd:double ;
+                           geo:lon  "10.197"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.531Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#6b53defd-d72b-4ce0-9613-6da0a8cb13cb
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 0
+Here eventSource = SENSOR
+Here eventCoor = 56.1527--10.197
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#6b53defd-d72b-4ce0-9613-6da0a8cb13cb, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=0, eventPlace=Point [point=10.197 56.1527], eventTime=1457374757000, contextualCriticality=-1]
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:beff752c-a91a-413e-be23-ba3054ccab06
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "0"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.1527"^^xsd:double ;
+                           geo:lon  "10.197"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.529Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#beff752c-a91a-413e-be23-ba3054ccab06
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 0
+Here eventSource = SENSOR
+Here eventCoor = 56.1527--10.197
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#beff752c-a91a-413e-be23-ba3054ccab06, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=0, eventPlace=Point [point=10.197 56.1527], eventTime=1457374757000, contextualCriticality=-1]
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:a80c9ced-6f67-4e8b-83ea-35a28b05069a
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "2"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.1527"^^xsd:double ;
+                           geo:lon  "10.197"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.586Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#a80c9ced-6f67-4e8b-83ea-35a28b05069a
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 2
+Here eventSource = SENSOR
+Here eventCoor = 56.1527--10.197
+Mar 07, 2016 6:19:17 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#a80c9ced-6f67-4e8b-83ea-35a28b05069a, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.197 56.1527], eventTime=1457374757000, contextualCriticality=-1]
+Event coordinate = http://purl.oclc.org/NET/UNIS/sao/sao#a80c9ced-6f67-4e8b-83ea-35a28b05069a--Point [point=10.197 56.1527]--- 10.197 56.1527
+UserIndex = 0-- EventIndex = 75
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+inputProgram = related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).
+inputProgram = ranking_multiplier("EVENT_LEVEL",30).
+inputProgram = ranking_multiplier("DISTANCE",70).
+inputProgram = value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.
+inputProgram = sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.
+inputProgram = criticality(C) :- C = M/100, sum(M).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#a80c9ced-6f67-4e8b-83ea-35a28b05069a","EVENT_LEVEL",3).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#a80c9ced-6f67-4e8b-83ea-35a28b05069a","DISTANCE",3).
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: program: filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).ranking_multiplier("EVENT_LEVEL",30).ranking_multiplier("DISTANCE",70).value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.criticality(C) :- C = M/100, sum(M).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#a80c9ced-6f67-4e8b-83ea-35a28b05069a","EVENT_LEVEL",3).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#a80c9ced-6f67-4e8b-83ea-35a28b05069a","DISTANCE",3).city_event("http://purl.oclc.org/NET/UNIS/sao/sao#a80c9ced-6f67-4e8b-83ea-35a28b05069a","http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+Mar 07, 2016 6:19:17 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Calling Clingo: clingo -n 0 --opt-mode=optN  /home/citypulse/WP5/res/cf/rules.lp -
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Called Clingo
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: clingo version 4.5.0
+Reading from /home/citypulse/WP5/res/cf/rules.lp ...
+Solving...
+Answer: 1
+critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#a80c9ced-6f67-4e8b-83ea-35a28b05069a",3)
+SATISFIABLE
+
+Models       : 1     
+Calls        : 1
+Time         : 0.001s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.000s
+
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: Number of Answer Sets: 1
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: [critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#a80c9ced-6f67-4e8b-83ea-35a28b05069a",3)]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: After Filtering: CriticalEventResults [contextualEvents=[CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#a80c9ced-6f67-4e8b-83ea-35a28b05069a, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.197 56.1527], eventTime=1457374757000, contextualCriticality=3]]]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:25810a92-bef5-4ca8-8fa1-cd8e36acce83
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "2"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.1527"^^xsd:double ;
+                           geo:lon  "10.197"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.586Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#25810a92-bef5-4ca8-8fa1-cd8e36acce83
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 2
+Here eventSource = SENSOR
+Here eventCoor = 56.1527--10.197
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#25810a92-bef5-4ca8-8fa1-cd8e36acce83, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.197 56.1527], eventTime=1457374757000, contextualCriticality=-1]
+Event coordinate = http://purl.oclc.org/NET/UNIS/sao/sao#25810a92-bef5-4ca8-8fa1-cd8e36acce83--Point [point=10.197 56.1527]--- 10.197 56.1527
+UserIndex = 0-- EventIndex = 75
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+inputProgram = related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).
+inputProgram = ranking_multiplier("EVENT_LEVEL",30).
+inputProgram = ranking_multiplier("DISTANCE",70).
+inputProgram = value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.
+inputProgram = sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.
+inputProgram = criticality(C) :- C = M/100, sum(M).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#25810a92-bef5-4ca8-8fa1-cd8e36acce83","EVENT_LEVEL",3).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#25810a92-bef5-4ca8-8fa1-cd8e36acce83","DISTANCE",3).
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: program: filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).ranking_multiplier("EVENT_LEVEL",30).ranking_multiplier("DISTANCE",70).value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.criticality(C) :- C = M/100, sum(M).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#25810a92-bef5-4ca8-8fa1-cd8e36acce83","EVENT_LEVEL",3).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#25810a92-bef5-4ca8-8fa1-cd8e36acce83","DISTANCE",3).city_event("http://purl.oclc.org/NET/UNIS/sao/sao#25810a92-bef5-4ca8-8fa1-cd8e36acce83","http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Calling Clingo: clingo -n 0 --opt-mode=optN  /home/citypulse/WP5/res/cf/rules.lp -
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Called Clingo
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: clingo version 4.5.0
+Reading from /home/citypulse/WP5/res/cf/rules.lp ...
+Solving...
+Answer: 1
+critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#25810a92-bef5-4ca8-8fa1-cd8e36acce83",3)
+SATISFIABLE
+
+Models       : 1     
+Calls        : 1
+Time         : 0.001s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.000s
+
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: Number of Answer Sets: 1
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: [critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#25810a92-bef5-4ca8-8fa1-cd8e36acce83",3)]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: After Filtering: CriticalEventResults [contextualEvents=[CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#25810a92-bef5-4ca8-8fa1-cd8e36acce83, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.197 56.1527], eventTime=1457374757000, contextualCriticality=3]]]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:2f325634-c454-4bb2-91de-0da3d8d03654
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "0"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.15679"^^xsd:double ;
+                           geo:lon  "10.2049"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.71Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#2f325634-c454-4bb2-91de-0da3d8d03654
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 0
+Here eventSource = SENSOR
+Here eventCoor = 56.15679--10.2049
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#2f325634-c454-4bb2-91de-0da3d8d03654, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=0, eventPlace=Point [point=10.2049 56.15679], eventTime=1457374757000, contextualCriticality=-1]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:a4ace6c5-3ee3-4217-8b70-1c4b6681757a
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "0"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.15679"^^xsd:double ;
+                           geo:lon  "10.2049"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.709Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#a4ace6c5-3ee3-4217-8b70-1c4b6681757a
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 0
+Here eventSource = SENSOR
+Here eventCoor = 56.15679--10.2049
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#a4ace6c5-3ee3-4217-8b70-1c4b6681757a, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=0, eventPlace=Point [point=10.2049 56.15679], eventTime=1457374757000, contextualCriticality=-1]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:fe5d8de0-ed2c-499f-8e27-634b977abb51
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "2"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.15679"^^xsd:double ;
+                           geo:lon  "10.2049"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.747Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#fe5d8de0-ed2c-499f-8e27-634b977abb51
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 2
+Here eventSource = SENSOR
+Here eventCoor = 56.15679--10.2049
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#fe5d8de0-ed2c-499f-8e27-634b977abb51, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.2049 56.15679], eventTime=1457374757000, contextualCriticality=-1]
+Event coordinate = http://purl.oclc.org/NET/UNIS/sao/sao#fe5d8de0-ed2c-499f-8e27-634b977abb51--Point [point=10.2049 56.15679]--- 10.2049 56.15679
+UserIndex = 0-- EventIndex = 87
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+inputProgram = related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).
+inputProgram = ranking_multiplier("EVENT_LEVEL",30).
+inputProgram = ranking_multiplier("DISTANCE",70).
+inputProgram = value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.
+inputProgram = sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.
+inputProgram = criticality(C) :- C = M/100, sum(M).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#fe5d8de0-ed2c-499f-8e27-634b977abb51","EVENT_LEVEL",3).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#fe5d8de0-ed2c-499f-8e27-634b977abb51","DISTANCE",3).
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: program: filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).ranking_multiplier("EVENT_LEVEL",30).ranking_multiplier("DISTANCE",70).value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.criticality(C) :- C = M/100, sum(M).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#fe5d8de0-ed2c-499f-8e27-634b977abb51","EVENT_LEVEL",3).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#fe5d8de0-ed2c-499f-8e27-634b977abb51","DISTANCE",3).city_event("http://purl.oclc.org/NET/UNIS/sao/sao#fe5d8de0-ed2c-499f-8e27-634b977abb51","http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Calling Clingo: clingo -n 0 --opt-mode=optN  /home/citypulse/WP5/res/cf/rules.lp -
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Called Clingo
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: clingo version 4.5.0
+Reading from /home/citypulse/WP5/res/cf/rules.lp ...
+Solving...
+Answer: 1
+critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#fe5d8de0-ed2c-499f-8e27-634b977abb51",3)
+SATISFIABLE
+
+Models       : 1     
+Calls        : 1
+Time         : 0.001s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.000s
+
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: Number of Answer Sets: 1
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: [critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#fe5d8de0-ed2c-499f-8e27-634b977abb51",3)]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: After Filtering: CriticalEventResults [contextualEvents=[CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#fe5d8de0-ed2c-499f-8e27-634b977abb51, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.2049 56.15679], eventTime=1457374757000, contextualCriticality=3]]]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:c07ccf9b-bb18-40ef-bfff-935dc085fd11
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "2"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.15679"^^xsd:double ;
+                           geo:lon  "10.2049"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.747Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#c07ccf9b-bb18-40ef-bfff-935dc085fd11
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 2
+Here eventSource = SENSOR
+Here eventCoor = 56.15679--10.2049
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#c07ccf9b-bb18-40ef-bfff-935dc085fd11, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.2049 56.15679], eventTime=1457374757000, contextualCriticality=-1]
+Event coordinate = http://purl.oclc.org/NET/UNIS/sao/sao#c07ccf9b-bb18-40ef-bfff-935dc085fd11--Point [point=10.2049 56.15679]--- 10.2049 56.15679
+UserIndex = 0-- EventIndex = 87
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+inputProgram = related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).
+inputProgram = ranking_multiplier("EVENT_LEVEL",30).
+inputProgram = ranking_multiplier("DISTANCE",70).
+inputProgram = value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.
+inputProgram = sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.
+inputProgram = criticality(C) :- C = M/100, sum(M).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#c07ccf9b-bb18-40ef-bfff-935dc085fd11","EVENT_LEVEL",3).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#c07ccf9b-bb18-40ef-bfff-935dc085fd11","DISTANCE",3).
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: program: filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).ranking_multiplier("EVENT_LEVEL",30).ranking_multiplier("DISTANCE",70).value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.criticality(C) :- C = M/100, sum(M).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#c07ccf9b-bb18-40ef-bfff-935dc085fd11","EVENT_LEVEL",3).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#c07ccf9b-bb18-40ef-bfff-935dc085fd11","DISTANCE",3).city_event("http://purl.oclc.org/NET/UNIS/sao/sao#c07ccf9b-bb18-40ef-bfff-935dc085fd11","http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Calling Clingo: clingo -n 0 --opt-mode=optN  /home/citypulse/WP5/res/cf/rules.lp -
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Called Clingo
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: clingo version 4.5.0
+Reading from /home/citypulse/WP5/res/cf/rules.lp ...
+Solving...
+Answer: 1
+critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#c07ccf9b-bb18-40ef-bfff-935dc085fd11",3)
+SATISFIABLE
+
+Models       : 1     
+Calls        : 1
+Time         : 0.001s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.000s
+
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: Number of Answer Sets: 1
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: [critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#c07ccf9b-bb18-40ef-bfff-935dc085fd11",3)]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: After Filtering: CriticalEventResults [contextualEvents=[CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#c07ccf9b-bb18-40ef-bfff-935dc085fd11, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.2049 56.15679], eventTime=1457374757000, contextualCriticality=3]]]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:4a13b683-3ab1-40d5-9298-a97ddfc48d9a
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "1"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.15561"^^xsd:double ;
+                           geo:lon  "10.206"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.949Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#4a13b683-3ab1-40d5-9298-a97ddfc48d9a
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 1
+Here eventSource = SENSOR
+Here eventCoor = 56.15561--10.206
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#4a13b683-3ab1-40d5-9298-a97ddfc48d9a, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=1, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=-1]
+Event coordinate = http://purl.oclc.org/NET/UNIS/sao/sao#4a13b683-3ab1-40d5-9298-a97ddfc48d9a--Point [point=10.206 56.15561]--- 10.206 56.15561
+UserIndex = 0-- EventIndex = 83
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+inputProgram = related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).
+inputProgram = ranking_multiplier("EVENT_LEVEL",30).
+inputProgram = ranking_multiplier("DISTANCE",70).
+inputProgram = value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.
+inputProgram = sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.
+inputProgram = criticality(C) :- C = M/100, sum(M).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#4a13b683-3ab1-40d5-9298-a97ddfc48d9a","EVENT_LEVEL",1).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#4a13b683-3ab1-40d5-9298-a97ddfc48d9a","DISTANCE",3).
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: program: filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).ranking_multiplier("EVENT_LEVEL",30).ranking_multiplier("DISTANCE",70).value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.criticality(C) :- C = M/100, sum(M).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#4a13b683-3ab1-40d5-9298-a97ddfc48d9a","EVENT_LEVEL",1).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#4a13b683-3ab1-40d5-9298-a97ddfc48d9a","DISTANCE",3).city_event("http://purl.oclc.org/NET/UNIS/sao/sao#4a13b683-3ab1-40d5-9298-a97ddfc48d9a","http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Calling Clingo: clingo -n 0 --opt-mode=optN  /home/citypulse/WP5/res/cf/rules.lp -
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Called Clingo
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: clingo version 4.5.0
+Reading from /home/citypulse/WP5/res/cf/rules.lp ...
+Solving...
+Answer: 1
+critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#4a13b683-3ab1-40d5-9298-a97ddfc48d9a",2)
+SATISFIABLE
+
+Models       : 1     
+Calls        : 1
+Time         : 0.000s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.000s
+
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: Number of Answer Sets: 1
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: [critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#4a13b683-3ab1-40d5-9298-a97ddfc48d9a",2)]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: After Filtering: CriticalEventResults [contextualEvents=[CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#4a13b683-3ab1-40d5-9298-a97ddfc48d9a, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=1, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=2]]]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:fa3ecef0-90e4-44f1-880a-ecefc65c7851
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "1"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.15561"^^xsd:double ;
+                           geo:lon  "10.206"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.95Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#fa3ecef0-90e4-44f1-880a-ecefc65c7851
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 1
+Here eventSource = SENSOR
+Here eventCoor = 56.15561--10.206
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#fa3ecef0-90e4-44f1-880a-ecefc65c7851, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=1, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=-1]
+Event coordinate = http://purl.oclc.org/NET/UNIS/sao/sao#fa3ecef0-90e4-44f1-880a-ecefc65c7851--Point [point=10.206 56.15561]--- 10.206 56.15561
+UserIndex = 0-- EventIndex = 83
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+inputProgram = related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).
+inputProgram = ranking_multiplier("EVENT_LEVEL",30).
+inputProgram = ranking_multiplier("DISTANCE",70).
+inputProgram = value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.
+inputProgram = sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.
+inputProgram = criticality(C) :- C = M/100, sum(M).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#fa3ecef0-90e4-44f1-880a-ecefc65c7851","EVENT_LEVEL",1).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#fa3ecef0-90e4-44f1-880a-ecefc65c7851","DISTANCE",3).
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: program: filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).ranking_multiplier("EVENT_LEVEL",30).ranking_multiplier("DISTANCE",70).value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.criticality(C) :- C = M/100, sum(M).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#fa3ecef0-90e4-44f1-880a-ecefc65c7851","EVENT_LEVEL",1).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#fa3ecef0-90e4-44f1-880a-ecefc65c7851","DISTANCE",3).city_event("http://purl.oclc.org/NET/UNIS/sao/sao#fa3ecef0-90e4-44f1-880a-ecefc65c7851","http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Calling Clingo: clingo -n 0 --opt-mode=optN  /home/citypulse/WP5/res/cf/rules.lp -
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Called Clingo
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: clingo version 4.5.0
+Reading from /home/citypulse/WP5/res/cf/rules.lp ...
+Solving...
+Answer: 1
+critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#fa3ecef0-90e4-44f1-880a-ecefc65c7851",2)
+SATISFIABLE
+
+Models       : 1     
+Calls        : 1
+Time         : 0.001s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.000s
+
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: Number of Answer Sets: 1
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: [critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#fa3ecef0-90e4-44f1-880a-ecefc65c7851",2)]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: After Filtering: CriticalEventResults [contextualEvents=[CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#fa3ecef0-90e4-44f1-880a-ecefc65c7851, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=1, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=2]]]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:28203aeb-91b7-4c35-8789-be9d83e2dea7
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "2"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.15561"^^xsd:double ;
+                           geo:lon  "10.206"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.987Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#28203aeb-91b7-4c35-8789-be9d83e2dea7
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 2
+Here eventSource = SENSOR
+Here eventCoor = 56.15561--10.206
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#28203aeb-91b7-4c35-8789-be9d83e2dea7, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=-1]
+Event coordinate = http://purl.oclc.org/NET/UNIS/sao/sao#28203aeb-91b7-4c35-8789-be9d83e2dea7--Point [point=10.206 56.15561]--- 10.206 56.15561
+UserIndex = 0-- EventIndex = 83
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+inputProgram = related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).
+inputProgram = ranking_multiplier("EVENT_LEVEL",30).
+inputProgram = ranking_multiplier("DISTANCE",70).
+inputProgram = value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.
+inputProgram = sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.
+inputProgram = criticality(C) :- C = M/100, sum(M).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#28203aeb-91b7-4c35-8789-be9d83e2dea7","EVENT_LEVEL",3).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#28203aeb-91b7-4c35-8789-be9d83e2dea7","DISTANCE",3).
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: program: filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).ranking_multiplier("EVENT_LEVEL",30).ranking_multiplier("DISTANCE",70).value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.criticality(C) :- C = M/100, sum(M).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#28203aeb-91b7-4c35-8789-be9d83e2dea7","EVENT_LEVEL",3).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#28203aeb-91b7-4c35-8789-be9d83e2dea7","DISTANCE",3).city_event("http://purl.oclc.org/NET/UNIS/sao/sao#28203aeb-91b7-4c35-8789-be9d83e2dea7","http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Calling Clingo: clingo -n 0 --opt-mode=optN  /home/citypulse/WP5/res/cf/rules.lp -
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Called Clingo
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: clingo version 4.5.0
+Reading from /home/citypulse/WP5/res/cf/rules.lp ...
+Solving...
+Answer: 1
+critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#28203aeb-91b7-4c35-8789-be9d83e2dea7",3)
+SATISFIABLE
+
+Models       : 1     
+Calls        : 1
+Time         : 0.001s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.000s
+
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: Number of Answer Sets: 1
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: [critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#28203aeb-91b7-4c35-8789-be9d83e2dea7",3)]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: After Filtering: CriticalEventResults [contextualEvents=[CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#28203aeb-91b7-4c35-8789-be9d83e2dea7, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=3]]]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: Received message  = @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sao:   <http://purl.oclc.org/NET/UNIS/sao/sao#> .
+@prefix tl:    <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix ec:    <http://purl.oclc.org/NET/UNIS/sao/ec#> .
+
+sao:ac145c78-aaec-4fe8-a181-c662d6d8d527
+        a                ec:PublicParking ;
+        ec:hasSource     "SENSOR" ;
+        sao:hasLevel     "2"^^xsd:long ;
+        sao:hasLocation  [ a        geo:Instant ;
+                           geo:lat  "56.15561"^^xsd:double ;
+                           geo:lon  "10.206"^^xsd:double
+                         ] ;
+        sao:hasType      ec:TransportationEvent ;
+        tl:time          "2016-03-07T18:19:17.987Z"^^xsd:dateTime .
+
+
+Here eventId = http://purl.oclc.org/NET/UNIS/sao/sao#ac145c78-aaec-4fe8-a181-c662d6d8d527
+Here eventName = http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking
+Here eventType = http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent
+Here eventLevel = 2
+Here eventSource = SENSOR
+Here eventCoor = 56.15561--10.206
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleDelivery
+INFO: CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#ac145c78-aaec-4fe8-a181-c662d6d8d527, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=-1]
+Event coordinate = http://purl.oclc.org/NET/UNIS/sao/sao#ac145c78-aaec-4fe8-a181-c662d6d8d527--Point [point=10.206 56.15561]--- 10.206 56.15561
+UserIndex = 0-- EventIndex = 83
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").
+inputProgram = filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+inputProgram = related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).
+inputProgram = ranking_multiplier("EVENT_LEVEL",30).
+inputProgram = ranking_multiplier("DISTANCE",70).
+inputProgram = value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.
+inputProgram = sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.
+inputProgram = criticality(C) :- C = M/100, sum(M).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#ac145c78-aaec-4fe8-a181-c662d6d8d527","EVENT_LEVEL",3).
+rankingData = ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#ac145c78-aaec-4fe8-a181-c662d6d8d527","DISTANCE",3).
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: program: filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#TrafficJam","SENSOR").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SOCIAL_NETWORK").filtering_event("http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").related_city_event(Id) :-filtering_event(Category, Source), city_event(Id, Category, Source).ranking_multiplier("EVENT_LEVEL",30).ranking_multiplier("DISTANCE",70).value_with_ranking_type(RankingElementName, M):- value(RankingElementName,Value),ranking_multiplier(RankingElementName,Int), M = Value*Int.sum(C) :- value_with_ranking_type("EVENT_LEVEL",Value1),value_with_ranking_type("DISTANCE",Value2),C = Value1+Value2.criticality(C) :- C = M/100, sum(M).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#ac145c78-aaec-4fe8-a181-c662d6d8d527","EVENT_LEVEL",3).ranking_city_event_data("http://purl.oclc.org/NET/UNIS/sao/sao#ac145c78-aaec-4fe8-a181-c662d6d8d527","DISTANCE",3).city_event("http://purl.oclc.org/NET/UNIS/sao/sao#ac145c78-aaec-4fe8-a181-c662d6d8d527","http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking","SENSOR").
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Calling Clingo: clingo -n 0 --opt-mode=optN  /home/citypulse/WP5/res/cf/rules.lp -
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: Called Clingo
+Mar 07, 2016 6:19:18 PM it.unical.mat.embasp.clingo.ClingoHandler reason
+INFO: clingo version 4.5.0
+Reading from /home/citypulse/WP5/res/cf/rules.lp ...
+Solving...
+Answer: 1
+critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#ac145c78-aaec-4fe8-a181-c662d6d8d527",3)
+SATISFIABLE
+
+Models       : 1     
+Calls        : 1
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.000s
+
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: Number of Answer Sets: 1
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: [critical_city_event("http://purl.oclc.org/NET/UNIS/sao/sao#ac145c78-aaec-4fe8-a181-c662d6d8d527",3)]
+Mar 07, 2016 6:19:18 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.ContextualEventFilter performReasoning
+INFO: After Filtering: CriticalEventResults [contextualEvents=[CityEvent [eventId=http://purl.oclc.org/NET/UNIS/sao/sao#ac145c78-aaec-4fe8-a181-c662d6d8d527, eventCategory=http://purl.oclc.org/NET/UNIS/sao/ec#PublicParking, eventType=EventType [typeName=http://purl.oclc.org/NET/UNIS/sao/ec#TransportationEvent], eventSource=SENSOR, eventLevel=2, eventPlace=Point [point=10.206 56.15561], eventTime=1457374757000, contextualCriticality=3]]]
+Mar 07, 2016 6:19:26 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.mockup.ContextualEventsRequestEndpointMockup onClose
+INFO: Session 52f14ecf-6b6f-47d7-a99f-69d6260c531b closed because of CloseReason[1006,Closed abnormally.]
+Mar 07, 2016 6:19:26 PM org.insight_centre.urq.citypulse.wp5.contextual_filter.contextual_event_system.CityEventConsumer handleCancelOk
+INFO: Consumer closed

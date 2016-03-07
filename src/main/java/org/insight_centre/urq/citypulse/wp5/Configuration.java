@@ -72,6 +72,19 @@ public class Configuration {
 	}
 
 	/**
+	 * @ Thu-Le Pham
+	 *
+	 * @return
+	 */
+	public String getGDI_URI() {
+		if (prop == null) {
+			return "131.227.92.55:5432";
+		}
+		return prop.getProperty("GDI_URI");
+
+	}
+
+	/**
 	 * @return the hostname of the Request Handler server
 	 */
 	public String getHostName() {
