@@ -131,6 +131,18 @@ public class Configuration {
 	}
 
 	/**
+	 * @ Thu-Le Pham
+	 *
+	 * @return
+	 */
+	public String getClingoPath() {
+		if (prop == null) {
+			return "clingo";
+		}
+		return prop.getProperty("clingo");
+	}
+
+	/**
 	 * @return the base path of the Request Handler server
 	 */
 	public String getRootPath() {

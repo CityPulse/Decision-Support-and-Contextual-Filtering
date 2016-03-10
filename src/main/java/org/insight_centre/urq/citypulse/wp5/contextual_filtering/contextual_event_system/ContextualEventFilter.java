@@ -307,7 +307,9 @@ public class ContextualEventFilter {
 		final List<String> rankingData = createRankingElements(this.ceRequest,
 				cityEvents, this.userContext);
 
-		final ASPHandler handler = new ClingoHandler();
+		final String clingoUri = Configuration.getInstance().getClingoPath();
+
+		final ASPHandler handler = new ClingoHandler(clingoUri);
 		handler.addOption("-n 0");
 		handler.addOption("--opt-mode=optN");
 

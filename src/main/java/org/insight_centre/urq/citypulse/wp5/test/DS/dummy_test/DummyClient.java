@@ -155,7 +155,7 @@ public class DummyClient {
 					+ Configuration.getInstance().getRootPath()
 					+ "/reasoning_request"));
 
-			DummyClient.messageLatch.await(100, TimeUnit.SECONDS);
+			DummyClient.messageLatch.await(180, TimeUnit.SECONDS);
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}

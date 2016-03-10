@@ -5,6 +5,9 @@ from gringo import Fun
 import sys
 import re
 import time
+import datetime
+import ConfigParser 
+import os
 
 class ParkingSpace(object):
 	"""docstring for ParkingSpace"""
@@ -17,13 +20,57 @@ class ParkingSpace(object):
 
 parking_spaces = None
 
+routingURI = None
+knowledgebaseURI = None
+dataFederationURI = None
+
+# read the config.properties file
+# fake the section header in order to use ConfigParser for reading config.properties file 
+class FakeSecHead(object):
+    def __init__(self, fp):
+        self.fp = fp
+        self.sechead = '[asection]\n'
+
+    def readline(self):
+        if self.sechead:
+            try: 
+                return self.sechead
+            finally: 
+                self.sechead = None
+        else: 
+            return self.fp.readline()
+           
+def get_URI():
+	global routingURI
+	global dataFederationURI
+	global knowledgebaseURI
+	try:
+		config = ConfigParser.SafeConfigParser()
+		path = os.getcwd() + os.sep + "res" + os.sep + "config.properties"
+		print ("path = %s" %path)
+		config.readfp(FakeSecHead(open(path)))
+		props = dict(config.items("asection"))
+# 		print props
+		routingURI = props['routing_uri']
+		knowledgebaseURI = props['knowledge_base_uri']
+		dataFederationURI = props['data_federation_uri']
+		
+	except Exception, e:
+		print("ERROR: get_URI: %s" %str(e))
+
 def get_parking_spaces(point_of_interest, distance_range):
 	try:
 		starting_time_clock = time.clock()
 		starting_time_time = time.time()
-
-		initParkingSpaces(point_of_interest, distance_range)
-
+		from interruptingcow import timeout
+		timeoutVar = 60
+		try:
+			with timeout(timeoutVar, exception=RuntimeError):
+				initParkingSpaces(point_of_interest, distance_range)
+		except RuntimeError:
+			if routes == []:
+				print("ERROR get_parking_spaces: does not get parking spaces with %s seconds, please check the KnowledgeBase component!" %timeoutVar)
+						
 		output = []
 
 		if parking_spaces is not None :
@@ -36,7 +83,7 @@ def get_parking_spaces(point_of_interest, distance_range):
 		print ("get_parking_spaces_TIME: %f" % ((time.time() - starting_time_time)*1000.0))
 		return output
 	except Exception, e:
-		print('ERROR get_parking_spaces: %s' % str(e))
+		print('ERROR get_parking_spaces: %s, , please check the KnowledgeBase component!' % str(e))
 		return []
 
 def get_availability(parkingID):
@@ -44,20 +91,28 @@ def get_availability(parkingID):
 		starting_time_clock = time.clock()
 		starting_time_time = time.time()
 		
-		if parking_spaces is not None :
-			if parkingID <= len(parking_spaces) :
-				parking_space = parking_spaces[parkingID-1]
-				initAvailability(parking_space)
-				if parking_space.availability is not None :
-					#print ("TIME get_availability: %f;%f" % (time.clock() - starting_time_clock, time.time() - starting_time_time))
-					print ("get_availability_TIME: %f" % ((time.time() - starting_time_time)*1000.0))
-					return parking_space.availability
-			else :
-				raise ValueError('Wrong parkingID in get_availability')
-		else :
-			raise ValueError('get_availability is called before parking_spaces is initialized')
+		from interruptingcow import timeout
+		timeoutVar = 60
+		try:
+			with timeout(timeoutVar, exception=RuntimeError):
+				if parking_spaces is not None :
+					if parkingID <= len(parking_spaces) :
+						parking_space = parking_spaces[parkingID-1]
+						initAvailability(parking_space)
+						if parking_space.availability is not None :
+							#print ("TIME get_availability: %f;%f" % (time.clock() - starting_time_clock, time.time() - starting_time_time))
+							print ("get_availability_TIME: %f" % ((time.time() - starting_time_time)*1000.0))
+							return parking_space.availability
+					else :
+						raise ValueError('Wrong parkingID in get_availability')
+				else :
+					raise ValueError('get_availability is called before parking_spaces is initialized')
+		except RuntimeError:
+			print("ERROR get_availability: does not get availability of parking spaces with %s seconds, please check the Data Federation component!" %timeoutVar)
+			return 1
+		
 	except Exception, e:
-		print('ERROR get_availability: %s' % str(e))
+		print('ERROR get_availability: %s, please check the Data Federation component!' % str(e))
 		return 1
 
 def get_total_cost(parkingID, time_of_stay):
@@ -75,25 +130,38 @@ def get_walking_distance(parkingID, point_of_interest):
 		starting_time_clock = time.clock()
 		starting_time_time = time.time()
 		
-		if parking_spaces is not None :
-			if parkingID <= len(parking_spaces) :
-				parking_space = parking_spaces[parkingID-1]
-				initWalkingDistance(parking_space, point_of_interest)
-				if parking_space.walkingDistance is not None :
-					#print ("TIME get_walking_distance: %f;%f" % (time.clock() - starting_time_clock, time.time() - starting_time_time))
-					print ("get_walking_distance_TIME: %f" % ((time.time() - starting_time_time)*1000.0))
-					return parking_space.walkingDistance
-			else :
-				raise ValueError('Wrong parkingID in get_walking_distance')
-		else :
-			raise ValueError('get_walking_distance is called before parking_spaces is initialized')
+		from interruptingcow import timeout
+		timeoutVar = 60
+		try:
+			with timeout(timeoutVar, exception=RuntimeError):
+				if parking_spaces is not None :
+					if parkingID <= len(parking_spaces) :
+						parking_space = parking_spaces[parkingID-1]
+						initWalkingDistance(parking_space, point_of_interest)
+						if parking_space.walkingDistance is not None :
+							#print ("TIME get_walking_distance: %f;%f" % (time.clock() - starting_time_clock, time.time() - starting_time_time))
+							print ("get_walking_distance_TIME: %f" % ((time.time() - starting_time_time)*1000.0))
+							return parking_space.walkingDistance
+					else :
+						raise ValueError('Wrong parkingID in get_walking_distance')
+				else :
+					raise ValueError('get_walking_distance is called before parking_spaces is initialized')
+		except RuntimeError:
+			print("ERROR get_walking_distance: does not get walking distance of parking spaces with %s seconds, please check the Routing component!" %timeoutVar)
+			return 100
+		
 	except Exception, e:
-		print('ERROR get_walking_distance: %s' % str(e))
+		print('ERROR get_walking_distance: %s, please check the Routing component!' % str(e))
 		return 100
 
 
 def initParkingSpaces(point_of_interest, distance_range):
 	global parking_spaces
+	global knowledgebaseURI
+	
+	if knowledgebaseURI is None:
+		get_URI()
+	
 
 	if parking_spaces is None :
 		parking_spaces = []
@@ -121,7 +189,8 @@ def initParkingSpaces(point_of_interest, distance_range):
 
 			from SPARQLWrapper import SPARQLWrapper, JSON, XML, N3, RDF
 
-			sparql = SPARQLWrapper("http://localhost:8890/sparql") #iot.ee.surrey.ac.uk
+# 			sparql = SPARQLWrapper("http://localhost:8890/sparql") #iot.ee.surrey.ac.uk
+			sparql = SPARQLWrapper(knowledgebaseURI) #iot.ee.surrey.ac.uk
 			queryString = 	"""
 							PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 							PREFIX ssn: <http://purl.oclc.org/NET/ssnx/ssn#>
@@ -170,6 +239,10 @@ def initParkingSpaces(point_of_interest, distance_range):
 
 def initAvailability(parking_space):
 	global parking_spaces
+	global dataFederationURI
+	
+	if dataFederationURI is None:
+		get_URI()
 
 	if parking_space.availability is None :
 
@@ -186,7 +259,10 @@ def initAvailability(parking_space):
 		try:
 			from websocket import create_connection
 # 			ws = create_connection("ws://localhost:8002/websockets/DataFederation")
-			ws = create_connection("ws://localhost:8005/Snapshot")
+# 			ws = create_connection("ws://localhost:8005/Snapshot")
+# 			ws = create_connection("ws://localhost:8002")
+			ws = create_connection(dataFederationURI)
+
 			# print "Created connection"
 			ws.send(request.encode('utf8'))
 			# print "Sent"
@@ -215,6 +291,10 @@ def initAvailability(parking_space):
 
 def initWalkingDistance(parking_space, point_of_interest):
 	global parking_spaces
+	global routingURI
+	
+	if routingURI is None:
+		get_URI()
 
 	if parking_space.walkingDistance is None :
 
@@ -241,7 +321,8 @@ def initWalkingDistance(parking_space, point_of_interest):
 		numberOfRoutes = 1
 
 		from websocket import create_connection
-		ws = create_connection("ws://localhost:7686")
+# 		ws = create_connection("ws://localhost:7686")
+		ws = create_connection(routingURI)
 		# print "Created connection"
 		result =  ws.recv()
 		# print "Received '%s'" % result

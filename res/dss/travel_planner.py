@@ -6,6 +6,8 @@ import sys
 import re
 import time
 import datetime
+import ConfigParser 
+import os
 
 #from twisted.python import log
 
@@ -20,14 +22,56 @@ class Route(object):
 
 routes = None
 # pollutionValues = None
+routingURI = None
+dataFederationURI = None
+
+# read the config.properties file
+# fake the section header in order to use ConfigParser for reading config.properties file 
+class FakeSecHead(object):
+    def __init__(self, fp):
+        self.fp = fp
+        self.sechead = '[asection]\n'
+
+    def readline(self):
+        if self.sechead:
+            try: 
+                return self.sechead
+            finally: 
+                self.sechead = None
+        else: 
+            return self.fp.readline()
+           
+def get_URI():
+	global routingURI
+	global dataFederationURI
+	try:
+		config = ConfigParser.SafeConfigParser()
+		path = os.getcwd() + os.sep + "res" + os.sep + "config.properties"
+		print ("path = %s" %path)
+		config.readfp(FakeSecHead(open(path)))
+		props = dict(config.items("asection"))
+# 		print props
+		routingURI = props['routing_uri']
+		dataFederationURI = props['data_federation_uri']
+		
+	except Exception, e:
+		print("ERROR: get_URI: %s" %str(e))
+
 
 def get_routes(starting_point, ending_point, cost_mode, number_of_routes):
 	try:
 		starting_time = time.time()
 		#starting_time_clock = time.clock()
 		#tarting_time_time = time.time()
-
-		initRoutes(starting_point, ending_point, cost_mode, number_of_routes)
+		from interruptingcow import timeout
+		timeoutVar = 60
+		try:
+			with timeout(timeoutVar, exception=RuntimeError):
+				initRoutes(starting_point, ending_point, cost_mode, number_of_routes)
+				
+		except RuntimeError:
+			if routes == []:
+				print("ERROR get_routes: does not get routes with %s seconds, please check the Routing component!" %timeoutVar)
 
 		output = []
 
@@ -49,7 +93,7 @@ def get_routes(starting_point, ending_point, cost_mode, number_of_routes):
 		print ("GET_ROUTE_PROCESSING_TIME(milisecond): %f" %((ending_time-starting_time)*1000.0))
 		return output
 	except Exception, e:
-		print('ERROR get_routes: %s' % str(e))
+		print('ERROR get_routes: %s, please check the Routing component or URI!' % str(e))
 		return []
 
 def get_routes_data(starting_point, ending_point, cost_mode, number_of_routes):
@@ -57,7 +101,15 @@ def get_routes_data(starting_point, ending_point, cost_mode, number_of_routes):
 		starting_time_clock = time.clock()
 		starting_time_time = time.time()
 
-		initRoutes(starting_point, ending_point, cost_mode, number_of_routes)
+		from interruptingcow import timeout
+		timeoutVar = 60
+		try:
+			with timeout(timeoutVar, exception=RuntimeError):
+				initRoutes(starting_point, ending_point, cost_mode, number_of_routes)
+				
+		except RuntimeError:
+			if routes == []:
+				print("ERROR get_routes: does not get routes with %s seconds, please check the Routing component!" %timeoutVar)
 
 		output = []
 
@@ -72,7 +124,7 @@ def get_routes_data(starting_point, ending_point, cost_mode, number_of_routes):
 		print ("get_routes_data_TIME: %f" % ((time.time() - starting_time_time)*1000.0))
 		return output
 	except Exception, e:
-		print('ERROR get_routes_data: %s' % str(e))
+		print('ERROR get_routes_data: %s, please check the Routing component!' % str(e))
 		return []
 
 def get_max_pollution(routeID):
@@ -80,26 +132,38 @@ def get_max_pollution(routeID):
 		starting_time_clock = time.clock()
 		starting_time_time = time.time()
 		
-		if routes is not None :
-			if routeID <= len(routes) :
-				route = routes[routeID-1]
-				initPollutionValues(route)
-				if route.pollutionValues is not None :
-					#print ("TIME get_max_pollution: %f;%f" % (time.clock() - starting_time_clock, time.time() - starting_time_time))
-					print ("get_max_pollution_TIME: %f" % ((time.time() - starting_time_time)*1000.0))
-					return max(route.pollutionValues)
-			else :
-				raise ValueError('Wrong routeID in get_max_pollution')
-		else :
-			raise ValueError('get_max_pollution is called before routes is initialized')
+		from interruptingcow import timeout
+		timeoutVar = 60
+		try:
+			with timeout(timeoutVar, exception=RuntimeError):
+				if routes is not None :
+					if routeID <= len(routes) :
+						route = routes[routeID-1]
+						initPollutionValues(route)
+						if route.pollutionValues is not None :
+							#print ("TIME get_max_pollution: %f;%f" % (time.clock() - starting_time_clock, time.time() - starting_time_time))
+							print ("get_max_pollution_TIME: %f" % ((time.time() - starting_time_time)*1000.0))
+							return max(route.pollutionValues)
+					else :
+						raise ValueError('Wrong routeID in get_max_pollution')
+				else :
+					raise ValueError('get_max_pollution is called before routes is initialized')
+		except RuntimeError:
+			print("ERROR get_max_pollution: does not get pollution with %s seconds, please check the Data Federation component!" %timeoutVar)
+			return 0
+				
 	except Exception, e:
-		print('ERROR get_max_pollution: %s' % str(e))
+		print('ERROR get_max_pollution: %s, please check the Data Federation component!' % str(e))
 		return 0
 
 
 def initRoutes(starting_point, ending_point, cost_mode, number_of_routes):
 	global routes
-
+	
+	if routingURI is None:
+		get_URI()
+		print('routingURI: %s' %routingURI)
+		
 	if routes is None :
 		routes = []
 
@@ -134,8 +198,10 @@ def initRoutes(starting_point, ending_point, cost_mode, number_of_routes):
 		numberOfRoutes = number_of_routes
 
 		from websocket import create_connection
-		ws = create_connection("ws://localhost:7686")
+		print ("trying to connect to the Routing component")
+# 		ws = create_connection("ws://localhost:7686")
 # 		ws = create_connection("ws://131.227.92.55:7686")
+		ws = create_connection(routingURI)
 		print ("Created connection, time = %f" %(time.time() - starting_time_time))
 		result =  ws.recv()
 		# print "Received '%s'" % result
@@ -163,6 +229,9 @@ def initRoutes(starting_point, ending_point, cost_mode, number_of_routes):
 def initPollutionValues(route):
 	global routes
 
+	if dataFederationURI is None:
+		get_URI()
+		
 	if route.pollutionValues is None :
 
 		# print("Not None %d" % (route.time))
@@ -180,7 +249,10 @@ def initPollutionValues(route):
 
 		try:
 			from websocket import create_connection
-			ws = create_connection("ws://localhost:8002/websockets/DataFederation")
+# 			ws = create_connection("ws://localhost:8002/websockets/DataFederation")
+# 			ws = create_connection("ws://localhost:8002") 
+# 			ws = create_connection("ws://131.227.92.55:8002")
+			ws = create_connection(dataFederationURI)
 			# print "Created connection"
 			ws.send(request.encode('utf8'))
 			# print "Sent"

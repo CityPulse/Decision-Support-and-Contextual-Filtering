@@ -155,7 +155,10 @@ public class CoreEngine implements CoreEngineInterface {
 
 		final Answers answers = new Answers();
 
-		final ASPHandler handler = new ClingoHandler();
+		final String clingoUri = Configuration.getInstance().getClingoPath();
+		System.out.println("ClingoURI = " + clingoUri);
+
+		final ASPHandler handler = new ClingoHandler(clingoUri);
 
 		/*
 		 * dlvhex specific
