@@ -1,10 +1,36 @@
 ## Decision Support
-The Decision Support component utilises contextual information available as background knowledge, user patterns and preferences from the application as well as real-time events to provide optimal solutions of smart city applications. Currently, this component supports two modules:
-- Routing Module. It provides the best routes between two coordinates.
-- Parking Space Module. It provides the best available parking spaces among a set of alternative. 
+The main role of the Decision Support component is to enable reactive decision support functionalities to be easily deployed, providing the most suitable answers at the right time by utilizing contextual information available as background knowledge, user patterns and preferences from the application as well as real-time events. The reasoning capabilities needed to support users in making better decisions require handling incomplete, diverse input, as well as constraints and preferences in the deduction process. This expressivity in the Decision Support component is achieved by using a declarative non-monotonic logic reasoning approach based on Answer Set Programming. The Decision Support component produces a set of answers to the reasoning request that satisfy all user’s requirements and preferences in the best possible way. These solutions are computed by applying sets of rules deployed as scenario-driven decision support modules. We currently support three different types of decision support modules, covering a broad range of application scenarios:
+
+- Scenario 1 (Routing APIs): It provides the best solution(s) for a routing task. The users not only identify starting point and ending point but are also able to provide various selection criteria (including constraints and preferences) in order to select the optimal routes.
+- Scenario 2 (Parking space APIs): It provides the best selection among a set of available parking places based on optimisation criteria, constraints and preferences of the users.
+ 
+## Component prerequisite
+The following applications have to be installed before using the component:
+- Clingo4 (available at: http://potassco.sourceforge.net)
+- Python 2.7 and package interruptingcow (Installation: $ pip install interruptingcow)
+
+## CityPulse framework dependencies
+The Decision Support component in order to run properly needs to have access to the following CityPulse components:
+- Routing component
+- Triple store
+- GDI
+- Data Federation
 
 ## Start Decision Support component
-The Decision Support component is implemented as a websocket server endpoint (`/reasoning_request`) at port `8005`. It requies a Reasoning Request in json format as an input.  
+The Decision Support component is implemented as a websocket server endpoint (`/reasoning_request`) at port `8005`. It requies a Reasoning Request in JSON format as an input. 
+The following steps have to be achieved in order to deploy the component:
+- Step 1: download the following resources provided at https://github.com/CityPulse/DecisionSupport-ContextualFiltering and place them in same folder: 
+  + jar package in folder /target with title CityPulseWP5-jar-with-dependencies.jar	
+  + folder res
+- Step 2: edit the configuration file config.properties in folder res which includes the following fields: 
+  + hostname: the IP address of the server hosting the User-Centric Decsion Support server.
+  + port: the main port used by the User-Centric Decsion Support server
+  + routing_uri: the uri to access the Routing component (for Routing APIs only)
+  + data_federation_uri: the uri to access the Data Federation component
+  + knowledge_base_uri: the uri to access the triple store
+  + GDI_URI: the URI of GDI component
+  + clingo: the path of Clingo
+- Step 3: run CityPulseWP5-jar-with-dependencies.jar to start the server. 
 
 ## Reasoning Request
 A Reasoning Request consists of: 
