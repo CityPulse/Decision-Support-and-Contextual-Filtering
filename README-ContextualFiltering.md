@@ -1,8 +1,31 @@
 ## Contextual Filtering
-The main role of the Contextual Filtering component is to continuously identify and filter events that might affect the optimal result of the decision making task (performed by the Decision Support component), and react to such changes in the real world by requesting the Decision Support for the computation of a new solution when needed
+The main role of the Contextual Filtering component is to continuously identify and filter events that might affect the optimal results of the decision making task (performed by the Decision Support component). The users need to input their current context such as place of interest, filtering factors, and ranking factors. The Contextual Filtering will subscribe to events only in the place of interest and determine which event is critical to users based on filtering and ranking factors.
+
+Known limitations: 
+- User Context Ontology: the current ontology about user’s context includes only the activity of the user. The developer can extend this ontology for their specific scenarios.
+
+## Component prerequisite
+The following applications have to be installed before using the component: 
+- Clingo4 (available at: http://potassco.sourceforge.net)
+
+## CityPulse framework dependencies
+The Contextual Filtering component needs to have access to the following CityPulse components:
+- Geospatial Data Infrastructure (GDI)
+- Event Detection
 
 ## Start Contextual Filtering component
 The Contextual Filtering component is implemented as a websocket server endpoint (/contextual_events_request) at port 8005. It requies a Contexual Event Request in json format as an input.
+
+The following steps have to be achieved in order to deploy the component
+- Step 1: download the following resources provided at https://github.com/CityPulse/DecisionSupport-ContextualFiltering and place them in the same folder: 
+  + jar package in folder /target with title CityPulseWP5-jar-with-dependencies.jar	
+  + folder res
+- Step 2: edit the configuration file config.properties in the folder res which includes the following fields: 
+  + hostname: the IP address of the server hosting the User-Centric Decision Support server.
+  + port: the main port used by the User-Centric Decision Support server
+  + GDI_URI: the URI of GDI component
+  + eventRabbitURI: the URI of rabbitMQ to subscribe events from the Event Detection component
+- Step 3: run CityPulseWP5-jar-with-dependencies.jar to start the server.
 
 ## Contextual Event Request
 - Place of interest: identifies place to subscribe critical events. Currently, we support three types of place
