@@ -69,4 +69,9 @@ The following steps have to be achieved in order to deploy the component
     }
 }
 ```
+## Contributors
+The Contextual Filtering component has been developed as part of the EU project CityPulse. The Unit of Reasoning and Querying of INSIGHT, NUIG has provided the main contributions for this application.
 
+CityPulse: http://www.ict-citypulse.eu/
+
+INSIGHT: https://www.insight-centre.org
