@@ -172,6 +172,11 @@ A Reasoning Request consists of:
 }
 ```
 
+## Contributors
+The Decision Support component has been developed as part of the EU project CityPulse. The Unit of Reasoning and Querying of INSIGHT, NUIG has provided the main contributions for this application.
 
+CityPulse: http://www.ict-citypulse.eu/
+
+INSIGHT: https://www.insight-centre.org
 
 
