@@ -1,5 +1,5 @@
 # Decision Support && ContextualFiltering
-The Contextual Filtering component and the Decision Support component are implemented in the same jar pakage as two different web-socket endpoints of the same server (we call it User-Centric Decsion Support  server. Therefore, the Decision Support component is automatically deployed when the Contextual Filtering component is deployed and vice versa. 
+The Decision Support component and the Contextual Filtering component are implemented in the same jar pakage as two different web-socket endpoints of the same server (we call it User-Centric Decsion Support  server. Therefore, the Decision Support component is automatically deployed when the Contextual Filtering component is deployed and vice versa. 
 
 #############################################
 # Decision Support
