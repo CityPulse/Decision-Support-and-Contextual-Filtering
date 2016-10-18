@@ -208,5 +208,13 @@ public class Configuration {
 				&& !b.equals("0");
 		return retVal;
 	}
+	
+	public String getRoutingURI() {
+		if (prop == null) {
+			return "ws://localhost:7686";
+		}
+		return prop.getProperty("routing_uri");
+	}
+	
 
 }

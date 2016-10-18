@@ -48,7 +48,7 @@ public class RHManager {
 		RHManager.Log.info("started " + this.getClass().getName());
 
 		final Server rhServer = new Server(hostName, port, rootPath, null,
-				ReasoningRequestEndpoint.class,
+				ReRouteReasoningRequestEndpoint.class,
 				ContextualEventsRequestEndpoint.class);
 
 		// try {

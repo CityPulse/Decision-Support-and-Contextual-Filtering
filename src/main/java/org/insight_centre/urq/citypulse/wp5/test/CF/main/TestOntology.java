@@ -3,10 +3,12 @@
  */
 package org.insight_centre.urq.citypulse.wp5.test.CF.main;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
-import citypulse.commons.data.Coordinate;
+import org.insight_centre.urq.citypulse.wp5.contextual_filtering.ContextualEventRequestRewriter;
+
+import citypulse.commons.contextual_filtering.contextual_event_request.FilteringFactorValue;
 
 /**
  * @author Thu-Le Pham
@@ -180,14 +182,26 @@ public class TestOntology {
 //				1, 5 }));
 
 
-		final Map<Coordinate, Integer> map = new HashMap<Coordinate, Integer>();
-		map.put(new Coordinate(1, 1), 1);
+		// final Map<Coordinate, Integer> map = new HashMap<Coordinate,
+		// Integer>();
+		// map.put(new Coordinate(1, 1), 1);
+		//
+		// if (map.keySet().contains(new Coordinate(1, 1))) {
+		// System.out.println("1");
+		// } else {
+		// System.out.println("0");
+		// }
 
-		if (map.keySet().contains(new Coordinate(1, 1))) {
-			System.out.println("1");
-		} else {
-			System.out.println("0");
+
+		final Set<FilteringFactorValue> activities = new HashSet<FilteringFactorValue>();
+		activities.add(new FilteringFactorValue("CarCommute"));
+
+		final Set<FilteringFactorValue> cats = ContextualEventRequestRewriter
+				.getInstance().queryKB(activities);
+		for (final FilteringFactorValue value : cats) {
+			System.out.println(value.getValue());
 		}
+
 
 	}
 

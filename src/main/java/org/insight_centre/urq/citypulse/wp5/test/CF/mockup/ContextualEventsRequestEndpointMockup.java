@@ -12,7 +12,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import org.insight_centre.urq.citypulse.wp5.contextual_filtering.contextual_event_system.ContextualEventFilter;
+import org.insight_centre.urq.citypulse.wp5.contextual_filtering.ContextualEventFilter;
 
 import citypulse.commons.contextual_filtering.contextual_event_request.ContextualEventRequest;
 import citypulse.commons.contextual_filtering.contextual_event_request.FilteringFactor;

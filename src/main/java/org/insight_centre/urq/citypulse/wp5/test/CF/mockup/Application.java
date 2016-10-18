@@ -14,6 +14,7 @@ import citypulse.commons.contextual_filtering.contextual_event_request.Filtering
 import citypulse.commons.contextual_filtering.contextual_event_request.FilteringFactorName;
 import citypulse.commons.contextual_filtering.contextual_event_request.FilteringFactorValue;
 import citypulse.commons.contextual_filtering.contextual_event_request.Place;
+import citypulse.commons.contextual_filtering.contextual_event_request.PlaceAdapter;
 import citypulse.commons.contextual_filtering.contextual_event_request.RankingElement;
 import citypulse.commons.contextual_filtering.contextual_event_request.RankingElementName;
 import citypulse.commons.contextual_filtering.contextual_event_request.RankingElementValue;
@@ -43,6 +44,8 @@ public class Application {
 	public static void main(String[] args) {
 
 		final ContextualEventRequest request = generateContextualEventRequestRoute();
+		// final String requestStr = "request";
+		// final ContextualEventRequest request = parse(requestStr);
 		// final String request = generateOldCERequest();
 		final ApplicationClient client1 = new ApplicationClient(request);
 		new Thread(client1).start();
@@ -58,6 +61,20 @@ public class Application {
 		 *
 		 */
 
+	}
+
+	/**
+	 * @param requestStr
+	 * @return
+	 */
+	private static ContextualEventRequest parse(String requestStr) {
+		final GsonBuilder builder = new GsonBuilder();
+		builder.registerTypeAdapter(Place.class, new PlaceAdapter());
+		final Gson gson = builder.create();
+		final ContextualEventRequest ceRequest = gson.fromJson(requestStr,
+				ContextualEventRequest.class);
+
+		return ceRequest;
 	}
 
 	private static String generateOldCERequest() {
@@ -123,15 +140,16 @@ public class Application {
 				filteringFactorValueEventSource);
 		filteringFactors.add(filteringFactor);
 
-		final Set<FilteringFactorValue> filteringFactorValueCategory = new HashSet<FilteringFactorValue>();
-		filteringFactorValueCategory.add(new FilteringFactorValue(
-				"http://purl.oclc.org/NET/UNIS/sao/ec#" + "TrafficJam"));
-		filteringFactorValueCategory.add(new FilteringFactorValue(
-				"http://purl.oclc.org/NET/UNIS/sao/ec#" + "PublicParking"));
-		filteringFactor = new FilteringFactor(
-				FilteringFactorName.EVENT_CATEGORY,
-				filteringFactorValueCategory);
-		filteringFactors.add(filteringFactor);
+		// final Set<FilteringFactorValue> filteringFactorValueCategory = new
+		// HashSet<FilteringFactorValue>();
+		// filteringFactorValueCategory.add(new FilteringFactorValue(
+		// "http://purl.oclc.org/NET/UNIS/sao/ec#" + "TrafficJam"));
+		// filteringFactorValueCategory.add(new FilteringFactorValue(
+		// "http://purl.oclc.org/NET/UNIS/sao/ec#" + "PublicParking"));
+		// filteringFactor = new FilteringFactor(
+		// FilteringFactorName.EVENT_CATEGORY,
+		// filteringFactorValueCategory);
+		// filteringFactors.add(filteringFactor);
 
 		final Set<FilteringFactorValue> filteringFactorValueActivity = new HashSet<FilteringFactorValue>();
 		filteringFactorValueActivity
