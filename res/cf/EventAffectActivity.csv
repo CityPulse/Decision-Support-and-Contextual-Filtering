@@ -1,0 +1,7 @@
+Event,Activity
+TrafficJam,CarCommute
+PublicParking,CarCommute
+Accidents,CarCommute
+Hazards,CarCommute
+RoadWorks,CarCommute
+AarhusPollution,CarCommute
